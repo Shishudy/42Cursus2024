@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:48:21 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/11 15:00:06 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/11 16:06:30 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/11 16:14:36 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dest;
-	char	*source;
+	char	*s;
+	int		i;
+	int		j;
 
-
-	dest = dst;
-	source = src;
-	while (*source != '\0')
+	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
 	{
-		*dest = *source;
-		dest++;
-		source++;
+		s[i] = s1[i];
+		i++;
 	}
-	return (dst);
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		s[i] = s2[j];
+		i = i + j++;
+	}
+	s[i] = '\0';
+	return (s);
 }
 
 #include <stdio.h>
-#include <string.h>
 
 int	main(void)
 {
-	char	*src;
-
-	src = ft_strdup("hello");
-	printf("%p\n", ft_memcpy(src, &src[2], 6));
-	printf("%s\n", src);
-	src = ft_strdup("goodbye");
-	printf("%p\n", memcpy(&src[2], src, 8));
-	printf("%s\n", src);
+	printf("%s\n", ft_strjoin("Hello Here", "I Am"));
 }
