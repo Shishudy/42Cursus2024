@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:43 by rafasant          #+#    #+#             */
-/*   Updated: 2024/03/13 14:46:06 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:39:08 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	while (i != len)
 	{
-		substr[i] = s[start];
+		substr[i] = s[start + i];
 		i++;
-		start++;
 	}
 	substr[i] = '\0';
 	return (substr);
