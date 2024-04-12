@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 14:22:43 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/12 16:45:57 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/12 17:27:01 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/12 17:31:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_itoa(int n)
 {
-	char	*substr;
-	size_t	i;
+	int		nlen;
+	char	*nstr;
 
-	substr = malloc(sizeof(char) * len + 1);
-	if (!substr)
-		return (NULL);
-	i = 0;
-	while (i != len)
+	nlen = 0;
+	if (n < 0)
+		nlen++;
+	
+	while (n > 9)
 	{
-		substr[i] = s[start + i];
-		i++;
+
+		n = n / 10;
 	}
-	substr[i] = '\0';
-	return (substr);
+
 }
-
-// #include <stdio.h>
-
-// int	main(void)
-// {
-// 	char	*s;
-
-// 	s = "hello world";
-// 	s = ft_substr(s, 3, 5);
-// 	printf("%s\n", s);
-// }
