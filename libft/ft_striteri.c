@@ -1,44 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:48:21 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:36:38 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/13 19:30:12 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/13 20:57:53 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+void	ft_char(unsigned int i, char *c)
 {
-	char	*dest;
-	char	*source;
+	*c = *c + i;
+}
 
-	dest = dst;
-	source = src;
-	while (*source != '\0')
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	int		i;
+
+	i = 0;
+	while (s[i] != '\0')
 	{
-		*dest = *source;
-		dest++;
-		source++;
+		f(i, &s[i]);
+		i++;
 	}
-	return (dst);
 }
 
 #include <stdio.h>
-#include <string.h>
 
 int	main(void)
 {
-	char	*src;
+	char	s[] = "hello there!";
 
-	src = ft_strdup("hello");
-	printf("%p\n", ft_memcpy(src, &src[2], 6));
-	printf("%s\n", src);
-	src = ft_strdup("goodbye");
-	printf("%p\n", memcpy(&src[2], src, 8));
-	printf("%s\n", src);
+	ft_striteri(s, ft_char);
+	printf("%s\n", s);
 }

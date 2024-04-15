@@ -1,44 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:48:21 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:36:38 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/14 02:22:49 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/14 02:38:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+int	ft_lstsize(t_list *lst)
 {
-	char	*dest;
-	char	*source;
+	int	size;
 
-	dest = dst;
-	source = src;
-	while (*source != '\0')
+	size = 0;
+	while (lst != NULL)
 	{
-		*dest = *source;
-		dest++;
-		source++;
+		size++;
+		lst = lst->next;
 	}
-	return (dst);
+	return (size);
 }
-
-#include <stdio.h>
-#include <string.h>
 
 int	main(void)
 {
-	char	*src;
+	t_list	*lst;
+	int		i;
 
-	src = ft_strdup("hello");
-	printf("%p\n", ft_memcpy(src, &src[2], 6));
-	printf("%s\n", src);
-	src = ft_strdup("goodbye");
-	printf("%p\n", memcpy(&src[2], src, 8));
-	printf("%s\n", src);
+	lst = ft_lstnew((void*)0);
+	i = 0;
+	while (i < 5)
+	{
+		ft_lstadd_back(&lst, ft_lstnew((void*)1 + i));
+		i++;
+	}
+	printf("Size: %d\n", ft_lstsize(lst));
+	while (lst != NULL)
+	{
+		printf("%lu\n", (unsigned long int)lst->content);
+		lst = lst->next;
+	}
 }

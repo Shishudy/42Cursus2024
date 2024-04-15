@@ -1,62 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 17:27:01 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:58:29 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/13 19:23:10 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/13 20:39:42 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nlen(int n)
+char	ft_char(unsigned int i, char c)
 {
-	int	nlen;
+	char	ch;
 
-	nlen = 0;
-	if (n < 0)
-		nlen++;
-	while (n != 0)
-	{
-		n = n / 10;
-		nlen++;
-	}
-	return (nlen);
+	ch = c + i;
+	return (ch);
 }
 
-char	*ft_itoa(int n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		nlen;
-	char	*nstr;
+	char	*str;
+	int		i;
 
-	if (n == -2147483648)
-		return ("-2147483648");
-	if (n == 0)
-		return ("0");
-	nlen = ft_nlen(n);
-	nstr = malloc(sizeof(char) * nlen + 1);
-	if (!nstr)
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
 		return (NULL);
-	nstr[nlen] = '\0';
-	if (n < 0)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		n = -n;
-		nstr[0] = '-';
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	while (n != 0)
-	{
-		nstr[--nlen] = n % 10 + '0';
-		n = n / 10;
-	}
-	return (nstr);
+	str[i] = '\0';
+	return (str);
 }
 
 #include <stdio.h>
 
 int	main(void)
 {
-	printf("%s\n", ft_itoa(0));
+	printf("%s\n", ft_strmapi("hello there!", ft_char));
 }
