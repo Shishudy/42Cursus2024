@@ -6,16 +6,18 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:27:01 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:58:29 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:40:45 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nlen(int n)
+static int	ft_nlen(long int n)
 {
 	int	nlen;
 
+	if (n == 0)
+		return (1);
 	nlen = 0;
 	if (n < 0)
 		nlen++;
@@ -29,34 +31,41 @@ int	ft_nlen(int n)
 
 char	*ft_itoa(int n)
 {
-	int		nlen;
-	char	*nstr;
+	long int	ln;
+	int			nlen;
+	char		*nstr;
 
-	if (n == -2147483648)
-		return ("-2147483648");
-	if (n == 0)
-		return ("0");
-	nlen = ft_nlen(n);
+	ln = n;
+	nlen = ft_nlen(ln);
 	nstr = malloc(sizeof(char) * nlen + 1);
 	if (!nstr)
 		return (NULL);
-	nstr[nlen] = '\0';
-	if (n < 0)
+	nstr[nlen--] = '\0';
+	if (ln < 0)
 	{
-		n = -n;
+		ln = -ln;
 		nstr[0] = '-';
 	}
-	while (n != 0)
+	while (ln > 9)
 	{
-		nstr[--nlen] = n % 10 + '0';
-		n = n / 10;
+		nstr[nlen--] = ln % 10 + '0';
+		ln = ln / 10;
 	}
+	nstr[nlen] = ln % 10 + '0';
 	return (nstr);
 }
 
-#include <stdio.h>
+// int	main(void)
+// {
+// 	char	*str;
 
-int	main(void)
-{
-	printf("%s\n", ft_itoa(0));
-}
+// 	str = ft_itoa(-2147483648);
+// 	printf("%s\n", str);
+// 	free(str);
+// 	str = ft_itoa(0);
+// 	printf("%s\n", str);
+// 	free(str);
+// 	str = ft_itoa(2147483647);
+// 	printf("%s\n", str);
+// 	free(str);
+// }

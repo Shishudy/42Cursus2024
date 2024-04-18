@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 21:06:02 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 21:14:18 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:14:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_putnbr_fd(int n, int fd)
 	ft_putchar_fd(n % 10 + '0', fd);
 }
 
-int	main(void)
-{
-	ft_putnbr_fd(-2147483648, 1);
-}
+// int	main(void)
+// {
+// 	ft_putnbr_fd(-2147483648, 1);
+// }

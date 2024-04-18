@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:06:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:15:39 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/18 15:21:25 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/18 23:57:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*s;
-	int		i;
-	int		j;
+	unsigned char	*s2;
 
-	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
+	s2 = (unsigned char *)s;
+	while (n > 0)
 	{
-		s[i] = s1[i];
-		i++;
+		if (*s2 == (unsigned char)c)
+			return (s2);
+		s2++;
+		n--;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		s[i] = s2[j];
-		i = i + j++;
-	}
-	s[i] = '\0';
-	return (s);
+	return (NULL);
 }
-
-// #include <stdio.h>
 
 // int	main(void)
 // {
-// 	printf("%s\n", ft_strjoin("Hello Here", "I Am"));
+// 	char	*s;
+
+// 	s = "hello";
+// 	if (ft_memchr(s, 'e', 5) != NULL)
+// 		printf("%s\n", "hello");
 // }

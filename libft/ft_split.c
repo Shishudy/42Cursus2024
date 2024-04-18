@@ -6,11 +6,25 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:15:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/11 16:03:29 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:47:31 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char	**ft_free(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		ft_bzero(array[i], ft_strlen(array[i]));
+		free(array[i++]);
+	}
+	free(array);
+	return (NULL);
+}
 
 static int	ft_str_count(char const *s, char c)
 {
@@ -39,9 +53,8 @@ static char	*ft_str(char const *s, int n)
 	i = 0;
 	while (*s && i != n)
 	{
-		str[i] = *s;
+		str[i++] = *s;
 		s++;
-		i++;
 	}
 	str[i] = '\0';
 	return (str);
@@ -54,19 +67,21 @@ char	**ft_split(char const *s, char c)
 	int		nstrs;
 	char	**strs;
 
-	strs = malloc(sizeof(char *) * ft_str_count(s, c) + 1);
+	strs = malloc(sizeof(char *) * (ft_str_count(s, c) + 1));
 	if (!strs)
 		return (NULL);
-	nstrs = 0;
 	i = 0;
-	while (s[i] != '\0')
+	nstrs = 0;
+	while (s[i] != '\0' && nstrs < ft_str_count(s, c))
 	{
 		while (s[i] == c && s[i] != '\0')
 			i++;
 		j = 0;
 		while (s[i + j] != c && s[i + j] != '\0')
 			j++;
-		strs[nstrs++] = ft_str(&s[i], j);
+		strs[nstrs] = ft_str(&s[i], j);
+		if (!strs[nstrs++])
+			return (ft_free(strs));
 		i = i + j;
 	}
 	strs[nstrs] = 0;
@@ -78,11 +93,14 @@ char	**ft_split(char const *s, char c)
 // 	char	**strs;
 // 	int		i;
 
-// 	strs = ft_split("Hello Here I Am", ' ');
+// 	strs = ft_split("    Hello    Here    I    Am    ", ' ');
+// 	if (!strs)
+// 		return (printf("%s\n", "Deu nulo"));
 // 	i = 0;
 // 	while (strs[i] != 0)
 // 	{
 // 		printf("%s\n", strs[i]);
 // 		i++;
 // 	}
+// 	ft_free(strs);
 // }

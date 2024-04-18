@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:52:10 by rafasant          #+#    #+#             */
-/*   Updated: 2024/02/20 17:32:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/19 00:01:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 	str = (char *)s;
 	while (*str)
 	{
-		if (*str == c)
+		if (*str == (char)c)
 			return (str);
 		str++;
 	}
@@ -28,12 +28,12 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	char	*str;
+// int	main(void)
+// {
+// 	char	*str;
 
-	str = "hello world!";
-	printf("%s\n", ft_strchr(str, '5'));
-}
+// 	str = "hello world!";
+// 	printf("%s\n", ft_strchr(str, '5'));
+// }

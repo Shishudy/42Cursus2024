@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:12:05 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/14 02:27:44 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:30:56 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,13 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (!new)
 		return ;
-	if (!lst)
-	{
-		*lst = new; // how do I get this to work?
-		return ;
-	}
 	new->next = *lst;
 	*lst = new;
 }
 
 // int	main(void)
 // {
-// 	t_list	*lst;
+// 	t_list	*lst = NULL;
 
 // 	// ft_lstadd_front(&lst, NULL);
 // 	// ft_lstadd_front(NULL, ft_lstnew((void*)1));

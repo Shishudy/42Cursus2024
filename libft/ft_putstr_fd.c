@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 21:02:20 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 21:17:45 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:13:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int	main(void)
-{
-	ft_putstr_fd(NULL, 1);
-}
+// int	main(void)
+// {
+// 	ft_putstr_fd(NULL, 1);
+// }

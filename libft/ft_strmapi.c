@@ -6,13 +6,13 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 19:23:10 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:39:42 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:15:47 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	ft_char(unsigned int i, char c)
+static char	ft_char(unsigned int i, char c)
 {
 	char	ch;
 
@@ -38,9 +38,9 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	return (str);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	printf("%s\n", ft_strmapi("hello there!", ft_char));
-}
+// int	main(void)
+// {
+// 	printf("%s\n", ft_strmapi("hello there!", ft_char));
+// }

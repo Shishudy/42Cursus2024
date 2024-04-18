@@ -6,39 +6,36 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:48:21 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/13 20:36:38 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:13:51 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*dest;
-	char	*source;
+	char		*dest;
+	const char	*source;
 
 	dest = dst;
 	source = src;
-	while (*source != '\0')
+	while (n > 0)
 	{
 		*dest = *source;
 		dest++;
 		source++;
+		n--;
 	}
 	return (dst);
 }
 
-#include <stdio.h>
-#include <string.h>
+// int	main(void)
+// {
+// 	char	dest[100];
 
-int	main(void)
-{
-	char	*src;
-
-	src = ft_strdup("hello");
-	printf("%p\n", ft_memcpy(src, &src[2], 6));
-	printf("%s\n", src);
-	src = ft_strdup("goodbye");
-	printf("%p\n", memcpy(&src[2], src, 8));
-	printf("%s\n", src);
-}
+// 	memset(dest, 'A', 100);
+// 	printf("%p\n", ft_memcpy(dest, "coucou", 6));
+// 	printf("%s\n", dest);
+// 	printf("%p\n", memcpy(dest, "coucou", 6));
+// 	printf("%s\n", dest);
+// }

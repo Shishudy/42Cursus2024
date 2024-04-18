@@ -6,13 +6,13 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:47:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/12 17:31:45 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:16:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_set_checker(char c, char	const *set)
+static int	ft_set_checker(char c, char	const *set)
 {
 	int	i;
 
@@ -52,9 +52,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (str);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	printf("%s\n", ft_strtrim(" well well hello well there wellwell ", "well"));
-}
+// int	main(void)
+// {
+// 	printf("%s\n", ft_strtrim(" well well hello well there wellwell ", "well"));
+// }

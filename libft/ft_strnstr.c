@@ -1,45 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:06:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:15:39 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/18 16:12:37 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/18 17:23:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	char	*s;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!s)
+	if (!little)
+		return ((char *)big);
+	if (!big)
 		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
+	while (big[i] != '\0' && len > 0)
 	{
-		s[i] = s1[i];
+		j = 0;
+		while (big[i + j] == little[j] && big[i + j] != '\0')
+		{
+			if (little[j + 1] == '\0')
+				return ((char *)&big[i]);
+			j++;
+		}
+		len--;
 		i++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		s[i] = s2[j];
-		i = i + j++;
-	}
-	s[i] = '\0';
-	return (s);
+	return (NULL);
 }
 
-// #include <stdio.h>
+// #include <string.h>
 
 // int	main(void)
 // {
-// 	printf("%s\n", ft_strjoin("Hello Here", "I Am"));
+// 	char	*big;
+// 	char	*little;
+
+// 	big = "hello there";
+// 	little = " ";
+// 	printf("%s\n", ft_strnstr(big, little, 5));
 // }

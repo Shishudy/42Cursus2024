@@ -1,45 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:06:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:15:39 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/18 19:38:29 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/18 20:38:50 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_atoi(const char *nptr)
 {
-	char	*s;
-	int		i;
-	int		j;
+	int	n;
+	int	i;
+	int	flag;
 
-	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!s)
-		return (NULL);
+	n = 0;
 	i = 0;
-	while (s1[i] != '\0')
+	flag = 1;
+	while (nptr[i] != '\0' && (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		s[i] = s1[i];
+		if (nptr[i] == '-')
+			flag = -1;
 		i++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		s[i] = s2[j];
-		i = i + j++;
-	}
-	s[i] = '\0';
-	return (s);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		n = n * 10 + nptr[i++] - '0';
+	return (n * flag);
 }
-
-// #include <stdio.h>
 
 // int	main(void)
 // {
-// 	printf("%s\n", ft_strjoin("Hello Here", "I Am"));
+// 	printf("%d\n", ft_atoi("-2147483648"));
 // }

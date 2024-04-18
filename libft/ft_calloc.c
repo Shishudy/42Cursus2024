@@ -1,39 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:40:45 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:00:19 by rafasant         ###   ########.fr       */
+/*   Created: 2024/04/18 17:24:27 by rafasant          #+#    #+#             */
+/*   Updated: 2024/04/18 18:16:39 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	i;
-	char	*s2;
+	void	*array;
 
-	if (n == 0)
-		return ;
-	i = 0;
-	s2 = s;
-	while (i != n)
-	{
-		s2[i] = '\0';
-		i++;
-	}
+	if (size == 0 || nmemb == 0)
+		return (NULL);
+	array = malloc(sizeof(size) * nmemb);
+	if (!array)
+		return (NULL);
+	return (array);
 }
 
 // int	main(void)
 // {
 // 	char	*str;
+// 	int		*array;
+// 	int	i;
 
-// 	str = ft_strdup("hello");
+// 	i = 0;
+// 	str = ft_calloc(5, 1);
+// 	while (i < 4)
+// 	{
+// 		str[i] = 'a' + i;
+// 		i++;
+// 	}
+// 	str[i] = '\0';
 // 	printf("%s\n", str);
-// 	ft_bzero(str, 5);
-// 	printf("%s\n", str);
+// 	i = 0;
+// 	array = ft_calloc(5, 4);
+// 	while (i < 5)
+// 	{
+// 		array[i] = i;
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < 7)
+// 		printf("%d\n", array[i++]);
 // }
