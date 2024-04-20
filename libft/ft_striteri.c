@@ -6,21 +6,19 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 19:30:12 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:15:32 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/20 00:01:10 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_char(unsigned int i, char *c)
-{
-	*c = *c + i;
-}
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	int		i;
 
+	if (!s || !f)
+		return ;
 	i = 0;
 	while (s[i] != '\0')
 	{
@@ -29,7 +27,10 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	}
 }
 
-// #include <stdio.h>
+// static void	ft_char(unsigned int i, char *c)
+// {
+// 	*c = *c + i;
+// }
 
 // int	main(void)
 // {

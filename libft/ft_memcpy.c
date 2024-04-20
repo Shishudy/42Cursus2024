@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:48:21 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 15:13:51 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/19 23:41:06 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	char		*dest;
 	const char	*source;
 
+	if (!dst && !src)
+		return (NULL);
 	dest = dst;
 	source = src;
 	while (n > 0)

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:51:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 15:21:02 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/19 23:40:42 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	char		*dest;
 	const char	*source;
 
-	if (!dst)
+	if (!dst && !src)
 		return (NULL);
 	dest = dst;
 	source = src;

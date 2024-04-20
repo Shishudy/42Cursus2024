@@ -16,6 +16,13 @@ BONUS_SRCS = ft_lstlast.c ft_lstadd_back.c ft_lstadd_front.c ft_lstmap.c ft_lstc
 		ft_lstnew.c ft_lstdelone.c ft_lstsize.c ft_lstiter.c
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
+%.o: %.c
+	${CC} ${C_FLAGS} -c $< -o $@
+
+# so:
+# 	$(CC) -nostartfiles -fPIC $(C_FLAGS) $(SRCS)
+# 	gcc -nostartfiles -shared -o libft.so $(OBJS) ${BONUS_OBJS}
+
 all: ${NAME}
 
 ${NAME}:	${OBJS} ${INCLUDE}

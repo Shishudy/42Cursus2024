@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:43 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/12 16:45:57 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/19 23:55:40 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
+	size_t	str_len;
 	size_t	i;
 
-	substr = malloc(sizeof(char) * len + 1);
+	if (!s)
+		return (NULL);
+	str_len = ft_strlen(s);
+	if (!s || str_len == 0)
+		return (NULL);
+	if (start > str_len)
+		return (ft_strdup(""));
+	str_len = ft_strlen(&s[start]);
+	if (str_len < len)
+		len = str_len;
+	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
 		return (NULL);
 	i = 0;
-	while (i != len)
+	while (i != len && s[start + i] != '\0')
 	{
 		substr[i] = s[start + i];
 		i++;
@@ -30,13 +41,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-// #include <stdio.h>
-
 // int	main(void)
 // {
 // 	char	*s;
 
-// 	s = "hello world";
-// 	s = ft_substr(s, 3, 5);
+// 	 s = "tripouille";
+// 	s = ft_substr(s, 0, 42000);
 // 	printf("%s\n", s);
 // }
