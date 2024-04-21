@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:47:38 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/14 02:27:31 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:42:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*node;
 
-	// if (!content)
-	// 	return (NULL); e suposto proteger? se passar 0, sem isto, adiciona 0, com isto retorna NULL
 	node = malloc(sizeof(t_list));
 	if (!node)
 		return (NULL);

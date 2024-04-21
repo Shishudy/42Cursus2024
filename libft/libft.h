@@ -6,17 +6,16 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:38:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:49:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:48:06 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
 
 typedef struct s_list
 {

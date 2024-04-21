@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:14:11 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 20:16:28 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:41:31 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 // 	//lst = malloc(sizeof(t_list));
 // 	//ft_lstadd_back(&lst, ft_lstnew((void*)1));
 // 	//lst = ft_lstnew((void*)1);
-// 	// doesn't work without this - if it's the first node of the list, should it just be added like in addfront?
+// 	// doesn't work without this - if it's the first node of the list, 
+//should it just be added like in addfront?
 // 	ft_lstadd_back(&lst, ft_lstnew((void*)2));
 // 	ft_lstadd_back(&lst, ft_lstnew((void*)3));
 // 	printf("%lu\n", (unsigned long int)lst->content);

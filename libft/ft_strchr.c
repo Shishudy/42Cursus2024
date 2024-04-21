@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:52:10 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/19 20:47:01 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:44:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 			return (str);
 		str++;
 	}
-	if (c == '\0')
+	if ((char)c == '\0')
 		return (str);
 	return (NULL);
 }
