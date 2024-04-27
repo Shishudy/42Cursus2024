@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:06:57 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/19 23:59:47 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:49:39 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	if (!lst || !del)
-		return ; 
+		return ;
 	del(lst->content);
 	free(lst);
 }

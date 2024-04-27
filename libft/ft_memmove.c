@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:51:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/19 23:40:42 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:50:41 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 // 		printf("%s\n", "2");
 // 	if (ft_memmove(s, s + 2, 2) == s && !memcmp(s, sResult, 7))
 // 		printf("%s\n", "3");
-// 	if (ft_memmove(sResult + 1, sResult, 2) == sResult + 1 && !memcmp(sResult, sResult2, 7))
+// 	if (ft_memmove(sResult + 1, sResult, 2) == sResult + 1 
+//&& !memcmp(sResult, sResult2, 7))
 // 		printf("%s\n", "4");
 // }

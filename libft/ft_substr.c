@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:43 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/21 21:51:54 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:54:35 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	str_len;
 	size_t	i;
 
-	if(!s)
+	if (!s)
 		return (ft_strdup(""));
 	str_len = ft_strlen(s);
 	if (!s || str_len == 0 || start > str_len)
