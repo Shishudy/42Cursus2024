@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 19:38:29 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/23 14:50:05 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:32:33 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_atoi(const char *nptr)
 	int	i;
 	int	flag;
 
-	// if (!nptr)
-	// 	return (0);
 	n = 0;
 	i = 0;
 	flag = 1;
@@ -39,5 +37,8 @@ int	ft_atoi(const char *nptr)
 
 // int	main(void)
 // {
-// 	printf("%d\n", ft_atoi("-2147483648"));
+// 	char *s = NULL;
+// 	write(1, "1\n", 2);
+// 	printf("%d\n", ft_atoi(s));
+// 	printf("%d\n", atoi(s));
 // }

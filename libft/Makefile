@@ -19,17 +19,13 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 %.o: %.c
 	${CC} ${C_FLAGS} -c $< -o $@
 
-# so:
-# 	$(CC) -nostartfiles -fPIC $(C_FLAGS) $(SRCS)
-# 	gcc -nostartfiles -shared -o libft.so $(OBJS) ${BONUS_OBJS}
-
 all: ${NAME}
 
 ${NAME}:	${OBJS} ${INCLUDE}
 			${AR} ${NAME} ${OBJS}
 
 bonus: ${NAME} ${OBJS} ${BONUS_OBJS}
-		${AR} ${NAME} ${OBJS} ${BONUS_OBJS}
+		make OBJ="${OBJS} ${BONUS_OBJS}" all
 
 clean: 
 	${RM} ${OBJS} ${BONUS_OBJS}

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:15:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/19 23:58:44 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:29:45 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	ft_str_count(char const *s, char c)
 	int	i;
 	int	n_words;
 
+	if (!s)
+		return (0);
 	i = 0;
 	n_words = 0;
 	while (s[i] != '\0')
@@ -67,11 +69,9 @@ char	**ft_split(char const *s, char c)
 	int		nstrs;
 	char	**strs;
 
-	if (!s)
-		return (NULL);
 	strs = malloc(sizeof(char *) * (ft_str_count(s, c) + 1));
-	if (!strs)
-		return (NULL);
+	if (!strs || !s)
+		return (free(strs), NULL);
 	i = 0;
 	nstrs = 0;
 	while (s[i] != '\0' && nstrs < ft_str_count(s, c))
@@ -95,7 +95,7 @@ char	**ft_split(char const *s, char c)
 // 	char	**strs;
 // 	int		i;
 
-// 	strs = ft_split("    Hello    Here    I    Am    ", ' ');
+// 	strs = ft_split(NULL, ' ');
 // 	if (!strs)
 // 		return (printf("%s\n", "Deu nulo"));
 // 	i = 0;
