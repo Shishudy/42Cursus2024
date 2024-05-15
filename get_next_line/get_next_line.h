@@ -1,26 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 11:27:35 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/15 14:45:22 by rafasant         ###   ########.fr       */
+/*   Created: 2024/05/15 15:21:31 by rafasant          #+#    #+#             */
+/*   Updated: 2024/05/15 15:55:17 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-
-# include "libft/libft.h"
-# include <stdarg.h>
-
-int		ft_printf(const char *s, ...);
-int		ft_check_format(va_list args, const char *s);
-int		ft_putchar(char c);
-int		ft_putstr(const char *s);
-char	*ft_itoa_base(int n, char *base_to);
-int		ft_new_str_len(long n, char *base_to);
-
-#endif
+#include

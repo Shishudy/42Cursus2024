@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:47:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/18 23:16:01 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:56:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		start;
 	int		end;
 
-	if (!set)
-		return (ft_strdup(s1));
 	if (!s1)
 		return (NULL);
+	if (!set)
+		return (ft_strdup(s1));
 	start = 0;
 	while (ft_set_checker(s1[start], set) && s1[start] != '\0')
 		start++;

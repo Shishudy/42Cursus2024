@@ -24,8 +24,8 @@ all: ${NAME}
 ${NAME}:	${OBJS} ${INCLUDE}
 			${AR} ${NAME} ${OBJS}
 
-bonus: ${NAME} ${OBJS} ${BONUS_OBJS}
-		make OBJ="${OBJS} ${BONUS_OBJS}" all
+bonus: ${OBJS} ${BONUS_OBJS}
+		make OBJS="${OBJS} ${BONUS_OBJS}" all
 
 clean: 
 	${RM} ${OBJS} ${BONUS_OBJS}
