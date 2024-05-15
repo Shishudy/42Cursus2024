@@ -5,168 +5,129 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 14:14:47 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/28 14:14:47 by rafasant         ###   ########.fr       */
+/*   Created: 2024/05/06 11:26:15 by rafasant          #+#    #+#             */
+/*   Updated: 2024/05/06 12:53:47 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// int	ft_check_flags(const char *s)
-// {
+int	ft_new_str_len(long n, char *base_to)
+{
+	int	i;
+	int	base_len;
 
+	i = 0;
+	if (n < 0)
+	{
+		n = -n;
+		i = 1;
+	}
+	base_len = ft_strlen(base_to);
+	while (n > 0)
+	{
+		n = n / base_len;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa_base(int n, char *base_to)
+{
+	int		base_len;
+	int		str_len;
+	long	n2;
+	char	*str;
+	
+	n2 = n;
+	if (n2 < 0)
+		n2 = -n2;
+	base_len = ft_strlen(base_to);
+	str_len = ft_new_str_len(n, base_to);
+	printf("%d\n", str_len);
+	str = malloc(sizeof(char) * str_len + 1);
+	if (!str)
+		return (NULL);
+	str[str_len] = '\0';
+	while (n2 > 0)
+	{
+		str[--str_len] = base_to[n2 % base_len];
+		printf("%c\n", str );
+
+		n2 = n2 / base_len;
+	}
+	if (n < 0)
+		str[str_len] = '-';
+	return (str);
+}
+
+// int	ft_putstr(char *s)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (s[i] != '\0')
+// 	{
+// 		write(1, &s[i], 1);
+// 		i++;
+// 	}
+// 	return (i);
 // }
 
-int	ft_width(const char *s, int i, t_printf *format)
-{
-	int	value;
-	int	zeros;
+// int	ft_check_format(va_list va_args, const char *s)
+// {
+// 	(void)va_args;
+// 	if (*s == '%')
+// 		return (write(1, "%%", 1));
+// 	else if (*s == 'c')
+// 		return (write(1, &va_args, 1));
+// 	else if (*s == 's')
+// 		return (ft_putstr(va_args));
+// 	else if (*s == 'd')
+// 		return (ft_itoa_base(va_args, "0123456789"));
+// 	else if (*s == 'i')
+// 		return (ft_itoa_base(va_args, "0123456789"));
+// 	else if (*s == 'u')
+// 		return (ft_itoa_base((unsigned int)va_args, "0123456789"));
+// 	else if (*s == 'x')
+// 		return (ft_itoa_base(va_args, "0123456789abcdef"));
+// 	else if (*s == 'X')
+// 		return (ft_itoa_base(va_args, "0123456789ABCDEF"));
+// 	else if (*s == 'p')
+// 		return (ft_putstr("0x") + ft_itoa_base(va_args, "0123456789abcdef"));
+// 	return (0);
+// }
 
-	if (s[i - 1] == '.')
-	{
-		format->width_max = ft_atoi(&s[i]);
-		value = format->width_max;
-	}
-	else
-	{
-		format->width_min = ft_atoi(&s[i]);
-		value = format->width_min;
-	}
-	zeros = 0;
-	if (s[i] == '0' && s[i - 1] == '.')
-	{
-		while (s[i + zeros] == '0')
-			zeros++;
-		return (ft_strlen(ft_itoa(value)) + zeros);
-	}
-	return (ft_strlen(ft_itoa(value)));
-}
+// int	ft_printf(const char *s, ...)
+// {
+// 	va_list	va_args;
+// 	int		i;
+// 	int		total;
 
-void	ft_fill_flags(const char *s, int i, t_printf *format)
-{
-	if (s[i] == '-')
-	{
-		if (format->zero_pads == 1)
-			format->zero_pads = 0;
-		format->left_justify = 1;
-	}
-	else if (s[i] == '0')
-	{
-		if (format->left_justify == 1)
-			return ;
-		format->zero_pads = 1;
-	}
-	else if (s[i] == '+')
-		format->sign = 1;
-	else if (s[i] == ' ')
-		format->blank = 1;
-	else if (s[i] == '#')
-		format->hashtag = 1;
-	else if (s[i] == '.')
-	{
-		if (format->zero_pads == 1)
-			format->zero_pads = 0;
-		format->period = 1;
-	}
-}
-
-int	ft_flags(const char *s, t_printf *format)
-{
-	int		i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '0' && !(s[i - 1] >= '0' && s[i - 1] <= '9') && s[i - 1] != '.')
-			ft_fill_flags(s, i, format);
-		else if (s[i] >= '0' && s[i] <= '9')
-			i = i + ft_width(s, i, format) - 1;
-		else if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] >= 'Z'))
-			return (i);
-		else
-			ft_fill_flags(s, i, format);
-		i++;
-	}
-	return (i);
-}
-
-void	ft_conversions(const char *s, t_printf *format)
-{
-	int	i;
-
-	i = 0;
-	if (s[i] == '%')
-		ft_putchar('%', format);
-	else if (s[i] == 'c')
-		ft_putchar(va_arg(format->args, int), format);
-	else if (s[i] == 's')
-	{
-		ft_handle_precision(format);
-		ft_putstr(va_arg(format->args, char *), format);
-	}
-	else if (s[i] == 'd')
-		ft_putnbr(va_arg(format->args, int), format);
-	// else if (s[i] == 'i')
-	// 	return (ft_putnbr(va_arg(format->args, int)));
-	// else if (s[i] == 'u')
-	// 	return (ft_putnbr(va_arg(format->args, unsigned int)));
-	// else if (s[i] == 'x')
-	// 	return (ft_puthex());
-	// else if (s[i] == 'X')
-	// 	return (ft_puthex());
-	// else if (s[i] == 'p')
-	// 	return ();
-}
-
-t_printf	*ft_init_list(void)
-{
-	t_printf	*format;
-
-	format = malloc(sizeof(t_printf));
-	if (!format)
-		return (0);
-	format->left_justify = 0;
-	format->zero_pads = 0;
-	format->sign = 0;
-	format->blank = 0;
-	format->hashtag = 0;
-	format->period = 0;
-	format->width_min = 0;
-	format->width_max = 0;
-	format->str_len = 0;
-	format->int_len = 0;
-	format->total = 0;
-	return (format);
-}
-
-int	ft_printf(const char *s, ...)
-{
-	int	i;
-	t_printf	*format;
-
-	// if (!ft_check_flags(s))
-	// 	return (write(1, "Wrong combination/number of flags\n", 34), -1);
-	format = ft_init_list();
-	va_start(format->args, s);
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '%')
-		{
-			i++;
-			i = i + ft_flags(&s[i], format);
-			ft_conversions(&s[i], format);
-		}
-		else
-			write(1, &s[i], 1);
-		i++;
-	}
-	va_end(format->args);
-	return (i);
-}
+// 	if (!s)
+// 		return (0);
+// 	va_start(va_args, s);
+// 	i = 0;
+// 	total = 0;
+// 	while (s[i] != '\0')
+// 	{
+// 		if (s[i] == '%')
+// 		{
+// 			i++;
+// 			total = total + ft_check_format(va_args, &s[i]);
+// 		}
+// 		else
+// 		{
+// 			total = total + write(1, &s[i], 1);
+// 		}
+// 		i++;
+// 	}
+// 	va_end(va_args);
+// 	return (total);
+// }
 
 int	main(void)
 {
-	ft_printf("ft_printf:%6.4s\n", "he");
-	printf("printf:%6.4s\n", "he");
+	printf("%s\n", ft_itoa_base(-204492, "0123456789abcdef"));
+	//printf("%d\n", ft_printf("%%\n", "str"));
 }
