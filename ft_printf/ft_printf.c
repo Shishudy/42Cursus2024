@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:26:15 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/17 15:34:04 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:37:54 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,24 @@ int	ft_printf(const char *s, ...)
 	return (total);
 }
 
-int	main(void)
-{
-	// char	*str = malloc(sizeof(char) * 5);
+// int	main(void)
+// {
+// 	// char	*str = malloc(sizeof(char) * 5);
 
-	// printf("%d\n", ft_printf("%i\n", -2147483648));
-	// printf("%d\n", ft_printf("%i\n", 0));
-	// printf("%d\n", ft_printf("%i\n", 2147483647));
-	// printf("%d\n", ft_printf("%p\n", NULL));
-	// printf("%d\n", printf("%p\n", NULL));
-	// printf("%d\n", ft_printf("%p\n", str));
-	// printf("%d\n", printf("%p\n", str));
-	// printf("%d\n", ft_printf("%s\n", NULL));
-	// free(str);
-	//printf("%d\n", printf("%s\n", NULL));
-	//printf("%d\n", ft_printf(" %d ", 10));
-	// printf("%d\n", printf(" %r ", -1));
-	// printf("%d\n", ft_printf(" %a%o ", -1));
-	// printf("%d\n", ft_printf(" %d ", -1));
-	printf("LEN:%d\n", ft_printf("1st: %p 2nd: %p \n", 9223372036854775807, LONG_MAX));
-	printf("LEN:%d\n", ft_printf("1st: %p 2nd: %p \n", 18446744073709551615, -18446744073709551615));
-}
+// 	// printf("%d\n", ft_printf("%i\n", -2147483648));
+// 	// printf("%d\n", ft_printf("%i\n", 0));
+// 	// printf("%d\n", ft_printf("%i\n", 2147483647));
+// 	// printf("%d\n", ft_printf("%p\n", NULL));
+// 	// printf("%d\n", printf("%p\n", NULL));
+// 	// printf("%d\n", ft_printf("%p\n", str));
+// 	// printf("%d\n", printf("%p\n", str));
+// 	// printf("%d\n", ft_printf("%s\n", NULL));
+// 	// free(str);
+// 	//printf("%d\n", printf("%s\n", NULL));
+// 	//printf("%d\n", ft_printf(" %d ", 10));
+// 	// printf("%d\n", printf(" %r ", -1));
+// 	// printf("%d\n", ft_printf(" %a%o ", -1));
+// 	printf("%d\n", ft_printf(" %p ", -1));
+// 	// printf("LEN:%d\n", ft_printf("1st: %p 2nd: %p \n", 9223372036854775807, LONG_MAX));
+// 	// printf("LEN:%d\n", ft_printf("1st: %p 2nd: %p \n", 18446744073709551615, -18446744073709551615));
+// }

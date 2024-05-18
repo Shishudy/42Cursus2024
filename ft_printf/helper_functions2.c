@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:04:42 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/17 15:36:47 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:43:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,32 @@
 int	ft_putptr(unsigned long int n, char *base_to) //tentar fazer sem malloc, printar direto
 {
 	unsigned long int	base_len;
-	int					str_len;
-	char				*str;
+	int	total;
+
+	total = 0;
+	base_len = ft_strlen(base_to);
+	if (n >= base_len)
+		total = total + ft_putptr(n / base_len, base_to);
+	return (total + write(1, &base_to[n % base_len], 1));
+}
+
+int	ft_itoa_base(long int n, char *base_to)
+{
+	int		base_len;
+	int		total;
+	int		flag;
 
 	base_len = ft_strlen(base_to);
-	str_len = ft_new_str_len(n, base_len);
-	printf("STR_LEN: %d\n", str_len);
-	str = malloc(sizeof(char) * str_len + 1);
-	if (!str)
-		return (-1);
-	str[str_len--] = '\0';
+	flag = 0;
+	total = 0;
 	if (n < 0)
 	{
-		str[0] = '-';
 		n = -n;
+		flag = -1;
 	}
-	while (n >= base_len)
-	{
-		str[str_len] = base_to[n % base_len];
-		n = n / base_len;
-		str_len--;
-	}
-	str[str_len] = base_to[n % base_len];
-	str_len = ft_putstr(str);
-	free(str);
-	return (str_len);
+	if (n >= base_len)
+		total = total + ft_putptr(n / base_len, base_to);
+	if (flag == -1)
+		return (total + write(1, "-", 1) + write(1, &base_to[n % base_len], 1));
+	return (total + write(1, &base_to[n % base_len], 1));
 }
