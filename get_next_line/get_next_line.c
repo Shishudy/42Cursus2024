@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:21:37 by rafasant          #+#    #+#             */
-/*   Updated: 2024/06/01 21:54:21 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:40:33 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*s2;
-
-	if (n == 0)
-		return ;
-	i = 0;
-	s2 = s;
-	while (i != n)
-	{
-		s2[i] = '\0';
-		i++;
-	}
-}
-
 char	*get_buffer(int fd, char *buffer)
 {
 	char	*buf;
+	int		i;
 	int		n_read;
 
 	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
@@ -100,10 +85,10 @@ char	*get_buffer(int fd, char *buffer)
 			return (NULL);
 		}
 		buffer = ft_strjoin(buffer, buf);
-		n_read = 0;
-		while (buffer[n_read] != '\n' && buffer[n_read] != '\0')
-			n_read++;
-		if (buffer[n_read] == '\n')
+		i = 0;
+		while (buffer[i] != '\n' && buffer[i] != '\0')
+			i++;
+		if (buffer[i] == '\n')
 			break ;
 	}
 	free(buf);
@@ -137,13 +122,14 @@ char	*get_str(char *buffer)
 
 char	*new_buffer(char *buffer)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*new_buffer;
 
 	i = 0;
 	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
+	printf("%d\n", i);
 	if (buffer[i] == '\n')
 		i++;
 	if (i == 0)
@@ -180,32 +166,13 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-// char	*get_next_line(int fd)
-// {
-// 	char	*str;
-// 	char	*buf;	
-
-// 	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
-// 	if (!buf)
-// 		return (NULL);
-// 	str = malloc(sizeof(char) * 1);
-// 	if (!str)
-// 		return (NULL);
-// 	str = get_str(fd, buf, str);
-// 	return (str);
-// }
-
 int	main(int argc, char **argv)
 {
 	int		fd;
-	char	*str;
 
 	(void)argc;
 	fd = open(argv[1], O_RDONLY);
-	str = get_next_line(fd);
-	printf("%s\n", str);
-	str = get_next_line(fd);
-	printf("%s\n", str);
-	str = get_next_line(fd);
-	printf("%s\n", str);
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 }
