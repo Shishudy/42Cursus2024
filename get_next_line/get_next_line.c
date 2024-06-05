@@ -6,54 +6,206 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:21:37 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/29 16:33:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/01 21:54:21 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_str(int fd, char *buf, char *str)
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(const char *str)
+{
+	char	*s;
+	int		i;
+
+	s = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		s[i] = str[i];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s;
+	int		i;
+	int		j;
+
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	if (!s1 && !s2)
+		return (ft_strdup(s2));
+	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!s)
+		return (NULL);
+	i = -1;
+	while (s1[++i] != '\0')
+		s[i] = s1[i];
+	j = -1;
+	while (s2[++j] != '\0')
+		s[i + j] = s2[j];
+	s[i + j] = '\0';
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*s2;
+
+	if (n == 0)
+		return ;
+	i = 0;
+	s2 = s;
+	while (i != n)
+	{
+		s2[i] = '\0';
+		i++;
+	}
+}
+
+char	*get_buffer(int fd, char *buffer)
+{
+	char	*buf;
+	int		n_read;
+
+	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	n_read = 1;
+	while (n_read != 0)
+	{
+		n_read = read(fd, buf, BUFFER_SIZE);
+		if (n_read == -1)
+		{
+			free(buf);
+			free(buffer);
+			return (NULL);
+		}
+		buffer = ft_strjoin(buffer, buf);
+		n_read = 0;
+		while (buffer[n_read] != '\n' && buffer[n_read] != '\0')
+			n_read++;
+		if (buffer[n_read] == '\n')
+			break ;
+	}
+	free(buf);
+	return (buffer);
+}
+
+char	*get_str(char *buffer)
 {
 	int		i;
-	size_t	n;
+	char	*str;
 
-	n = read(fd, buf, BUFFER_SIZE);
 	i = 0;
-	while (buf[i] != '\n' && buf[i] != '\0')
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
-	if (buf[i] == '\n')
+	if (buffer[i] == '\n')
+		i++;
+	str = malloc(sizeof(char) * i + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 	{
-		str = malloc(sizeof(char) * i + 1);
-		if (!str)
-			return (NULL);
-		i = 0;
-		while (buf[i] != '\0')
-			str[i] = buf[i];
+		str[i] = buffer[i];
+		i++;
 	}
-	return (get_str(fd, buf, str));
+	if (buffer[i] == '\n')
+		str[i++] = '\n';
+	str[i] = '\0';
+	return (str);
+}
+
+char	*new_buffer(char *buffer)
+{
+	int	i;
+	int	j;
+	char	*new_buffer;
+
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+		i++;
+	if (buffer[i] == '\n')
+		i++;
+	if (i == 0)
+		return (free(buffer), NULL);
+	new_buffer = malloc(sizeof(char) * ft_strlen(&buffer[i]) + 1);
+	if (!new_buffer)
+		return (NULL);
+	j = 0;
+	while (buffer[i + j] != '\0')
+	{
+		new_buffer[j] = buffer[i + j];
+		j++;
+	}
+	new_buffer[j] = '\0';
+	return (new_buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*str;
-	char	*buf;
-	int		i;
-	size_t	n;
+	char		*str;
+	static char	*buffer;
 
-	n = 1;
-	while (n != 0)
-	{
-		i = 0;
-		n = read(fd, buf, BUFFER_SIZE);
-		if (n == -1)
-			return (ft_free());
-		while (buf[i] != '\n' && buf[i] != '\0')
-			i++;
-		
-		
-	}
-	n = read(fd, buf, BUFFER_SIZE);
-
-	str = get_str(fd, NULL, NULL);
+	if (fd == 1)
+		return (NULL);
+	buffer = get_buffer(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	str = get_str(buffer);
+	if (!str)
+		return (NULL);
+	buffer = new_buffer(buffer);
+	if (!buffer)
+		return (NULL);
 	return (str);
+}
+
+// char	*get_next_line(int fd)
+// {
+// 	char	*str;
+// 	char	*buf;	
+
+// 	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
+// 	if (!buf)
+// 		return (NULL);
+// 	str = malloc(sizeof(char) * 1);
+// 	if (!str)
+// 		return (NULL);
+// 	str = get_str(fd, buf, str);
+// 	return (str);
+// }
+
+int	main(int argc, char **argv)
+{
+	int		fd;
+	char	*str;
+
+	(void)argc;
+	fd = open(argv[1], O_RDONLY);
+	str = get_next_line(fd);
+	printf("%s\n", str);
+	str = get_next_line(fd);
+	printf("%s\n", str);
+	str = get_next_line(fd);
+	printf("%s\n", str);
 }

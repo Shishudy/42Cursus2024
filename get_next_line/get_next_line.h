@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:21:31 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/29 15:58:33 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:54:57 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 char	*get_next_line(int fd);
 

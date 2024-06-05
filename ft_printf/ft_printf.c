@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:26:15 by rafasant          #+#    #+#             */
-/*   Updated: 2024/05/27 14:33:36 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:03:44 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,9 @@ int	ft_printf(const char *s, ...)
 	}
 	va_end(args);
 	return (total);
+}
+
+int	main(void)
+{
+	ft_printf("%d\n", ft_printf(" %c %c %c ", '0', 97, '1'));
 }
