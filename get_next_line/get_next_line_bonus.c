@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:07:40 by rafasant          #+#    #+#             */
-/*   Updated: 2024/06/16 18:05:14 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/16 23:39:38 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (str);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	int		fd;
-// 	char	*str;
-
-// 	(void)argc;
-// 	fd = open(argv[1], O_RDONLY);
-// 	str = get_next_line(fd);
-// 	// while (str)
-// 	// {
-// 	// 	printf("%s\n", str);
-// 	// 	free(str);
-// 	// 	str = get_next_line(fd);
-// 	// }
-// 	int	i = 0;
-// 	while (i < 5)
-// 	{
-// 		printf("%s\n", str);
-// 		free(str);
-// 		str = get_next_line(fd);
-// 		i++;
-// 	}
-// 	free(str);
-// 	close(fd);
-// }
