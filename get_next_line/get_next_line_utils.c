@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:36:56 by rafasant          #+#    #+#             */
-/*   Updated: 2024/06/15 20:14:16 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:06:23 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,11 @@ char	*get_buffer(int fd, char *buffer, char *str)
 	while (n_read != 0)
 	{
 		if (n_read == -1)
+		{
+			if (str)
+				free(str);
 			return (NULL);
+		}
 		len = 0;
 		while (len != BUFFER_SIZE && buffer[len] != '\n')
 			len++;
