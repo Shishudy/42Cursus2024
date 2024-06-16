@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:36:56 by rafasant          #+#    #+#             */
-/*   Updated: 2024/06/16 17:52:17 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/16 18:17:48 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,29 +120,3 @@ char	*get_str(int fd, char *buffer, char *str)
 	}
 	return (str);
 }
-
-// char	*get_buffer(int fd, char *buffer, char *str)
-// {
-// 	int		len;
-// 	int		n_read;
-
-// 	n_read = 1;
-// 	while (n_read != 0)
-// 	{
-// 		if (n_read == -1)
-// 			return (NULL);
-// 		len = 0;
-// 		while (len != BUFFER_SIZE && buffer[len] != '\n')
-// 			len++;
-// 		if (len != BUFFER_SIZE && buffer[len] == '\n')
-// 			len++;
-// 		str = ft_strjoin_n(str, buffer, len);
-// 		if (!str)
-// 			return (NULL);
-// 		adjust_buffer(buffer, len);
-// 		if (str[ft_strlen_c(str, '\n')] == '\n')
-// 			break ;
-// 		n_read = read(fd, buffer, BUFFER_SIZE);
-// 	}
-// 	return (str);
-// }
