@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:07:15 by rafasant          #+#    #+#             */
-/*   Updated: 2024/06/16 17:52:24 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/06/16 18:05:25 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_c(char *str, char c)
 {
