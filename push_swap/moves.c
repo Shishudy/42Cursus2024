@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/07/07 16:03:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:10:29 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	push(t_stack **send_to, t_stack **send_from, char *move)
 {
 	t_stack	*temp;
 
-	temp = *send_to;
-	*send_to = *send_from;
-	*send_from = (*send_from)->next;
-	(*send_to)->next = temp;
+	temp = *send_from;
+	*send_from = temp->next;
+	temp->next = *send_to;
+	*send_to = temp;
 	write(1, move, ft_strlen(move));
 }
 
@@ -42,33 +42,43 @@ void	swap(t_stack **list1, t_stack **list2, char *move)
 	value = (*list1)->x;
 	(*list1)->x = (*list1)->next->x;
 	(*list1)->next->x = value;
-	if (list2)
+	if (list2 && !ft_strncmp(move, "ss", 2))
 	{
 		value = (*list2)->x;
 		(*list2)->x = (*list2)->next->x;
 		(*list2)->next->x = value;
 	}
-	// t_stack	*temp;
-
-	// temp = *list1;
-	// *list1 = (*list1)->next;
-	// (*list1)->next = temp;
-	// if (list2)
-	// {
-	// 	printf("%p\n", list2);
-	// 	temp = *list2;
-	// 	*list2 = (*list2)->next;
-	// 	(*list2)->next = temp;
-	// }
 	write(1, move, ft_strlen(move));
 }
 
 void	rotate(t_stack **list1, t_stack **list2, char *move)
 {
+	// t_stack	*temp;
+
+	// temp = *list1;
+	// *list1 = (*list1)->next;
+
+	// if (list2 && !ft_strncmp(move, "rr", 2))
+	// {
+
+	// }
+	t_stack	*curr;
+	t_stack	*temp;
+
+	curr = *list1;
+	temp = *list1;
+	*list1 = curr->next;
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = temp;
+	temp->next = NULL;
 	write(1, move, ft_strlen(move));
 }
 
 void	rev_rotate(t_stack **list1, t_stack **list2, char *move)
 {
+	if (list2 && !ft_strncmp(move, "rrr", 3))
+	{
+	}
 	write(1, move, ft_strlen(move));
 }
