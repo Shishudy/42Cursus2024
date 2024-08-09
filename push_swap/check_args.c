@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/07/29 15:59:17 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:26:11 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_addtolist(t_stack **a, int x)
 	new->next = NULL;
 	if (!*a)
 	{
+		printf("new->x: %d\n", 111111111);
 		*a = new;
 		return ;
 	}
