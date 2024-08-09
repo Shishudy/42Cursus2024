@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:53:13 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/02 15:03:36 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:49:03 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,11 @@ t_stack	*stack_clone(t_stack **stack)
 	t_stack	*new_stack;
 	t_stack	*temp;
 
-	new_stack = malloc(sizeof(t_stack));
-	if (!new_stack)
-		return (NULL);
+	new_stack = NULL;
 	temp = *stack;
 	while (temp != NULL)
 	{
 		ft_addtolist(&new_stack, temp->x);
-		printf("temp: %d\n", temp->x);
-		temp = temp->next;
-	}
-	temp = new_stack;
-	while (temp != NULL)
-	{
-		printf("new_stack: %d\n", temp->x);
 		temp = temp->next;
 	}
 	return (new_stack);
@@ -104,8 +95,9 @@ int main(int argc, char **argv)
 	if (!a)
 		return (0);
 	i = calculate_max_moves(a);
-	printf("%d\n", i);
+	printf("max_moves: %d\n", i);
 	b = stack_clone(&a);
+	push(b, a, "pb");
 	while (a != NULL)
 	{
 		i++;
