@@ -1,2 +1,4 @@
 user> Born2beroot.
+new user password> Escola42B2BR.
 root> Born2besudo.
+new root password> 42B2BREscola.

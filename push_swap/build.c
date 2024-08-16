@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:53:13 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/09 15:49:03 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:59:46 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ int main(int argc, char **argv)
 		return (0);
 	i = calculate_max_moves(a);
 	printf("max_moves: %d\n", i);
-	b = stack_clone(&a);
-	push(b, a, "pb");
+
 	while (a != NULL)
 	{
 		i++;

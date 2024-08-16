@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/07/29 15:47:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:30:24 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int		ft_stack_size(t_stack *lst);
 int		list_sorted(t_stack **stack);
 void	ft_addtolist(t_stack **a, int x);
 void	push(t_stack **send_to, t_stack **send_from, char *move);
-void	swap(t_stack **list1, t_stack **list2, char *move);
-void	rotate(t_stack **list1, t_stack **list2, char *move);
-void	rev_rotate(t_stack **list1, t_stack **list2, char *move);
+void	swap(t_stack **stack, char *move);
+void	rotate(t_stack **stack, char *move);
+void	rev_rotate(t_stack **stack, char *move);
 void	put_move_array(char *array_moves, char *move);
 
 #endif
