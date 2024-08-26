@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/17 13:26:21 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:35:22 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
-	char	array_moves[5500][4];
-	int		moves;
+	struct	s_stack *clone_a;
+	struct	s_stack *clone_b;
+	char	**array_moves;
+	int		max_moves;
 }			t_group;
 
 
 int		split_atoi(char **argv, t_stack **a);
-void	deallocate(t_stack **stack, int message);
+void	deallocate(t_group *group, int message);
+void	deallocate2(t_stack **stack, int message);
 void	check_argv(char **argv, t_stack **a);
 int		ft_stack_size(t_stack *lst);
 int		list_sorted(t_stack **stack);
@@ -56,5 +59,7 @@ void	swap(t_stack **stack, char *move);
 void	rotate(t_stack **stack, char *move);
 void	rev_rotate(t_stack **stack, char *move);
 void	put_move_array(char **array_moves, char *move, int n_move);
+void	ft_free(t_group **group);
+void	ft_free_stack(t_stack **stack);
 
 #endif

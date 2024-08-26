@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/07/19 16:19:49 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:03:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,19 @@ int	list_sorted(t_stack **stack)
 	return (1);
 }
 
-void	deallocate(t_stack **stack, int message)
+void	deallocate(t_group *group, int message)
+{
+	t_stack	*temp;
+
+	ft_free(&group);
+	free(group);
+	if (message == 2)
+		exit(0);
+	if (message == 1)
+		exit (write(1, "Error\n", 6));
+}
+
+void	deallocate2(t_stack **stack, int message)
 {
 	t_stack	*temp;
 

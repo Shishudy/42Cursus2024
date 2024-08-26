@@ -6,11 +6,31 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:53:13 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/17 15:43:23 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:06:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	ft_free(t_stack **clone_a, t_stack **clone_b)
+{
+	t_stack *temp;
+
+	temp = *clone_a;
+	while (*clone_a)
+	{
+		temp = (*clone_a)->next;
+		free(*clone_a);
+		*clone_a = temp;
+	}
+	temp = *clone_b;
+	while (*clone_b)
+	{
+		temp = (*clone_b)->next;
+		free(*clone_b);
+		*clone_b = temp;
+	}
+}
 
 int	ft_stack_size(t_stack *lst)
 {
@@ -57,24 +77,24 @@ int	calculate_max_moves(t_stack *a)
 	return ((int)max_moves - 1);
 }
 
-void	print_moves(char **array_moves)
+void	print_moves(char **array_moves, int n_moves)
 {
 	int	i;
 
 	i = 0;
-	while (array_moves[i] != 0)
+	while (array_moves[i] != 0 && i <= n_moves)
 	{
-		if (!ft_strncmp(array_moves[i], "sa", 2) && !ft_strncmp(array_moves[i + 1], "sb", 2))
+		if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "sa", 2) && !ft_strncmp(array_moves[i + 1], "sb", 2))
 			i += write(1, "ss", 2) - 1;
-		else if (!ft_strncmp(array_moves[i], "sb", 2) && !ft_strncmp(array_moves[i + 1], "sa", 2))
+		else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "sb", 2) && !ft_strncmp(array_moves[i + 1], "sa", 2))
 			i += write(1, "ss", 2) - 1;
-		else if (!ft_strncmp(array_moves[i], "ra", 2) && !ft_strncmp(array_moves[i + 1], "rb", 2))
+		else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "ra", 2) && !ft_strncmp(array_moves[i + 1], "rb", 2))
 			i += write(1, "rr", 2) - 1;
-		else if (!ft_strncmp(array_moves[i], "rb", 2) && !ft_strncmp(array_moves[i + 1], "ra", 2))
+		else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "rb", 2) && !ft_strncmp(array_moves[i + 1], "ra", 2))
 			i += write(1, "rr", 2) - 1;
-		else if (!ft_strncmp(array_moves[i], "rra", 3) && !ft_strncmp(array_moves[i + 1], "rrb", 3))
+		else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "rra", 3) && !ft_strncmp(array_moves[i + 1], "rrb", 3))
 			i += write(1, "rrr", 3) - 2;
-		else if (!ft_strncmp(array_moves[i], "rrb", 3) && !ft_strncmp(array_moves[i + 1], "rra", 3))
+		else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "rrb", 3) && !ft_strncmp(array_moves[i + 1], "rra", 3))
 			i += write(1, "rrr", 3) - 2;
 		else
 			write(1, array_moves[i], ft_strlen(array_moves[i]));
@@ -105,6 +125,12 @@ void	apply_moves(t_stack **clone_a, t_stack **clone_b, char **array_moves)
 	i = 0;
 	while (array_moves[i])
 	{
+		if (list_sorted(clone_a) && !ft_stack_size(*clone_b))
+		{
+			print_moves(array_moves, i);
+			ft_free(clone_a, clone_b);
+			return ;
+		}
 		if (!ft_strncmp(array_moves[i], "sa", 2))
 			swap(clone_a, "sa");
 		else if (!ft_strncmp(array_moves[i], "sb", 2))
@@ -125,26 +151,6 @@ void	apply_moves(t_stack **clone_a, t_stack **clone_b, char **array_moves)
 	}
 }
 
-void	ft_free(t_stack **clone_a, t_stack **clone_b)
-{
-	t_stack *temp;
-
-	temp = *clone_a;
-	while (*clone_a)
-	{
-		temp = (*clone_a)->next;
-		free(*clone_a);
-		*clone_a = temp;
-	}
-	temp = *clone_b;
-	while (*clone_b)
-	{
-		temp = (*clone_b)->next;
-		free(*clone_b);
-		*clone_b = temp;
-	}
-}
-
 void	void_sort_list_2(t_stack **clone_a, t_stack **clone_b, int n_moves, int max_moves, char *move, char **array_moves)
 {
 	int	stack_size_a;
@@ -154,10 +160,8 @@ void	void_sort_list_2(t_stack **clone_a, t_stack **clone_b, int n_moves, int max
 	printf("stack_size_a: %d\n", stack_size_a);
 	stack_size_b = ft_stack_size(*clone_b);
 	printf("stack_size_b: %d\n", stack_size_b);
-	apply_moves(clone_a, clone_b, array_moves);
-	if ((list_sorted(clone_a) && stack_size_b == 0) || n_moves >= max_moves)
-		return (ft_free(clone_a, clone_b));
 	put_move_array((&array_moves[n_moves]), move, n_moves);
+	apply_moves(clone_a, clone_b, array_moves);
 	if (ft_strncmp(move, "sa", 2) && stack_size_a >= 2)
 		void_sort_list_2(clone_a, clone_b, n_moves + 1, max_moves, "sa", array_moves);
 	if (stack_size_a != 0)
@@ -189,7 +193,7 @@ int main(int argc, char **argv)
 	t_stack		*a;
 	t_stack		*b;
 	t_stack		*temp;
-	char	**array_moves;
+	char		**array_moves;
 	int			i;
 
 	a = NULL;

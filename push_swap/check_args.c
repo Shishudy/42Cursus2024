@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/09 15:32:13 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:28:00 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_addtolist(t_stack **a, int x)
 	if (temp->x == x)
 	{
 		free (new);
-		deallocate(a, 1);
+		deallocate2(a, 1);
 	}
 	temp->next = new;
 }
@@ -53,17 +53,17 @@ int	split_atoi(char **argv, t_stack **a)
 		(*argv)++;
 	}
 	if ((**argv < '0' || **argv > '9') && **argv != '\0')
-		deallocate(a, 1);
+		deallocate2(a, 1);
 	while (**argv >= '0' && **argv <= '9' && **argv != '\0')
 	{
 		if (value * 10 < value)
-			deallocate(a, 1);
+			deallocate2(a, 1);
 		value = value * 10 + **argv - '0';
 		(*argv)++;
 	}
 	if (value * sign > 2147483647 || value * sign < -2147483648 || \
 		(**argv != 32 && (**argv <= 9 || **argv >= 13) && **argv))
-		deallocate(a, 1);
+		deallocate2(a, 1);
 	return (value * sign);
 }
 
@@ -78,5 +78,5 @@ void	check_argv(char **argv, t_stack **a)
 		i += !(*argv[i]);
 	}
 	if (list_sorted(a))
-		deallocate(a, 2);
+		deallocate2(a, 2);
 }
