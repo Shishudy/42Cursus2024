@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/26 19:03:58 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:48:03 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	list_sorted(t_stack **stack)
 			return (0);
 		temp = temp->next;
 	}
-	exit(printf("sorted\n"));
 	return (1);
 }
 
