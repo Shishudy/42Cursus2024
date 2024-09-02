@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:06:16 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/31 20:36:49 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:46:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,9 @@ void	void_sort_list_2(t_group *group, int n_moves, char *move)
 {
 	int	stack_size_a;
 	int	stack_size_b;
+	int	i;
 
+	i = 0;
 	if (n_moves == group->max_moves)
 		return ;
 	group->clone_a = stack_clone(&group->a);
@@ -262,22 +264,22 @@ void	void_sort_list_2(t_group *group, int n_moves, char *move)
 	if (stack_size_a > 0)
 	{
 		if (move_on_stack_a(group, n_moves) != 3 && stack_size_a >= 2)
-			void_sort_list_2(group, n_moves, "ra");
+			put_move_array((group->array_moves), move, "ra");
 		if (move_on_stack_a(group, n_moves) != 2 && stack_size_a >= 2)
-			void_sort_list_2(group, n_moves, "rra");
+			put_move_array((group->array_moves), move, "rra");
 		if (move_on_stack_a(group, n_moves) != 0)
-			void_sort_list_2(group, n_moves, "pb");
+			put_move_array((group->array_moves), move, "pb");
 	}
 	if (move_on_stack_b(group, n_moves) != 1 && stack_size_b >= 2)
-		void_sort_list_2(group, n_moves, "sb");
+		put_move_array((group->array_moves), move, "sb");
 	if (stack_size_b > 0)
 	{
 		if (move_on_stack_b(group, n_moves) != 3 && stack_size_b >= 2)
-			void_sort_list_2(group, n_moves, "rb");
+			put_move_array((group->array_moves), move, "rb");
 		if (move_on_stack_b(group, n_moves) != 2 && stack_size_b >= 2)
-			void_sort_list_2(group, n_moves, "rrb");
+			put_move_array((group->array_moves), move, "rrb");
 		if (move_on_stack_b(group, n_moves) != 0)
-			void_sort_list_2(group, n_moves, "pa");
+			put_move_array((group->array_moves), move, "pa");
 	}
 	void_sort_list_2(group, n_moves + 1, "sa");
 	// void_sort_list_3(group, n_moves, "ra");
