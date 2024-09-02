@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/17 13:35:30 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:30:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,19 @@ void	rev_rotate(t_stack **stack, char *move)
 
 	curr = *stack;
 	temp = *stack;
-	while (curr->next != NULL)
-		curr = curr->next;
-	while (temp->next->next != NULL)
-		temp = temp->next;
-	curr->next = *stack;
-	*stack = curr;
-	temp->next = NULL;
+	if (curr && curr->next)
+	{
+		while (curr->next != NULL)
+			curr = curr->next;
+		if (temp && temp->next && temp->next->next)
+		{
+			while (temp->next->next != NULL)
+				temp = temp->next;
+		}
+		curr->next = *stack;
+		*stack = curr;
+		temp->next = NULL;
+	}
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }

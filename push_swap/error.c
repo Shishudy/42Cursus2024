@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/28 18:48:03 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:08:44 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int	list_sorted(t_stack **stack)
 	if (!stack)
 		return (0);
 	temp = *stack;
-	while (temp->next)
+	if (temp)
 	{
-		if (temp->x > temp->next->x)
-			return (0);
-		temp = temp->next;
+		while (temp->next != NULL)
+		{
+			if (temp->x > temp->next->x)
+				return (0);
+			temp = temp->next;
+		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:06:16 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/29 00:03:34 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:36:49 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ int	calculate_max_moves(t_stack *a)
 	int		stack_size;
 
 	stack_size = ft_stack_size(a);
-	max_moves = ((0.00961190856 * (stack_size * stack_size)) + (6.23285486 * stack_size) - 19.4045720);
-	return ((int)max_moves - 1);
+	max_moves = ((0.0000267919918 * stack_size * stack_size * stack_size \
+	* stack_size) - (0.0163166992 * stack_size * stack_size * stack_size) \
+	+ (1.49465168 * stack_size * stack_size) - (6.16498258 * stack_size) + \
+	7.48146338);
+	return ((int)max_moves);
 }
 
 void	clear_array_moves(char **array_moves)
@@ -117,10 +120,10 @@ void	print_moves(char **array_moves, int n_moves)
 			else if (i + 1 <= n_moves && !ft_strncmp(array_moves[i], "rrb", 3) && !ft_strncmp(array_moves[i + 1], "rra", 3))
 				i += write(1, "rrr", 3) - 2;
 			else
-				write(1, array_moves[i], 2);
+				write(1, array_moves[i], ft_strlen(array_moves[i]));
 		}
 		else
-			write(1, array_moves[i], 2);
+			write(1, array_moves[i], ft_strlen(array_moves[i]));
 		write(1, "\n", 1);
 		i++;
 	}
@@ -181,6 +184,64 @@ void	apply_moves(t_group **group, int n_moves)
 	}
 }
 
+int	move_on_stack_a(t_group *group, int n_moves)
+{
+	int		i;
+	int		j;
+
+	i = n_moves;
+	while (i >= 0)
+	{
+		j = 0;
+		while (group->array_moves[i][j] != '\0')
+		{
+			if (group->array_moves[i][j] == 'a')
+			{
+				if (group->array_moves[i][j - 1] == 'r' && group->array_moves[i][j - 2] == 'r')
+					return (3);
+				else if (group->array_moves[i][j - 1] == 'r')
+					return (2);
+				else if (group->array_moves[i][j - 1] == 's')
+					return (1);
+				else
+					return (0);
+			}
+			j++;
+		}
+		i--;
+	}
+	return (0);
+}
+
+int	move_on_stack_b(t_group *group, int n_moves)
+{
+	int		i;
+	int		j;
+
+	i = n_moves;
+	while (i >= 0)
+	{
+		j = 0;
+		while (group->array_moves[i][j] != '\0')
+		{
+			if (group->array_moves[i][j] == 'b')
+			{
+				if (group->array_moves[i][j - 1] == 'r' && group->array_moves[i][j - 2] == 'r')
+					return (3);
+				else if (group->array_moves[i][j - 1] == 'r')
+					return (2);
+				else if (group->array_moves[i][j - 1] == 's')
+					return (1);
+				else
+					return (0);
+			}
+			j++;
+		}
+		i--;
+	}
+	return (0);
+}
+
 void	void_sort_list_2(t_group *group, int n_moves, char *move)
 {
 	int	stack_size_a;
@@ -194,32 +255,121 @@ void	void_sort_list_2(t_group *group, int n_moves, char *move)
 	apply_moves(&group, n_moves);
 	stack_size_a = ft_stack_size(group->clone_a);
 	stack_size_b = ft_stack_size(group->clone_b);
-	if (ft_strncmp(move, "sa", 2) && stack_size_a >= 2)
-		void_sort_list_2(group, n_moves + 1, "sa");
-	if (stack_size_a != 0)
+	ft_free_stack(&group->clone_a);
+	ft_free_stack(&group->clone_b);
+	if (move_on_stack_a(group, n_moves) != 1 && stack_size_a >= 2)
+		put_move_array((group->array_moves), move, "sa");
+	if (stack_size_a > 0)
 	{
-		if (ft_strncmp(move, "rra", 3) && stack_size_a >= 2)
-			void_sort_list_2(group, n_moves + 1, "ra");
-		if (ft_strncmp(move, "ra", 2) && stack_size_a >= 2)
-			void_sort_list_2(group, n_moves + 1, "rra");
-		if (ft_strncmp(move, "pa", 2))
-			void_sort_list_2(group, n_moves + 1, "pb");
+		if (move_on_stack_a(group, n_moves) != 3 && stack_size_a >= 2)
+			void_sort_list_2(group, n_moves, "ra");
+		if (move_on_stack_a(group, n_moves) != 2 && stack_size_a >= 2)
+			void_sort_list_2(group, n_moves, "rra");
+		if (move_on_stack_a(group, n_moves) != 0)
+			void_sort_list_2(group, n_moves, "pb");
 	}
-	if (ft_strncmp(move, "sb", 2) && stack_size_b >= 2)
-		void_sort_list_2(group, n_moves + 1, "sb");
+	if (move_on_stack_b(group, n_moves) != 1 && stack_size_b >= 2)
+		void_sort_list_2(group, n_moves, "sb");
 	if (stack_size_b > 0)
-		printf("stack_size_b: %d\n", stack_size_b);
-	if (stack_size_b != 0)
 	{
-		if (ft_strncmp(move, "rrb", 3) && stack_size_b >= 2)
-			void_sort_list_2(group, n_moves + 1, "rb");
-		if (ft_strncmp(move, "rb", 2) && stack_size_b >= 2)
-			void_sort_list_2(group, n_moves + 1, "rrb");
-		if (ft_strncmp(move, "pb", 2))
-			void_sort_list_2(group, n_moves + 1, "pa");
+		if (move_on_stack_b(group, n_moves) != 3 && stack_size_b >= 2)
+			void_sort_list_2(group, n_moves, "rb");
+		if (move_on_stack_b(group, n_moves) != 2 && stack_size_b >= 2)
+			void_sort_list_2(group, n_moves, "rrb");
+		if (move_on_stack_b(group, n_moves) != 0)
+			void_sort_list_2(group, n_moves, "pa");
 	}
+	void_sort_list_2(group, n_moves + 1, "sa");
+	// void_sort_list_3(group, n_moves, "ra");
+	// void_sort_list_3(group, n_moves, "rra");
+	// void_sort_list_3(group, n_moves, "pb");
+	// void_sort_list_3(group, n_moves, "sb");
+	// void_sort_list_3(group, n_moves, "rb");
+	// void_sort_list_3(group, n_moves, "rrb");
+	// void_sort_list_3(group, n_moves, "pa");
+	// void_sort_list_3(group, n_moves + 1, "sa");
 	return ;
 }
+
+// void	void_sort_list_3(t_group *group, int n_moves, char *move)
+// {
+// 	int	stack_size_a;
+// 	int	stack_size_b;
+
+// 	if (n_moves == group->max_moves)
+// 		return ;
+// 	group->clone_a = stack_clone(&group->a);
+// 	group->clone_b = stack_clone(&group->b);
+// 	put_move_array((group->array_moves), move, n_moves);
+// 	apply_moves(&group, n_moves);
+// 	stack_size_a = ft_stack_size(group->clone_a);
+// 	stack_size_b = ft_stack_size(group->clone_b);
+// 	ft_free_stack(&group->clone_a);
+// 	ft_free_stack(&group->clone_b);
+// 	if (move_on_stack_a(group, n_moves) != 1 && stack_size_a >= 2)
+// 		void_sort_list_2(group, n_moves + 1, "sa");
+// 	if (stack_size_a > 0)
+// 	{
+// 		if (move_on_stack_a(group, n_moves) != 3 && stack_size_a >= 2)
+// 			void_sort_list_2(group, n_moves + 1, "ra");
+// 		if (move_on_stack_a(group, n_moves) != 2 && stack_size_a >= 2)
+// 			void_sort_list_2(group, n_moves + 1, "rra");
+// 		if (move_on_stack_a(group, n_moves) != 0)
+// 			void_sort_list_2(group, n_moves + 1, "pb");
+// 	}
+// 	if (move_on_stack_b(group, n_moves) != 1 && stack_size_b >= 2)
+// 		void_sort_list_2(group, n_moves + 1, "sb");
+// 	if (stack_size_b > 0)
+// 	{
+// 		if (move_on_stack_b(group, n_moves) != 3 && stack_size_b >= 2)
+// 			void_sort_list_2(group, n_moves + 1, "rb");
+// 		if (move_on_stack_b(group, n_moves) != 2 && stack_size_b >= 2)
+// 			void_sort_list_2(group, n_moves + 1, "rrb");
+// 		if (move_on_stack_b(group, n_moves) != 0)
+// 			void_sort_list_2(group, n_moves + 1, "pa");
+// 	}
+// 	return ;
+// }
+
+// void	void_sort_list_2(t_group *group, int n_moves, char *move)
+// {
+// 	int	stack_size_a;
+// 	int	stack_size_b;
+
+// 	if (n_moves == group->max_moves)
+// 		return ;
+// 	group->clone_a = stack_clone(&group->a);
+// 	group->clone_b = stack_clone(&group->b);
+// 	put_move_array((group->array_moves), move, n_moves);
+// 	apply_moves(&group, n_moves);
+// 	stack_size_a = ft_stack_size(group->clone_a);
+// 	stack_size_b = ft_stack_size(group->clone_b);
+// 	ft_free_stack(&group->clone_a);
+// 	ft_free_stack(&group->clone_b);
+// 	if (ft_strncmp(move, "sa", 2) && stack_size_a >= 2)
+// 		void_sort_list_2(group, n_moves + 1, "sa");
+// 	if (stack_size_a > 0)
+// 	{
+// 		if (ft_strncmp(move, "rra", 3) && stack_size_a >= 3)
+// 			void_sort_list_2(group, n_moves + 1, "ra");
+// 		if (ft_strncmp(move, "ra", 2) && stack_size_a >= 3)
+// 			void_sort_list_2(group, n_moves + 1, "rra");
+// 		if (ft_strncmp(move, "pa", 2))
+// 			void_sort_list_2(group, n_moves + 1, "pb");
+// 	}
+// 	if (ft_strncmp(move, "sb", 2) && stack_size_b >= 2)
+// 		void_sort_list_2(group, n_moves + 1, "sb");
+// 	if (stack_size_b > 0)
+// 	{
+// 		if (ft_strncmp(move, "rrb", 3) && stack_size_b >= 3)
+// 			void_sort_list_2(group, n_moves + 1, "rb");
+// 		if (ft_strncmp(move, "rb", 2) && stack_size_b >= 3)
+// 			void_sort_list_2(group, n_moves + 1, "rrb");
+// 		if (ft_strncmp(move, "pb", 2))
+// 			void_sort_list_2(group, n_moves + 1, "pa");
+// 	}
+// 	return ;
+// }
 
 // TODO Falta criar funcao em caso de erro
 char	**create_array_moves(t_group **group, int max_moves)
@@ -233,7 +383,7 @@ char	**create_array_moves(t_group **group, int max_moves)
 	i = 0;
 	while (i < max_moves)
 	{
-		array_moves[i] = malloc(sizeof(char) * 3);
+		array_moves[i] = malloc(sizeof(char) * 4);
 		// if (!array_moves[i])
 		// 	deallocate(group, 2);
 		i++;
@@ -273,10 +423,6 @@ int main(int argc, char **argv)
 	group = init_group(argv);
 	i = 0;
 	void_sort_list_2(group, 0, "sa");
-	void_sort_list_2(group, 0, "ra");
-	void_sort_list_2(group, 0, "rra");
-	void_sort_list_2(group, 0, "pb");
-	void_sort_list_2(group, 0, "sb");
 	print_moves(group->array_moves, 4);
 	temp = group->a;
 	while (temp != NULL)
