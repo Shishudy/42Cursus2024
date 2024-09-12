@@ -6,38 +6,53 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/04 21:59:22 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:28:25 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+t_group	*init_group(char **argv)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_group	*group;
 
-	a = NULL;
-	check_argv(argv, &a);
-	b = NULL;
-	push(&b, &a, "pa\n");
-	push(&a, &b, "pb\n");
-	swap(&a, NULL, "sa\n");
-	//swap(&b, NULL, "sb\n");
-	rotate(&a, NULL, "ra\n");
-	rotate(&b, NULL, "rb\n");
-	rev_rotate(&a, NULL, "rra\n");
-	rev_rotate(&b, NULL, "rrb\n");
-	//swap(&a, &b, "ss\n");
-	rotate(&a, &b, "rr\n");
-	rev_rotate(&a, &b, "rrr\n");
-	//sort_list(&a, &b);
-	b = a;
-	while (a != NULL)
+	group = malloc(sizeof(t_group));
+	if (!group)
+		exit(write(2, "Error\n", 6));
+	group->a = NULL;
+	group->b = NULL;
+	check_argv(argv, &group->a);
+	if (!group->a)
+		exit(write(2, "Error\n", 6));
+	group->moves = NULL;
+	return (group);
+}
+
+int main(int argc, char **argv)
+{
+	t_group		*group;
+	t_stack		*temp;
+	int			i;
+
+	if (argc < 2)
+		return (0);
+	group = init_group(argv);
+	i = 0;
+	void_sort_list_2(group, 0, "sa");
+	print_moves(group->array_moves, 4);
+	temp = group->a;
+	while (temp != NULL)
 	{
-		printf("list: %d\n", a->x);
-		a = a->next;
+		i++;
+		printf("a: %d\n", temp->x);
+		temp = temp->next;
 	}
-	deallocate(&b, 2);
-	return (0);
+	temp = group->b;
+	while (temp != NULL)
+	{
+		i++;
+		printf("b: %d\n", temp->x);
+		temp = temp->next;
+	}
+	return 0;
 }

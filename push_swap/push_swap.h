@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/04 21:59:26 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:27:47 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
+typedef struct s_moves
+{
+	char			*move;
+	struct s_moves	*next;
+}					t_moves;
+
 typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
-	struct	s_stack *clone_a;
-	struct	s_stack *clone_b;
-	char	**array_moves;
-	int		max_moves;
-}			t_group;
+	struct	s_moves	*moves;
+}					t_group;
 
 
 int		split_atoi(char **argv, t_stack **a);
