@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/11 22:27:47 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:13:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,10 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
-typedef struct s_moves
-{
-	char			*move;
-	struct s_moves	*next;
-}					t_moves;
-
 typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
-	struct	s_moves	*moves;
 }					t_group;
 
 
@@ -49,8 +42,7 @@ void	push(t_stack **send_to, t_stack **send_from, char *move);
 void	swap(t_stack **stack, char *move);
 void	rotate(t_stack **stack, char *move);
 void	rev_rotate(t_stack **stack, char *move);
-void	put_move_array(char **array_moves, char *move, int n_move);
-void	ft_free(t_group **group);
 void	ft_free_stack(t_stack **stack);
+void	add_to_buffer(char	*move);
 
 #endif

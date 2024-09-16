@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/08/29 16:30:58 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:25:36 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,33 @@
 // rev_rotate(&a, "rra\n");
 // rev_rotate(&b, "rrb\n");
 
+void	add_to_buffer(char	*move)
+{
+	static char	*buffer;
+	int			diff;
+
+	diff = 0;
+	if (buffer)
+	{
+		diff = ft_strncmp(buffer, move, 3);
+		if (diff == 1 || diff == -1)
+		{
+			write(1, buffer, ft_strlen(buffer) - 1);
+			write(1, buffer, 1);
+			write(1, "\n", 1);
+			buffer = NULL;
+			return ;
+		}
+		else
+		{
+			write(1, buffer, ft_strlen(buffer));
+			write(1, "\n", 1);
+		}
+	}
+	buffer = move;
+	//doesn't print last move if it's not a pair, need to call this function 1 more time with add_to_buffer("");
+}
+
 void	push(t_stack **send_to, t_stack **send_from, char *move)
 {
 	t_stack	*temp;
@@ -29,6 +56,7 @@ void	push(t_stack **send_to, t_stack **send_from, char *move)
 	*send_from = temp->next;
 	temp->next = *send_to;
 	*send_to = temp;
+	add_to_buffer(move);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
@@ -40,6 +68,7 @@ void	swap(t_stack **stack, char *move)
 	value = (*stack)->x;
 	(*stack)->x = (*stack)->next->x;
 	(*stack)->next->x = value;
+	add_to_buffer(move);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
@@ -56,6 +85,7 @@ void	rotate(t_stack **stack, char *move)
 		curr = curr->next;
 	curr->next = temp;
 	temp->next = NULL;
+	add_to_buffer(move);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
@@ -80,6 +110,7 @@ void	rev_rotate(t_stack **stack, char *move)
 		*stack = curr;
 		temp->next = NULL;
 	}
+	add_to_buffer(move);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
