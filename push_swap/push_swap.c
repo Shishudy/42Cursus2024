@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/13 20:51:04 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:38:57 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ t_group	*init_group(char **argv)
 	group = malloc(sizeof(t_group));
 	if (!group)
 		exit(write(2, "Error\n", 6));
+	group->chunk = malloc(sizeof(t_chunk));
+	if (!group->chunk)
+		exit(write(2, "Error\n", 6));
 	group->a = NULL;
 	group->b = NULL;
-	check_argv(argv, &group->a);
+	check_argv(group, argv);
 	if (!group->a)
 		exit(write(2, "Error\n", 6));
+	group->size_a = ft_stack_size(group->a);
 	return (group);
 }
 
@@ -35,15 +39,7 @@ int main(int argc, char **argv)
 	if (argc < 2)
 		return (0);
 	group = init_group(argv);
-	push(&group->b, &group->a, "pb");
-	push(&group->b, &group->a, "pb");
-	swap(&group->b, "sb");
-	swap(&group->a, "sa");
-	rotate(&group->b, "rb");
-	rev_rotate(&group->b, "rrb");
-	rotate(&group->a, "ra");
-	rev_rotate(&group->a, "rra");
-	add_to_buffer("");
+	sort_biggest(group);
 	temp = group->a;
 	while (temp != NULL)
 	{

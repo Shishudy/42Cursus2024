@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   chunks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/16 19:26:37 by rafasant         ###   ########.fr       */
+/*   Created: 2024/09/16 19:25:27 by rafasant          #+#    #+#             */
+/*   Updated: 2024/09/16 19:53:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free_stack(t_stack **stack)
+void	chunk_calculator(t_group *group)
 {
-	t_stack *temp;
-
-	temp = *stack;
-	while (*stack)
-	{
-		temp = (*stack)->next;
-		free(*stack);
-		*stack = temp;
-	}
-}
-
-void	deallocate(t_group *group, int message)
-{
-	ft_free_stack(&group->a);
-	if (group->b)
-		ft_free_stack(&group->b);
-	free(group->chunk);
-	free(group);
-	if (message == 2)
-		exit(0);
-	if (message == 1)
-		exit (write(1, "Error\n", 6));
+	group->chunk->chunks = ft_stack_size(group->a) / 10;
+	group->chunk->chunk_size = ft_stack_size(group->a) / group->chunk->chunks;
+	//intervalo de valores dentro da chunk
 }

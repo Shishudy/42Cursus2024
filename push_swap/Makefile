@@ -6,32 +6,37 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 21:24:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/09/11 21:41:11 by rafasant         ###   ########.fr        #
+#    Updated: 2024/09/16 20:39:18 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+C_FLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 NAME	= push_swap
-INCLUDE	= srcs/push_swap.h
-SRCS	= push_swap.c check_args.c error.c moves.c
-OBJS	= $(SRCS:.c=.o)
+INCLUDE	= ./libft/libft.a
+SRCS	= push_swap.c check_args.c error.c moves.c sort_big.c
+OBJS	= ${SRCS:.c=.o}
 
-all: $(NAME)
+%.o: %.c
+	${CC} ${C_FLAGS} -c $< -o $@
+
+all: ${NAME}
 $(NAME) : $(OBJS)
-	@make -C ft_printf --no-print-directory
-	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME) srcs/push_swap.h ft_printf/libftprintf.a
+	@make -C libft
+	@${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
 
-val:
-	valgrind ./push_swap 5 1 3 9 7 6 4 2 8
+val: re
+	valgrind --leak-check=full ./push_swap 5 1 3 9 7 6 4 2 8
 
-clean: 
-	@$(RM) $(OBJS)
-	@make clean -C ft_printf --no-print-directory
+clean:
+	@make clean -C libft
+	@${RM} ${OBJS}
+
 fclean: clean
-	@$(RM) $(NAME)
-	@make fclean -C ft_printf --no-print-directory
+	@make fclean -C libft
+	@${RM} ${NAME}
+
 re: fclean all
 
-.PHONY: clean, fclean, all, re
+.PHONY: val, clean, fclean, all, re
