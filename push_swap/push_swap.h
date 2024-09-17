@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/16 20:38:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/17 23:29:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,30 @@ typedef struct s_chunk
 	t_stack			*temp;
 	t_stack			*last;
 	int				chunk_size;
-	int				chunks;
+	//int				chunks;
 	int				n;
 	int				i;
 	int				md_pnt;
 	int				bottom;
+	int				chunk_size;
 }					t_chunk;
+
+typedef	struct s_bf
+{
+	int				end_chunk;
+	int				control;
+	int				index_a;
+	int				cost;
+
+}					t_bf;
+
 
 typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
 	struct	s_chunk	*chunk;
+	struct	s_bf	*bf;
 	int				size_a;
 	int				size_b;
 }					t_group;

@@ -6,23 +6,23 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/16 20:48:14 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/17 23:36:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_list(t_stack **root)
+void	sort_list(t_stack *root)
 {
 	t_stack	*current;
 	t_stack	*index;
 	int		temp;
 
-	if (!*root)
+	if (!root)
 		return ;
 	temp = 0;
 	index = NULL;
-	current = *root;
+	current = root;
 	while (current != NULL)
 	{
 		index = current->next;
@@ -40,7 +40,7 @@ void	sort_list(t_stack **root)
 	}
 }
 
-t_stack	*clone_list(t_stack **root)
+t_stack	*clone_list(t_stack *root)
 {
 	t_stack	*new_list;
 	t_stack	*new_node;
@@ -49,7 +49,7 @@ t_stack	*clone_list(t_stack **root)
 
 	prev = NULL;
 	new_list = NULL;
-	curr = *root;
+	curr = root;
 	while (curr != NULL)
 	{
 		new_node = malloc(sizeof(t_stack));
@@ -65,31 +65,31 @@ t_stack	*clone_list(t_stack **root)
 	return (new_list);
 }
 
-int	start(t_stack **a)
+int	start(t_group *group)
 {
 	t_stack	*temp;
 	t_stack	*clone;
 	int		start;
 
-	clone = clone_list(a);
+	clone = clone_list(group->a);
 	temp = clone;
-	sort_list(&temp);
+	sort_list(temp);
 	start = temp->x;
 	ft_free_stack(&clone);
 	return (start);
 }
 
-int	end(t_stack **a)
+int	end(t_group *group)
 {
 	t_stack	*temp;
 	t_stack	*clone;
 	int		end;
 
-	clone = clone_list(a);
+	clone = clone_list(group->a);
 	temp = clone;
-	sort_list(&temp);
+	sort_list(temp);
 	end = 0;
-	while (temp->next != NULL && end != 24)
+	while (temp->next != NULL && end != group->chunk->chunk_size * 2)
 	{
 		end++;
 		temp = temp->next;
@@ -99,35 +99,30 @@ int	end(t_stack **a)
 	return (end);
 }
 
-int	cnt_rec(t_stack *root)
-{
-	if (root == NULL)
-		return (0);
-	return (1 + cnt_rec(root->next));
-}
-
-void	send_pb(t_stack **a, t_stack **b, int top, int bottom)
+void	send_pb(t_group *group, int top, int bottom)
 {
 	if (top <= bottom)
 	{
 		while (top-- != 0)
-			rotate(a, "ra");
-		push(b, a, "pb");
+			rotate(&group->a, "ra");
+		push(&group->b, &group->a, "pb");
 	}
 	else if (top > bottom)
 	{
 		while (bottom-- != 0)
-			rev_rotate(a, "rra");
-		push(b, a, "pb");
+			rev_rotate(&group->a, "rra");
+		push(&group->b, &group->a, "pb");
 	}
+	group->size_b++;
+	group->size_a--;
 }
 
-int	gv_i(t_stack **a, int element)
+int	gv_i(t_stack *a, int element)
 {
 	t_stack	*temp;
 	int		index_a;
 
-	temp = (*a);
+	temp = a;
 	index_a = 0;
 	while (temp->next != NULL && element != temp->x)
 	{
@@ -137,7 +132,7 @@ int	gv_i(t_stack **a, int element)
 	return (index_a);
 }
 
-int	numero_movi(t_stack **a, int end)
+int	numero_movi(t_stack *a, int end)
 {
 	t_stack	*temp;
 	t_stack	*clone;
@@ -145,7 +140,7 @@ int	numero_movi(t_stack **a, int end)
 
 	clone = clone_list(a);
 	temp = clone;
-	sort_list(&temp);
+	sort_list(temp);
 	i = 1;
 	while (temp->next != NULL && temp->x != end)
 	{
@@ -156,7 +151,7 @@ int	numero_movi(t_stack **a, int end)
 	return (i);
 }
 
-int	midpoint(t_stack **a, int i)
+int	midpoint(t_stack *a, int i)
 {
 	t_stack	*temp;
 	t_stack	*clone;
@@ -164,7 +159,7 @@ int	midpoint(t_stack **a, int i)
 
 	clone = clone_list(a);
 	temp = clone;
-	sort_list(&temp);
+	sort_list(temp);
 	i = i / 2;
 	while (i-- != 0 && temp->next != NULL)
 		temp = temp->next;
@@ -174,50 +169,98 @@ int	midpoint(t_stack **a, int i)
 }
 
 
-void	best_move(t_stack **a, t_stack **b, int start, int end)
+void	best_move(t_group *group, int start, int end)
 {
-	t_chunk	use;
 	int		top;
 	int		flag;
 
-	use.i = numero_movi(a, end);
-	use.md_pnt = midpoint(a, use.i);
-	while (*a && use.i-- != 0)
+	group->chunk->i = numero_movi(group->a, end);
+	group->chunk->md_pnt = midpoint(group->a, group->chunk->i);
+	while (group->a && group->chunk->i-- != 0)
 	{
 		flag = 0;
-		use.temp = (*a);
-		while (use.temp->next != NULL)
+		group->chunk->temp = (group->a);
+		while (group->chunk->temp->next != NULL)
 		{
-			if ((use.temp->x >= start && use.temp->x <= end) && flag == 0)
+			if ((group->chunk->temp->x >= start && group->chunk->temp->x <= end) && flag == 0)
 			{
-				top = use.temp->x;
+				top = group->chunk->temp->x;
 				flag = 1;
 			}
-			if (use.temp->x >= start && use.temp->x <= end)
-				use.bottom = use.temp->x;
-			use.temp = use.temp->next;
+			if (group->chunk->temp->x >= start && group->chunk->temp->x <= end)
+				group->chunk->bottom = group->chunk->temp->x;
+			group->chunk->temp = group->chunk->temp->next;
 		}
-		send_pb(a, b, gv_i(a, top), (cnt_rec(*a) - gv_i(a, use.bottom)));
-		if (cnt_rec(*b) > 1 && (*b)->x < use.md_pnt)
-			rotate(b, "rb");
+		send_pb(group, gv_i(group->a, top), (group->size_a - gv_i(group->a, group->chunk->bottom)));
+		if (group->size_b > 1 && (group->b)->x < group->chunk->md_pnt)
+			rotate(&group->b, "rb");
+	}
+}
+
+void	end_chunk_top(t_group *group)
+{
+	t_stack	*top;
+	t_stack	*bot;
+
+	bot = group->b;
+	while (bot->next != NULL)
+		bot = bot->next;
+	top = group->b;
+	while (top->next->x > bot->x)
+		top = top->next;
+	group->bf->end_chunk = top->x;
+}
+
+void	chunk_midpoint(t_group *group)
+{
+
+}
+
+void	find_best_friend(t_group *group)
+{
+	t_stack	*temp;
+	int		bfa;
+
+	temp = group->b;
+	bfa = temp->x;
+	while (temp != NULL && temp->x != group->bf->end_chunk)
+	{
+		if (temp->x > group->a->x && temp->x > bfa)
+			bfa = temp->x;
+		temp = temp->next;
+	}
+	temp = group->b;
+	while (temp->x != bfa)
+	{
+		rotate(group->b, "rb");
+		temp = temp->next;
+	}
+	
+
+}
+
+void	sort_back_a(t_group *group)
+{
+	push(&group->a, &group->b, "pa");
+	group->size_b--;
+	group->size_a++;
+	while (group->size_b)
+	{
+		end_chunk_top(group);
+		if (group->size_a == 1)
+			find_best_friend(group);
+		while ()
+		{
+			
+		}
 	}
 }
 
 void	sort_biggest(t_group *group)
 {
-	// t_stack	*temp;
-
 	while (group->size_a != 0)
-		best_move(&group->a, &group->b, start(&group->a), end(&group->a));
-	// while (cnt_rec(*b) > 30)
-	// {
-	// 	temp = (*b);
-	// 	while (temp->next != NULL)
-	// 		temp = temp->next;
-	// 	if ((*b)->x > temp->x)
-	// 		send_top_b(a, b);
-	// 	else if ((*b)->x < temp->x)
-	// 		send_bot_b(a, b);
-	// }
-	// send_rest(a, b);
+		best_move(group, start(group), end(group));
+	add_to_buffer("");
+	sort_back_a(group);
+	chunk_midpoint(group);
 }
