@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/17 23:36:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:43:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void	send_pb(t_group *group, int top, int bottom)
 	{
 		while (top-- != 0)
 			rotate(&group->a, "ra");
-		push(&group->b, &group->a, "pb");
+		push(&group->b, &group->a, "pb", group);
 	}
 	else if (top > bottom)
 	{
 		while (bottom-- != 0)
 			rev_rotate(&group->a, "rra");
-		push(&group->b, &group->a, "pb");
+		push(&group->b, &group->a, "pb", group);
 	}
 	group->size_b++;
 	group->size_a--;
@@ -211,10 +211,10 @@ void	end_chunk_top(t_group *group)
 	group->bf->end_chunk = top->x;
 }
 
-void	chunk_midpoint(t_group *group)
-{
+// void	chunk_midpoint(t_group *group)
+// {
 
-}
+// }
 
 void	find_best_friend(t_group *group)
 {
@@ -232,35 +232,33 @@ void	find_best_friend(t_group *group)
 	temp = group->b;
 	while (temp->x != bfa)
 	{
-		rotate(group->b, "rb");
+		rotate(&group->b, "rb");
 		temp = temp->next;
 	}
-	
-
 }
 
-void	sort_back_a(t_group *group)
-{
-	push(&group->a, &group->b, "pa");
-	group->size_b--;
-	group->size_a++;
-	while (group->size_b)
-	{
-		end_chunk_top(group);
-		if (group->size_a == 1)
-			find_best_friend(group);
-		while ()
-		{
+// void	sort_back_a(t_group *group)
+// {
+// 	push(&group->a, &group->b, "pa");
+// 	group->size_b--;
+// 	group->size_a++;
+// 	while (group->size_b)
+// 	{
+// 		end_chunk_top(group);
+// 		if (group->size_a == 1)
+// 			find_best_friend(group);
+// 		while ()
+// 		{
 			
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
 void	sort_biggest(t_group *group)
 {
 	while (group->size_a != 0)
 		best_move(group, start(group), end(group));
-	add_to_buffer("");
-	sort_back_a(group);
-	chunk_midpoint(group);
+	// add_to_buffer("");
+	// sort_back_a(group);
+	// chunk_midpoint(group);
 }

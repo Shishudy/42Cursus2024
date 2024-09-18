@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/16 18:06:59 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:33:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 void	add_to_buffer(char	*move)
 {
 	static char	*buffer;
-	int			diff;
 
-	diff = 0;
 	if (buffer)
 	{
-		diff = ft_strncmp(buffer, move, 3);
-		if (diff == 1 || diff == -1)
+		if (ft_strlen(move) == ft_strlen(buffer) && !ft_strncmp(buffer, \
+		move, 1) && (ft_strncmp(buffer, move, 3) == 1 || \
+		ft_strncmp(buffer, move, 3) == -1) && (buffer[0] != 'p' && \
+		move[0] != 'p'))
 		{
 			write(1, buffer, ft_strlen(buffer) - 1);
 			write(1, buffer, 1);
@@ -48,7 +48,7 @@ void	add_to_buffer(char	*move)
 	//doesn't print last move if it's not a pair, need to call this function 1 more time with add_to_buffer("");
 }
 
-void	push(t_stack **send_to, t_stack **send_from, char *move)
+void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group)
 {
 	t_stack	*temp;
 
@@ -57,6 +57,16 @@ void	push(t_stack **send_to, t_stack **send_from, char *move)
 	temp->next = *send_to;
 	*send_to = temp;
 	add_to_buffer(move);
+	if (!ft_strncmp("pa", move, 2))
+	{
+		group->size_a++;
+		group->size_b--;
+	}
+	else if (!ft_strncmp("pb", move, 2))
+	{
+		group->size_a--;
+		group->size_b++;
+	}
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }

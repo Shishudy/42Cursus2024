@@ -6,11 +6,22 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/17 23:07:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:28:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	chunk_calculator(t_group *group)
+{
+	if (group->size_a == 100)
+		group->chunk->chunk_size = 12;
+	else if (group->size_a == 500)
+		group->chunk->chunk_size = 35;
+	else
+		group->chunk->chunk_size = group->size_a / 10;
+	//intervalo de valores dentro da chunk
+}
 
 t_group	*init_group(char **argv)
 {
@@ -32,11 +43,7 @@ t_group	*init_group(char **argv)
 		exit(write(2, "Error\n", 6));
 	group->size_a = ft_stack_size(group->a);
 	group->size_b = 0;
-	group->chunk->chunk_size = group->size_a / 10;
-	if (group->size_a == 100)
-		group->chunk->chunk_size = 12;
-	else if (group->size_a == 500)
-		group->chunk->chunk_size = 35;
+	chunk_calculator(group);
 	group->bf->end_chunk = 0;
 	group->bf->index_a = 0;
 	group->bf->cost = 0;
@@ -50,8 +57,17 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
+	(void)argv;
 	group = init_group(argv);
-	sort_biggest(group);
+	//sort_biggest(group);
+	// push(&group->b, &group->a, "pb", group);
+	// add_to_buffer("");
+	// printf("size_a: %d\n", group->size_a);
+	// printf("size_b: %d\n", group->size_b);
+	if (group->size_a <= 3)
+		sort_3(group);
+	if (group->size_a <= 5)
+		sort_5(group);
 	// temp = group->a;
 	// while (temp != NULL)
 	// {
