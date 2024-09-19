@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 21:24:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/09/18 18:48:16 by rafasant         ###   ########.fr        #
+#    Updated: 2024/09/19 13:38:55 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ C_FLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 NAME	= push_swap
 INCLUDE	= ./libft/libft.a
-SRCS	= push_swap.c check_args.c error.c moves.c sort_big.c sort_small.c
+SRCS	= push_swap.c init_group.c check_args.c sort_small.c sort_big.c sort_utils1.c sort_utils2.c moves.c error.c
 OBJS	= ${SRCS:.c=.o}
 
 %.o: %.c

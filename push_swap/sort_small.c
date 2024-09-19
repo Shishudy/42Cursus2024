@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/18 20:29:44 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:05:57 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,12 @@ void	sort_3(t_group *group)
 		rotate(&group->a, "ra");
 }
 
-int	calculate_cost(t_stack *stack, int stack_size, int target)
+void	sort_5(t_group *group)
 {
-	t_stack *temp;
-	int		moves;
-
-	temp = stack;
-	moves = 0;
-	while (temp != NULL && temp->x != target)
-	{
-		moves++;
-		temp = temp->next;
-	}
-	if (stack_size - moves < moves)
-		return (-(stack_size - moves));
-	return (moves);
-}
-
-void	push_cheapest(t_group *group, int cost)
-{
-	while (cost != 0)
-	{
-		if (cost < 0)
-		{
-			rev_rotate(&group->a, "rra");
-			cost++;
-		}
-		else if (cost > 0)
-		{
-			rotate(&group->a, "ra");
-			cost--;
-		}
-	}
-	push(&group->b, &group->a, "pb", group);
-}
-
-void	push_back_a(t_group *group)
-{
+	push_cheapest(group, calculate_cost(group->a, group->size_a, find_value(group, 1)));
+	push_cheapest(group, calculate_cost(group->a, group->size_a, find_value(group, 1)));
+	sort_3(group);
 	push(&group->a, &group->b, "pa", group);
-	if (group->a->x > group->a->next->x)
-		swap(&group->a, "sa");
 	push(&group->a, &group->b, "pa", group);
 	if (group->a->x > group->a->next->x)
 		swap(&group->a, "sa");
@@ -86,25 +52,5 @@ void	push_back_a(t_group *group)
 
 void	sort_5(t_group *group)
 {
-	t_stack	*temp;
-	int		small;
-	int		smallest;
-
-	temp = group->a;
-	small = temp->x;
-	smallest = temp->x;
-	while (temp != NULL)
-	{
-		if (temp->x < smallest)
-		{
-			small = smallest;
-			smallest = temp->x;
-		}
-		temp = temp->next;
-	}
-	push_cheapest(group, calculate_cost(group->a, group->size_a, smallest));
-	push_cheapest(group, calculate_cost(group->a, group->size_a, small));
-	sort_3(group);
-	push_back_a(group);
-	add_to_buffer("");
+	while ()
 }

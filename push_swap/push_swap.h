@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/18 19:48:21 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:10:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ typedef struct s_chunk
 {
 	t_stack			*temp;
 	t_stack			*last;
+	int				start;
+	int				end;
 	int				chunk_size;
-	//int				chunks;
 	int				n;
 	int				i;
-	int				md_pnt;
+	int				midpoint;
 	int				bottom;
-	//int				chunk_size;
 }					t_chunk;
 
 typedef	struct s_bf
@@ -57,23 +57,45 @@ typedef	struct s_group
 	int				size_b;
 }					t_group;
 
+/* init_group.c */
+void	chunk_calculator(t_group *group);
+t_group	*init_group(char **argv);
 
+/* checkar_argv.c */
 int		ft_stack_size(t_stack *lst);
 int		list_sorted(t_stack **stack);
 void	ft_addtolist(t_group *group, int x);
 int		split_atoi(t_group *group, char **argv);
 void	check_argv(t_group *group, char **argv);
 
+/* sort_utils1.c */
+void	sort_list(t_stack *root);
+t_stack	*clone_list(t_stack *root);
+int		calculate_cost(t_stack *stack, int stack_size, int target);
+void	push_cheapest(t_group *group, int cost);
+int		find_value(t_group *group, int flag);
+
+/* sort_utils2.c */
+
+void	push_back_a(t_group *group);
+
+/* error.c */
+void	ft_free_stack(t_stack **stack);
 void	deallocate(t_group *group, int message);
+
+/* moves.c */
 void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group);
 void	swap(t_stack **stack, char *move);
 void	rotate(t_stack **stack, char *move);
 void	rev_rotate(t_stack **stack, char *move);
-void	ft_free_stack(t_stack **stack);
 void	add_to_buffer(char	*move);
 
-void	sort_biggest(t_group *group);
+/* sort_small.c */
 void	sort_3(t_group *group);
 void	sort_5(t_group *group);
+
+/* sort_big.c */
+void	sort_biggest(t_group *group);
+void	sort_to_b(t_group *group);
 
 #endif
