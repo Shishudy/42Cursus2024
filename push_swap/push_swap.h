@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 01:35:41 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:24:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+typedef enum s_move_type
+{
+	SWAP,
+
+} move_type;
+
 typedef struct s_stack
 {
 	int				x;
@@ -28,27 +34,19 @@ typedef struct s_chunk
 {
 	int				start;
 	int				end;
+	int				last;
 	int				chunk_size;
 	int				chunks;
 	int				midpoint;
 }					t_chunk;
-
-typedef	struct s_bf
-{
-	int				end_chunk;
-	int				control;
-	int				index_a;
-	int				cost;
-
-}					t_bf;
-
 
 typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
 	struct	s_chunk	*chunk;
-	struct	s_bf	*bf;
+	int				sign;
+	long int		x;
 	int				size_a;
 	int				size_b;
 }					t_group;
@@ -61,7 +59,7 @@ t_group	*init_group(char **argv);
 int		ft_stack_size(t_stack *lst);
 int		list_sorted(t_stack **stack);
 void	ft_addtolist(t_group *group, int x);
-int		split_atoi(t_group *group, char **argv);
+void	split_atoi(t_group *group, char **argv);
 void	check_argv(t_group *group, char **argv);
 
 /* sort_utils1.c */

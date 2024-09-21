@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 01:49:14 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:27:50 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,45 +93,45 @@ int	numero_movi(t_stack *a, int end)
 // 	}
 // }
 
-void	end_chunk_top(t_group *group)
-{
-	t_stack	*top;
-	t_stack	*bot;
+// void	end_chunk_top(t_group *group)
+// {
+// 	t_stack	*top;
+// 	t_stack	*bot;
 
-	bot = group->b;
-	while (bot->next != NULL)
-		bot = bot->next;
-	top = group->b;
-	while (top->next->x > bot->x)
-		top = top->next;
-	group->bf->end_chunk = top->x;
-}
+// 	bot = group->b;
+// 	while (bot->next != NULL)
+// 		bot = bot->next;
+// 	top = group->b;
+// 	while (top->next->x > bot->x)
+// 		top = top->next;
+// 	group->bf->end_chunk = top->x;
+// }
 
 // void	chunk_midpoint(t_group *group)
 // {
 
 // }
 
-void	find_best_friend(t_group *group)
-{
-	t_stack	*temp;
-	int		bfa;
+// void	find_best_friend(t_group *group)
+// {
+// 	t_stack	*temp;
+// 	int		bfa;
 
-	temp = group->b;
-	bfa = temp->x;
-	while (temp != NULL && temp->x != group->bf->end_chunk)
-	{
-		if (temp->x > group->a->x && temp->x > bfa)
-			bfa = temp->x;
-		temp = temp->next;
-	}
-	temp = group->b;
-	while (temp->x != bfa)
-	{
-		rotate(&group->b, "rb");
-		temp = temp->next;
-	}
-}
+// 	temp = group->b;
+// 	bfa = temp->x;
+// 	while (temp != NULL && temp->x != group->bf->end_chunk)
+// 	{
+// 		if (temp->x > group->a->x && temp->x > bfa)
+// 			bfa = temp->x;
+// 		temp = temp->next;
+// 	}
+// 	temp = group->b;
+// 	while (temp->x != bfa)
+// 	{
+// 		rotate(&group->b, "rb");
+// 		temp = temp->next;
+// 	}
+// }
 
 // void	sort_back_a(t_group *group)
 // {
@@ -203,7 +203,9 @@ int	find_cheapest(t_group *group)
 	temp = group->a;
 	while (temp != NULL && temp->x > group->chunk->end)
 		temp = temp->next;
+	//write(1, "aqui1\n", 6);
 	cost_top = calculate_cost(group->a, group->size_a, temp->x, 1);
+	//write(1, "aqui2\n", 6);
 	cost_bot = calculate_cost(group->a, group->size_a, cnt_rec(group->a, group->chunk->end, group->a->x), -1);
 	if (-cost_bot < cost_top)
 		cost_top = cost_bot;
@@ -228,6 +230,50 @@ void	midpoint(t_group *group)
 	ft_free_stack(&clone);
 }
 
+void	push_rest_b(t_group *group)
+{
+	t_stack	*temp;
+	t_stack	*clone;
+	int		i;
+	int		temp_chunk;
+
+	group->chunk->chunk_size = group->chunk->chunk_size / 2;
+	start_chunk(group);
+	end_chunk(group);
+	midpoint(group);
+	temp_chunk = group->chunk->chunk_size;
+	while (temp_chunk >= 0)
+	{
+		push_cheapest(group, find_cheapest(group));
+		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
+			rotate(&group->b, "rb");
+		temp_chunk--;
+	}
+	clone = clone_list(group->a);
+	sort_list(clone);
+	temp = clone;
+	group->chunk->start = temp->x;
+	i = 0;
+	while (group->size_a - i > 10 && temp != NULL)
+	{
+		temp = temp->next;
+		i++;
+	}
+	group->chunk->end = temp->x;
+	ft_free_stack(&clone);
+	group->chunk->chunk_size = group->chunk->chunk_size - 10;
+	midpoint(group);
+	//group->chunk->chunk_size = group->chunk->chunk_size + 10;
+	temp_chunk = group->chunk->chunk_size;
+	while (temp_chunk >= 0 && group->size_a > 10)
+	{
+		push_cheapest(group, find_cheapest(group));
+		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
+			rotate(&group->b, "rb");
+		temp_chunk--;
+	}
+}
+
 void	sort_to_b(t_group *group)
 {
 	t_stack	*temp;
@@ -250,7 +296,7 @@ void	sort_to_b(t_group *group)
 			temp_chunk--;
 		}
 	}
-
+	push_rest_b(group);
 	//sort_5(group);
 	// printf("%d\n", group->chunk->start);
 	// printf("%d\n", group->chunk->end);

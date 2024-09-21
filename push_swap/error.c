@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/19 10:56:48 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:25:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	deallocate(t_group *group, int message)
 		ft_free_stack(&group->b);
 	if (group->chunk)
 		free(group->chunk);
-	if (group->bf)
-		free(group->bf);
 	free(group);
 	if (message == 2)
 		exit(0);

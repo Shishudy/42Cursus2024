@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 01:26:44 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:52:55 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 	// 	printf("b: %d\n", temp->x);
 	// 	temp = temp->next;
 	// }
+	//printf("size_a: %d\n", group->size_a);
 	deallocate(group, 2);
 	return 0;
 }
