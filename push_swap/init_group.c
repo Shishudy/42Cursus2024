@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/19 17:08:57 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:51:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,22 @@
 void	chunk_calculator(t_group *group)
 {
 	if (group->size_a == 100)
+	{
 		group->chunk->chunk_size = 24;
+		group->chunk->chunks = 8;
+	}
 	else if (group->size_a == 500)
+	{
 		group->chunk->chunk_size = 70;
+		group->chunk->chunks = 14;
+	}
 	else
-		group->chunk->chunk_size = (group->size_a / 10) * 2;
+	{
+		//group->chunk->chunk_size = (group->size_a / 10) * 2;
+		//group->chunk->chunks = (group->size_a / 10) / 2;
+		group->chunk->chunks = 10;
+		group->chunk->chunk_size = (group->size_a / group->chunk->chunks) * 2;
+	}
 }
 
 t_group	*init_group(char **argv)

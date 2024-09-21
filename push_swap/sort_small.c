@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/19 18:05:57 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:22:10 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,20 @@ void	sort_3(t_group *group)
 
 void	sort_5(t_group *group)
 {
-	push_cheapest(group, calculate_cost(group->a, group->size_a, find_value(group, 1)));
-	push_cheapest(group, calculate_cost(group->a, group->size_a, find_value(group, 1)));
+	int	cost_top;
+	int	cost_bot;
+	int	i;
+
+	i = 0;
+	while (i != 2)
+	{
+		cost_top = calculate_cost(group->a, group->size_a, find_value(group, 1), 1);
+		cost_bot = calculate_cost(group->a, group->size_a, find_value(group, 1), -1);
+		if (-cost_bot < cost_top)
+			cost_top = cost_bot;
+		push_cheapest(group, cost_top);
+		i++;
+	}
 	sort_3(group);
 	push(&group->a, &group->b, "pa", group);
 	push(&group->a, &group->b, "pa", group);
@@ -50,7 +62,7 @@ void	sort_5(t_group *group)
 		swap(&group->a, "sa");
 }
 
-void	sort_5(t_group *group)
-{
-	while ()
-}
+// void	sort_10(t_group *group)
+// {
+// 	while ()
+// }

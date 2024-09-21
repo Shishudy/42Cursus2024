@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/19 18:02:50 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:49:14 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,13 +203,10 @@ int	find_cheapest(t_group *group)
 	temp = group->a;
 	while (temp != NULL && temp->x > group->chunk->end)
 		temp = temp->next;
-	cost_top = calculate_cost(group->a, group->size_a, group->a->x);
-	cost_bot = calculate_cost(group->a, group->size_a, cnt_rec(group->a, group->chunk->end, group->a->x));
-	// printf("cost_top: %d\n", cost_top);
-	// printf("cost_bot: %d\n", cost_bot);
+	cost_top = calculate_cost(group->a, group->size_a, temp->x, 1);
+	cost_bot = calculate_cost(group->a, group->size_a, cnt_rec(group->a, group->chunk->end, group->a->x), -1);
 	if (-cost_bot < cost_top)
 		cost_top = cost_bot;
-	printf("cost_top: %d\n", cost_top);
 	return (cost_top);
 }
 
@@ -222,8 +219,11 @@ void	midpoint(t_group *group)
 	temp = clone;
 	sort_list(temp);
 	group->chunk->midpoint = group->chunk->chunk_size / 2;
-	while (group->chunk->midpoint-- != 0 && temp->next != NULL)
+	while (group->chunk->midpoint > 0 && temp->next != NULL)
+	{
 		temp = temp->next;
+		group->chunk->midpoint--;
+	}
 	group->chunk->midpoint = temp->x;
 	ft_free_stack(&clone);
 }
@@ -232,25 +232,26 @@ void	sort_to_b(t_group *group)
 {
 	t_stack	*temp;
 	int		temp_chunk;
+	int		chunks;
 
 	temp = group->a;
-	while (group->size_a > 5)
+	chunks = (group->chunk->chunks - 2) / 2;
+	while (chunks--)
 	{
 		start_chunk(group);
 		end_chunk(group);
 		midpoint(group);
-		// printf("group->chunk->start: %d\n", group->chunk->start);
-		// printf("group->chunk->end: %d\n", group->chunk->end);
-		// printf("group->chunk->midpoint: %d\n", group->chunk->midpoint);
 		temp_chunk = group->chunk->chunk_size;
-		while (temp_chunk > 0)
+		while (temp_chunk >= 0)
 		{
 			push_cheapest(group, find_cheapest(group));
-			if (group->b->x < group->chunk->midpoint && group->size_b > 2)
+			if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
 				rotate(&group->b, "rb");
 			temp_chunk--;
 		}
 	}
+
+	//sort_5(group);
 	// printf("%d\n", group->chunk->start);
 	// printf("%d\n", group->chunk->end);
 }
