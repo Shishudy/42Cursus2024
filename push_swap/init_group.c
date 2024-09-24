@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 20:23:14 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:37:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ void	chunk_calculator(t_group *group)
 		group->chunk->chunk_size = 70;
 		group->chunk->chunks = 14;
 	}
-	else
+	else if (group->size_a >= 10)
 	{
 		//group->chunk->chunk_size = (group->size_a / 10) * 2;
 		//group->chunk->chunks = (group->size_a / 10) / 2;
 		group->chunk->chunks = 10;
 		group->chunk->chunk_size = (group->size_a / group->chunk->chunks) * 2;
 	}
+	else
+		group->chunk->chunk_size = group->size_a;
 }
 
 t_group	*init_group(char **argv)
@@ -43,6 +45,9 @@ t_group	*init_group(char **argv)
 	group->chunk = malloc(sizeof(t_chunk));
 	if (!group->chunk)
 		exit(write(2, "Error\n", 6));
+	group->sort = malloc(sizeof(t_sort));
+	if (!group->sort)
+		exit(write(2, "Error\n", 6));
 	group->a = NULL;
 	group->b = NULL;
 	check_argv(group, argv);
@@ -51,5 +56,7 @@ t_group	*init_group(char **argv)
 	group->size_a = ft_stack_size(group->a);
 	group->size_b = 0;
 	chunk_calculator(group);
+	group->sort->control = 0;
+	group->sort->control2 = 0;
 	return (group);
 }

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 19:38:46 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/24 00:28:10 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,23 @@ t_stack	*clone_list(t_stack *root)
 	return (new_list);
 }
 
-void	push_cheapest(t_group *group, int cost)
+int	list_sorted(t_stack *stack)
+{
+	t_stack	*temp;
+
+	if (!stack)
+		return (0);
+	temp = stack;
+	while (temp->next)
+	{
+		if (temp->x > temp->next->x)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+
+void	push_cheapest_a(t_group *group, int cost)
 {
 	while (cost != 0)
 	{
@@ -81,6 +97,24 @@ void	push_cheapest(t_group *group, int cost)
 		}
 	}
 	push(&group->b, &group->a, "pb", group);
+}
+
+void	push_cheapest_b(t_group *group, int cost)
+{
+	while (cost != 0)
+	{
+		if (cost < 0)
+		{
+			rev_rotate(&group->b, "rrb");
+			cost++;
+		}
+		else if (cost > 0)
+		{
+			rotate(&group->b, "rb");
+			cost--;
+		}
+	}
+	push(&group->a, &group->b, "pa", group);
 }
 
 int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)
@@ -100,12 +134,12 @@ int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)
 	return (moves);
 }
 
-int	find_value(t_group *group, int flag)
+int	find_value(t_stack *stack, int flag)
 {
 	t_stack	*temp;
 	int		value;
 
-	temp = group->a;
+	temp = stack;
 	value = temp->x;
 	while (temp != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 20:30:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:04:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ int	ft_stack_size(t_stack *lst)
 	return (size);
 }
 
-int	list_sorted(t_stack **stack)
-{
-	t_stack	*temp;
+// int	list_sorted(t_stack **stack)
+// {
+// 	t_stack	*temp;
 
-	if (!stack)
-		return (0);
-	temp = *stack;
-	if (temp)
-	{
-		while (temp->next != NULL)
-		{
-			if (temp->x > temp->next->x)
-				return (0);
-			temp = temp->next;
-		}
-	}
-	return (1);
-}
+// 	if (!stack)
+// 		return (0);
+// 	temp = *stack;
+// 	if (temp)
+// 	{
+// 		while (temp->next != NULL)
+// 		{
+// 			if (temp->x > temp->next->x)
+// 				return (0);
+// 			temp = temp->next;
+// 		}
+// 	}
+// 	return (1);
+// }
 
 void	ft_addtolist(t_group *group, int x)
 {
@@ -110,6 +110,6 @@ void	check_argv(t_group *group, char **argv)
 			ft_addtolist(group, group->x);
 		i += !(*argv[i]);
 	}
-	if (list_sorted(&group->a))
+	if (list_sorted(group->a))
 		deallocate(group, 2);
 }
