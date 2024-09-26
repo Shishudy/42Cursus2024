@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/24 00:53:38 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:32:06 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,55 @@ void	push_rest_b(t_group *group)
 	group->chunk->end = temp->x;
 	ft_free_stack(&clone);
 	group->chunk->chunk_size = group->chunk->chunk_size - 10;
-	end_chunk(group);
 	midpoint(group, group->a, group->chunk->start, group->chunk->end);
 	while (group->size_a >= 10)
 	{
 		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, group->chunk->end, group->size_a));
 		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
 			rotate(&group->b, "rb");
+	}
+}
+
+void	find_biggest_b(t_group *group)
+{
+	t_stack	*temp;
+	t_stack	*clone;
+
+	clone = clone_list(group->b);
+	sort_list(clone);
+	temp = clone;
+	while (temp->next->next->next != NULL)
+		temp = temp->next;
+	group->chunk->start = temp->x;
+	while (temp->next != NULL)
+		temp = temp->next;
+	group->chunk->end = temp->x;
+	ft_free_stack(&clone);
+}
+
+void	sort_rest_a(t_group *group)
+{
+	int	i;
+
+	while (group->size_b > 3)
+	{
+		i = 0;
+		find_biggest_b(group);
+		while (i < 3)
+		{
+			push_cheapest_b(group, find_cheapest(group->b, group->chunk->start, group->chunk->end, group->size_b));
+			if (group->a->x > group->a->next->x)
+				swap(&group->a, "sa");
+			re_sort_3(group);
+			i++;
+		}
+	}
+	while (group->size_b > 0)
+	{
+		push(&group->a, &group->b, "pa", group);
+		if (group->a->x > group->a->next->x)
+			swap(&group->a, "sa");
+		re_sort_3(group);
 	}
 }
 
@@ -77,18 +119,6 @@ void	sort_to_b(t_group *group)
 		}
 	}
 	push_rest_b(group);
-	// sort_less_10(group);
-	//sort_rest_a(group);
-	// sort_5(group);
-	// printf("%d\n", group->chunk->start);
-	// printf("%d\n", group->chunk->end);
+	sort_less_10(group);
+	sort_rest_a(group);
 }
-
-// void	sort_biggest(t_group *group)
-// {
-// 	while (group->size_a != 0)
-// 		best_move(group);
-// 	// add_to_buffer("");
-// 	// sort_back_a(group);
-// 	// chunk_midpoint(group);
-// }

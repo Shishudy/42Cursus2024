@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/24 00:53:23 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:30:28 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	add_to_buffer(char	*move);
 
 /* sort_small.c */
 void	sort_3(t_group *group);
+void	re_sort_3(t_group *group);
 void	sort_5(t_group *group);
 void	sort_less_10(t_group *group);
 

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:33 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/24 01:27:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:56:19 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	cnt_rec(t_stack *stack, int min, int max, int value)
 {
 	if (stack == NULL)
 		return (value);
-	if (stack->x < max && stack->x >= min)
+	if (stack->x <= max && stack->x >= min)
 		value = stack->x;
 	return (cnt_rec(stack->next, min, max, value));
 }
@@ -28,9 +28,8 @@ int	find_cheapest(t_stack *stack, int min, int max, int size)
 	int	cost_bot;
 
 	temp = stack;
-	while (temp != NULL && (temp->x < min || temp->x >= max))
+	while (temp != NULL && (temp->x < min || temp->x > max))
 		temp = temp->next;
-	write(1, "hello\n", 6); // crasha aqui
 	cost_top = calculate_cost(stack, size, temp->x, 1);
 	cost_bot = calculate_cost(stack, size, cnt_rec(stack, min, max, stack->x), -1);
 	if (-cost_bot < cost_top)
@@ -80,13 +79,15 @@ void	midpoint(t_group *group, t_stack *stack, int start, int end)
 	size = 0;
 	while (temp != NULL && temp->x != start)
 		temp = temp->next;
-	start = 0;
 	while (temp != NULL && temp->x != end)
 	{
-		start++;
+		size++;
 		temp = temp->next;
 	}
-	group->chunk->midpoint = start / 2;
+	group->chunk->midpoint = size / 2;
+	temp = clone;
+	while (temp != NULL && temp->x != start)
+		temp = temp->next;
 	while (group->chunk->midpoint > 0 && temp->next != NULL)
 	{
 		temp = temp->next;

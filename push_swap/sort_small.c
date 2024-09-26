@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/24 00:58:38 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:29:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ void	sort_3(t_group *group)
 	group->a->next->next->x)
 		rotate(&group->a, "ra");
 }
+// 1 3 2 - 2 - 3 2 - sa - 2 3 - 1 2 3
+// 2 1 3 - 3 - 1 3 - 2 1 3 - sa - 1 2 3
+// 2 3 1 - 1 - 3 1 - sa - 1 3 - 2 1 3 - sa - 1 2 3
+// 3 2 1 - 1 - 2 1 - sa - 1 2 - 3 1 2 - sa - 1 3 2 - ra - 3 2 - sa - 2 3 - rra - 1 2 3
+// 3 1 2 - 2 - 1 2 - 3 1 2 - sa - 1 3 2 - ra - 3 2 - sa - 2 3 - rra - 1 2 3
+
+void	re_sort_3(t_group *group)
+{
+	if (list_sorted(group->a))
+		return ;
+	rotate(&group->a, "ra");
+	swap(&group->a, "sa");
+	rev_rotate(&group->a, "rra");
+}
 
 void	sort_5(t_group *group)
 {
@@ -56,7 +70,8 @@ void	sort_5(t_group *group)
 		if (-cost_bot < cost_top)
 			cost_top = cost_bot;
 		push_cheapest_a(group, cost_top);
-		group->sort->control++;
+		if (list_sorted(group->a))
+			break ;
 	}
 	sort_3(group);
 	while (group->sort->control != 0)
@@ -73,22 +88,13 @@ void	sort_less_10(t_group *group)
 	int	cost_top;
 	int	cost_bot;
 	
-	group->chunk->chunk_size = group->chunk->chunk_size / 2;
+	group->chunk->chunk_size = group->size_a / 2;
 	start_chunk(group);
-	printf("group->chunk->start: %d\n", group->chunk->start);
 	end_chunk(group);
-	printf("group->chunk->end: %d\n", group->chunk->end);
-	fflush(NULL);
 	group->sort->control2 = 0;
-	while (group->size_a > 5)
-	{
+	while (group->size_a >= 5)
 		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, group->chunk->end, group->size_a));
-		group->sort->control2++;
-	}
-	add_to_buffer("");
-	write(1, "hello\n", 6);
 	sort_5(group);
-	write(1, "hello\n", 6);
 	while (group->sort->control2)
 	{
 		cost_top = calculate_cost(group->b, group->size_b, find_value(group->b, 2), 1);
