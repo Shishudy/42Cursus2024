@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/23 22:04:52 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:05:54 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 
 int	ft_stack_size(t_stack *lst)
 {

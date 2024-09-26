@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 18:30:28 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:20:23 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "libft/libft.h"
-
-typedef enum s_move_type
-{
-	SWAP,
-
-} move_type;
+# include "../libft/libft.h"
 
 typedef struct s_stack
 {
@@ -34,7 +28,6 @@ typedef struct s_chunk
 {
 	int				start;
 	int				end;
-	int				last;
 	int				chunk_size;
 	int				chunks;
 	int				midpoint;
@@ -52,6 +45,7 @@ typedef	struct s_group
 	struct	s_stack *b;
 	struct	s_chunk	*chunk;
 	struct	s_sort	*sort;
+	struct s_stack c;
 	int				sign;
 	long int		x;
 	int				size_a;

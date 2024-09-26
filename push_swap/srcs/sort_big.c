@@ -6,52 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 19:32:06 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:22:48 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	push_rest_b(t_group *group)
-{
-	t_stack	*temp;
-	t_stack	*clone;
-	int		i;
-	int		temp_chunk;
-
-	group->chunk->chunk_size = group->chunk->chunk_size / 2;
-	start_chunk(group);
-	end_chunk(group);
-	midpoint(group, group->a, group->chunk->start, group->chunk->end);
-	temp_chunk = group->chunk->chunk_size;
-	while (temp_chunk >= 0)
-	{
-		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, group->chunk->end, group->size_a));
-		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
-			rotate(&group->b, "rb");
-		temp_chunk--;
-	}
-	clone = clone_list(group->a);
-	sort_list(clone);
-	temp = clone;
-	group->chunk->start = temp->x;
-	i = 0;
-	while (group->size_a - i > 10 && temp != NULL)
-	{
-		temp = temp->next;
-		i++;
-	}
-	group->chunk->end = temp->x;
-	ft_free_stack(&clone);
-	group->chunk->chunk_size = group->chunk->chunk_size - 10;
-	midpoint(group, group->a, group->chunk->start, group->chunk->end);
-	while (group->size_a >= 10)
-	{
-		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, group->chunk->end, group->size_a));
-		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
-			rotate(&group->b, "rb");
-	}
-}
+#include "../headers/push_swap.h"
 
 void	find_biggest_b(t_group *group)
 {
@@ -80,7 +39,8 @@ void	sort_rest_a(t_group *group)
 		find_biggest_b(group);
 		while (i < 3)
 		{
-			push_cheapest_b(group, find_cheapest(group->b, group->chunk->start, group->chunk->end, group->size_b));
+			push_cheapest_b(group, find_cheapest(group->b, \
+			group->chunk->start, group->chunk->end, group->size_b));
 			if (group->a->x > group->a->next->x)
 				swap(&group->a, "sa");
 			re_sort_3(group);
@@ -93,6 +53,54 @@ void	sort_rest_a(t_group *group)
 		if (group->a->x > group->a->next->x)
 			swap(&group->a, "sa");
 		re_sort_3(group);
+	}
+}
+
+void	push_rest_b(t_group *group)
+{
+	t_stack	*temp;
+	t_stack	*clone;
+	int		i;
+
+	clone = clone_list(group->a);
+	sort_list(clone);
+	temp = clone;
+	group->chunk->start = temp->x;
+	i = 0;
+	while (group->size_a - i > 10 && temp != NULL)
+	{
+		temp = temp->next;
+		i++;
+	}
+	group->chunk->end = temp->x;
+	ft_free_stack(&clone);
+	group->chunk->chunk_size = group->chunk->chunk_size - 10;
+	midpoint(group, group->a, group->chunk->start, group->chunk->end);
+	while (group->size_a >= 10)
+	{
+		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, \
+		group->chunk->end, group->size_a));
+		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
+			rotate(&group->b, "rb");
+	}
+}
+
+void	push_last_chunk(t_group *group)
+{
+	int		temp_chunk;
+
+	group->chunk->chunk_size = group->chunk->chunk_size / 2;
+	start_chunk(group);
+	end_chunk(group);
+	midpoint(group, group->a, group->chunk->start, group->chunk->end);
+	temp_chunk = group->chunk->chunk_size;
+	while (temp_chunk >= 0)
+	{
+		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, \
+		group->chunk->end, group->size_a));
+		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
+			rotate(&group->b, "rb");
+		temp_chunk--;
 	}
 }
 
@@ -112,12 +120,14 @@ void	sort_to_b(t_group *group)
 		temp_chunk = group->chunk->chunk_size;
 		while (temp_chunk >= 0)
 		{
-			push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, group->chunk->end, group->size_a));
+			push_cheapest_a(group, find_cheapest(group->a, \
+			group->chunk->start, group->chunk->end, group->size_a));
 			if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
 				rotate(&group->b, "rb");
 			temp_chunk--;
 		}
 	}
+	push_last_chunk(group);
 	push_rest_b(group);
 	sort_less_10(group);
 	sort_rest_a(group);

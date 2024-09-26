@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/21 17:05:46 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:19:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 
 // push(&b, &a, "pa\n");
 // push(&a, &b, "pb\n");

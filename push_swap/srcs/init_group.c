@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/23 22:37:09 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:06:02 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 
 void	chunk_calculator(t_group *group)
 {

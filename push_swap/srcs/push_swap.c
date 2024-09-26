@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 19:30:04 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:10:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 
 int main(int argc, char **argv)
 {

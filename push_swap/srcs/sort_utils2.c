@@ -6,11 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:33 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 18:56:19 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:06:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 
 int	cnt_rec(t_stack *stack, int min, int max, int value)
 {
