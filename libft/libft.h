@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:38:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/04/28 15:46:08 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:00:21 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include "get_next_line_bonus.h"
+# include "ft_printf.h"
 
 typedef struct s_list
 {
