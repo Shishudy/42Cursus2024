@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:06:02 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/27 09:40:53 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	chunk_calculator(t_group *group)
 	}
 	else if (group->size_a >= 10)
 	{
-		//group->chunk->chunk_size = (group->size_a / 10) * 2;
-		//group->chunk->chunks = (group->size_a / 10) / 2;
 		group->chunk->chunks = 10;
 		group->chunk->chunk_size = (group->size_a / group->chunk->chunks) * 2;
 	}
@@ -44,15 +42,15 @@ t_group	*init_group(char **argv)
 		exit(write(2, "Error\n", 6));
 	group->chunk = malloc(sizeof(t_chunk));
 	if (!group->chunk)
-		exit(write(2, "Error\n", 6));
+		deallocate(group, 1);
 	group->sort = malloc(sizeof(t_sort));
 	if (!group->sort)
-		exit(write(2, "Error\n", 6));
+		deallocate(group, 1);
 	group->a = NULL;
 	group->b = NULL;
 	check_argv(group, argv);
 	if (!group->a)
-		exit(write(2, "Error\n", 6));
+		deallocate(group, 1);
 	group->size_a = ft_stack_size(group->a);
 	group->size_b = 0;
 	chunk_calculator(group);
