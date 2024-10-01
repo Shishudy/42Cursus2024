@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:06:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:47:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@ void	sort_3(t_group *group)
 	if (list_sorted(group->a))
 		return ;
 	if (group->size_a == 2)
-		swap(&group->a, "sa");
+		swap(&group->a, "sa", 0);
 	else if (group->a->x > group->a->next->x && group->a->next->x > \
 	group->a->next->next->x)
 	{
-		swap(&group->a, "sa");
-		rev_rotate(&group->a, "rra");
+		swap(&group->a, "sa", 0);
+		rev_rotate(&group->a, "rra", 0);
 	}
 	else if (group->a->x < group->a->next->x && group->a->x > \
 	group->a->next->next->x)
-		rev_rotate(&group->a, "rra");
+		rev_rotate(&group->a, "rra", 0);
 	else if (group->a->x < group->a->next->x && group->a->next->next->x < \
 	group->a->next->x)
 	{
-		swap(&group->a, "sa");
-		rotate(&group->a, "ra");
+		swap(&group->a, "sa", 0);
+		rotate(&group->a, "ra", 0);
 	}
 	else if (group->a->x > group->a->next->x && group->a->next->next->x > \
 	group->a->x)
-		swap(&group->a, "sa");
+		swap(&group->a, "sa", 0);
 	else if (group->a->x > group->a->next->x && group->a->x > \
 	group->a->next->next->x)
-		rotate(&group->a, "ra");
+		rotate(&group->a, "ra", 0);
 }
 // 1 3 2 - 2 - 3 2 - sa - 2 3 - 1 2 3
 // 2 1 3 - 3 - 1 3 - 2 1 3 - sa - 1 2 3
@@ -50,9 +50,9 @@ void	re_sort_3(t_group *group)
 {
 	if (list_sorted(group->a))
 		return ;
-	rotate(&group->a, "ra");
-	swap(&group->a, "sa");
-	rev_rotate(&group->a, "rra");
+	rotate(&group->a, "ra", 0);
+	swap(&group->a, "sa", 0);
+	rev_rotate(&group->a, "rra", 0);
 }
 
 void	sort_5(t_group *group)
@@ -76,9 +76,9 @@ void	sort_5(t_group *group)
 	sort_3(group);
 	while (group->sort->control != 0)
 	{
-		push(&group->a, &group->b, "pa", group);
+		push(&group->a, &group->b, "pa", group, 0);
 		if (group->a->x > group->a->next->x)
-			swap(&group->a, "sa");
+			swap(&group->a, "sa", 0);
 		group->sort->control--;
 	}
 }

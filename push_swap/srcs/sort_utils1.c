@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:06:18 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:48:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ void	push_cheapest_a(t_group *group, int cost)
 	{
 		if (cost < 0)
 		{
-			rev_rotate(&group->a, "rra");
+			rev_rotate(&group->a, "rra", 0);
 			cost++;
 		}
 		else if (cost > 0)
 		{
-			rotate(&group->a, "ra");
+			rotate(&group->a, "ra", 0);
 			cost--;
 		}
 	}
-	push(&group->b, &group->a, "pb", group);
+	push(&group->b, &group->a, "pb", group, 0);
 	group->sort->control++;
 	group->sort->control2++;
 }
@@ -107,16 +107,16 @@ void	push_cheapest_b(t_group *group, int cost)
 	{
 		if (cost < 0)
 		{
-			rev_rotate(&group->b, "rrb");
+			rev_rotate(&group->b, "rrb", 0);
 			cost++;
 		}
 		else if (cost > 0)
 		{
-			rotate(&group->b, "rb");
+			rotate(&group->b, "rb", 0);
 			cost--;
 		}
 	}
-	push(&group->a, &group->b, "pa", group);
+	push(&group->a, &group->b, "pa", group, 0);
 }
 
 int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)

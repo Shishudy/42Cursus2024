@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 21:10:32 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:48:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		sort_less_10(group);
 	else
 		sort_to_b(group);
-	add_to_buffer("");
+	add_to_buffer("", 0);
 	// temp = group->a;
 	// while (temp != NULL)
 	// {

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:46:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:19:52 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:44:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 // rev_rotate(&a, "rra\n");
 // rev_rotate(&b, "rrb\n");
 
-void	add_to_buffer(char	*move)
+void	add_to_buffer(char *move, int flag)
 {
 	static char	*buffer;
 
+	if (flag == 1)
+		return ;
 	if (buffer)
 	{
 		if (ft_strlen(move) == ft_strlen(buffer) && !ft_strncmp(buffer, \
@@ -45,10 +47,9 @@ void	add_to_buffer(char	*move)
 		}
 	}
 	buffer = move;
-	//doesn't print last move if it's not a pair, need to call this function 1 more time with add_to_buffer("");
 }
 
-void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group)
+void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group, int flag)
 {
 	t_stack	*temp;
 
@@ -56,7 +57,7 @@ void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group)
 	*send_from = temp->next;
 	temp->next = *send_to;
 	*send_to = temp;
-	add_to_buffer(move);
+	add_to_buffer(move, flag);
 	if (!ft_strncmp("pa", move, 2))
 	{
 		group->size_a++;
@@ -71,19 +72,19 @@ void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group)
 	// write(1, "\n", 1);
 }
 
-void	swap(t_stack **stack, char *move)
+void	swap(t_stack **stack, char *move, int flag)
 {
 	int	value;
 
 	value = (*stack)->x;
 	(*stack)->x = (*stack)->next->x;
 	(*stack)->next->x = value;
-	add_to_buffer(move);
+	add_to_buffer(move, flag);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
 
-void	rotate(t_stack **stack, char *move)
+void	rotate(t_stack **stack, char *move, int flag)
 {
 	t_stack	*curr;
 	t_stack	*temp;
@@ -95,12 +96,12 @@ void	rotate(t_stack **stack, char *move)
 		curr = curr->next;
 	curr->next = temp;
 	temp->next = NULL;
-	add_to_buffer(move);
+	add_to_buffer(move, flag);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }
 
-void	rev_rotate(t_stack **stack, char *move)
+void	rev_rotate(t_stack **stack, char *move, int flag)
 {
 	t_stack	*curr;
 	t_stack	*temp;
@@ -120,7 +121,7 @@ void	rev_rotate(t_stack **stack, char *move)
 		*stack = curr;
 		temp->next = NULL;
 	}
-	add_to_buffer(move);
+	add_to_buffer(move, flag);
 	// write(1, move, ft_strlen(move));
 	// write(1, "\n", 1);
 }

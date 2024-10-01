@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:22:48 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:48:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ void	sort_rest_a(t_group *group)
 			push_cheapest_b(group, find_cheapest(group->b, \
 			group->chunk->start, group->chunk->end, group->size_b));
 			if (group->a->x > group->a->next->x)
-				swap(&group->a, "sa");
+				swap(&group->a, "sa", 0);
 			re_sort_3(group);
 			i++;
 		}
 	}
 	while (group->size_b > 0)
 	{
-		push(&group->a, &group->b, "pa", group);
+		push(&group->a, &group->b, "pa", group, 0);
 		if (group->a->x > group->a->next->x)
-			swap(&group->a, "sa");
+			swap(&group->a, "sa", 0);
 		re_sort_3(group);
 	}
 }
@@ -81,7 +81,7 @@ void	push_rest_b(t_group *group)
 		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, \
 		group->chunk->end, group->size_a));
 		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
-			rotate(&group->b, "rb");
+			rotate(&group->b, "rb", 0);
 	}
 }
 
@@ -99,18 +99,16 @@ void	push_last_chunk(t_group *group)
 		push_cheapest_a(group, find_cheapest(group->a, group->chunk->start, \
 		group->chunk->end, group->size_a));
 		if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
-			rotate(&group->b, "rb");
+			rotate(&group->b, "rb", 0);
 		temp_chunk--;
 	}
 }
 
 void	sort_to_b(t_group *group)
 {
-	t_stack	*temp;
 	int		temp_chunk;
 	int		chunks;
 
-	temp = group->a;
 	chunks = (group->chunk->chunks - 2) / 2;
 	while (chunks--)
 	{
@@ -123,7 +121,7 @@ void	sort_to_b(t_group *group)
 			push_cheapest_a(group, find_cheapest(group->a, \
 			group->chunk->start, group->chunk->end, group->size_a));
 			if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
-				rotate(&group->b, "rb");
+				rotate(&group->b, "rb", 0);
 			temp_chunk--;
 		}
 	}

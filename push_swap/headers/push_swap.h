@@ -6,16 +6,13 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:20:23 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:47:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
 # include "../libft/libft.h"
 
 typedef struct s_stack
@@ -84,11 +81,11 @@ void	ft_free_stack(t_stack **stack);
 void	deallocate(t_group *group, int message);
 
 /* moves.c */
-void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group);
-void	swap(t_stack **stack, char *move);
-void	rotate(t_stack **stack, char *move);
-void	rev_rotate(t_stack **stack, char *move);
-void	add_to_buffer(char	*move);
+void	push(t_stack **send_to, t_stack **send_from, char *move, t_group *group, int flag);
+void	swap(t_stack **stack, char *move, int flag);
+void	rotate(t_stack **stack, char *move, int flag);
+void	rev_rotate(t_stack **stack, char *move, int flag);
+void	add_to_buffer(char	*move, int flag);
 
 /* sort_small.c */
 void	sort_3(t_group *group);
