@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/30 09:47:59 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:25:11 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	sort_less_10(t_group *group)
 	int	cost_top;
 	int	cost_bot;
 	
-	group->chunk->chunk_size = group->size_a / 2;
+	group->chunk->chunk_size = group->size_a - 5;
 	start_chunk(group);
 	end_chunk(group);
 	group->sort->control2 = 0;
@@ -97,6 +97,8 @@ void	sort_less_10(t_group *group)
 	sort_5(group);
 	while (group->sort->control2)
 	{
+		if (group->size_b == 1)
+			return (push(&group->a, &group->b, "pa", group, 0));
 		cost_top = calculate_cost(group->b, group->size_b, find_value(group->b, 2), 1);
 		cost_bot = calculate_cost(group->b, group->size_b, find_value(group->b, 2), -1);
 		if (-cost_bot < cost_top)
