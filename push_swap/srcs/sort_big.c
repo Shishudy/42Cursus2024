@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 16:54:05 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:14:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,12 @@ void	sort_to_b(t_group *group)
 			temp_chunk--;
 		}
 	}
+	write(1, "push_last_chunk\n", 16);
 	push_last_chunk(group);
+	write(1, "push_rest_b\n", 12);
 	push_rest_b(group);
+	write(1, "sort_less_10\n", 13);
 	sort_less_10(group);
+	write(1, "sort_rest_a\n", 12);
 	sort_rest_a(group);
 }
