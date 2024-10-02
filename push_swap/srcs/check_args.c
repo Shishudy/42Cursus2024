@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/26 20:05:54 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:02:28 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ void	split_atoi(t_group *group, char **argv)
 		(*argv)++;
 	if (**argv == '\0')
 		group->sign = 0;
-	if (**argv == '-')
+	if (**argv == '-' && (**argv + 1 < '0' || **argv + 1 > '9'))
 	{
 		group->sign = -1;
 		(*argv)++;
 	}
-	if ((**argv < '0' || **argv > '9') && **argv != '\0')
+	if (((**argv < '0' || **argv > '9') && **argv != '\0') || \
+	(group->sign == -1 && **argv == '\0'))
 		deallocate(group, 1);
 	while (**argv >= '0' && **argv <= '9' && **argv != '\0')
 	{

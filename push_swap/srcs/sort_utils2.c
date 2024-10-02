@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:33 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 18:36:20 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:12:28 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	end_chunk(t_group *group)
 	clone = clone_list(group->a);
 	sort_list(clone);
 	temp = clone;
-	group->chunk->end = 0;
+	group->chunk->end = 1;
 	while (temp->next != NULL && group->chunk->end != group->chunk->chunk_size)
 	{
 		group->chunk->end++;

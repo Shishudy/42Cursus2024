@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 19:24:45 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:24:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int main(int argc, char **argv)
 		sort_5(group);
 	else if (group->size_a < 10)
 		sort_less_10(group);
-	else if (group->size_a < 30)
-		sort_to_b_small(group);
 	else
 		sort_to_b(group);
 	add_to_buffer("", 0);

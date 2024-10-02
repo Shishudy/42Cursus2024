@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 19:25:23 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:58:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,14 @@ typedef struct s_chunk
 	int				midpoint;
 }					t_chunk;
 
-typedef struct s_sort
-{
-	int				control;
-	int				control2;
-}					t_sort;
-
 typedef	struct s_group
 {
 	struct	s_stack *a;
 	struct	s_stack *b;
 	struct	s_chunk	*chunk;
-	struct	s_sort	*sort;
-	struct s_stack c;
 	int				sign;
 	long int		x;
+	int				control;
 	int				size_a;
 	int				size_b;
 }					t_group;

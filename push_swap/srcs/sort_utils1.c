@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/30 09:48:27 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:59:15 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ void	push_cheapest_a(t_group *group, int cost)
 		}
 	}
 	push(&group->b, &group->a, "pb", group, 0);
-	group->sort->control++;
-	group->sort->control2++;
+	group->control++;
 }
 
 void	push_cheapest_b(t_group *group, int cost)

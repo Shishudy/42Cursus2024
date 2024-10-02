@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 16:48:03 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:11:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ t_group	*init_group(char **argv)
 	group->chunk = malloc(sizeof(t_chunk));
 	if (!group->chunk)
 		deallocate(group, 1);
-	group->sort = malloc(sizeof(t_sort));
-	if (!group->sort)
-		deallocate(group, 1);
 	group->a = NULL;
 	group->b = NULL;
 	check_argv(group, argv);
@@ -53,8 +50,7 @@ t_group	*init_group(char **argv)
 		deallocate(group, 1);
 	group->size_a = ft_stack_size(group->a);
 	group->size_b = 0;
+	group->control = 0;
 	chunk_calculator(group);
-	group->sort->control = 0;
-	group->sort->control2 = 0;
 	return (group);
 }
