@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/30 09:48:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:38:13 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	push_rest_b(t_group *group)
 	t_stack	*clone;
 	int		i;
 
+	if (group->size_a < 10)
+		return ;
 	clone = clone_list(group->a);
 	sort_list(clone);
 	temp = clone;
@@ -89,6 +91,8 @@ void	push_last_chunk(t_group *group)
 {
 	int		temp_chunk;
 
+	if (group->size_a < 10)
+		return ;
 	group->chunk->chunk_size = group->chunk->chunk_size / 2;
 	start_chunk(group);
 	end_chunk(group);

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:55:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/09/30 09:56:18 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:45:46 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parse_move(t_group *group, char *move)
 		return (swap(&group->b, "sb", 1));
 	else if (!ft_strncmp(move, "rb", 2) && group->size_b >= 2)
 		return (rotate(&group->b, "rb", 1));
-	else if (!ft_strncmp(move, "rrb", 2) && group->size_b >= 2)
+	else if (!ft_strncmp(move, "rrb", 3) && group->size_b >= 2)
 		return (rev_rotate(&group->b, "rrb", 1));
 	else if (!ft_strncmp(move, "pa", 2) && group->size_b > 0)
 		return (push(&group->a, &group->b, "pa", group, 1));
@@ -37,15 +37,15 @@ void	parse_move(t_group *group, char *move)
 	}
 	else if (!ft_strncmp(move, "rr", 2) && group->size_a >= 2 && group->size_b >= 2)
 	{
-		rotate(&group->b, "ra", 1);
+		rotate(&group->a, "ra", 1);
 		return (rotate(&group->b, "rb", 1));
 	}
-	else if (!ft_strncmp(move, "rrr", 2) && group->size_a >= 2 && group->size_b >= 2)
+	else if (!ft_strncmp(move, "rrr", 3) && group->size_a >= 2 && group->size_b >= 2)
 	{
-		rotate(&group->b, "rra", 1);
+		rotate(&group->a, "rra", 1);
 		return (rotate(&group->b, "rrb", 1));
 	}
-	//deallocate(group, 1);
+	deallocate(group, 1);
 }
 
 int	main(int argc, char **argv)
@@ -62,21 +62,21 @@ int	main(int argc, char **argv)
 	{
 		if (move)
 			free(move);
-		move = get_next_line(1);
-		if (*move == '\n')
+		move = get_next_line(0);
+		if (!move)
 			break ;
 		parse_move(group, move);
 	}
-	temp = group->a;
-	while (temp != NULL)
-	{
-		printf("a: %d\n", temp->x);
-		temp = temp->next;
-	}
+	// temp = group->a;
+	// while (temp != NULL)
+	// {
+	// 	printf("a: %d\n", temp->x);
+	// 	temp = temp->next;
+	// }
 	if (list_sorted(group->a) && group->size_b == 0)
 		write(1, "OK\n", 3);
 	else
-		write(1, "KO\n", 3);
-	deallocate(group, 2);
+		deallocate(group, 0);
 	return (0);
 }
+// 4 14 34 2 1 324 134 4235 5 35 2342 8 865 09 5763 987 68763 943 0144 038 4136
