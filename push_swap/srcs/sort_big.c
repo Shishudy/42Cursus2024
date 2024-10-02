@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 18:14:20 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:25:03 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	push_last_chunk(t_group *group)
 	}
 }
 
-void	sort_to_b(t_group *group)
+void	sort_to_b_small(t_group *group)
 {
 	int		temp_chunk;
 	int		chunks;
@@ -129,12 +129,43 @@ void	sort_to_b(t_group *group)
 			temp_chunk--;
 		}
 	}
-	write(1, "push_last_chunk\n", 16);
+	//write(1, "push_last_chunk\n", 16);
 	push_last_chunk(group);
-	write(1, "push_rest_b\n", 12);
+	//write(1, "push_rest_b\n", 12);
 	push_rest_b(group);
-	write(1, "sort_less_10\n", 13);
+	//write(1, "sort_less_10\n", 13);
 	sort_less_10(group);
-	write(1, "sort_rest_a\n", 12);
+	//write(1, "sort_rest_a\n", 12);
+	sort_rest_a(group);
+}
+
+void	sort_to_b(t_group *group)
+{
+	int		temp_chunk;
+	int		chunks;
+
+	chunks = (group->chunk->chunks - 2) / 2;
+	while (chunks--)
+	{
+		start_chunk(group);
+		end_chunk(group);
+		midpoint(group, group->a, group->chunk->start, group->chunk->end);
+		temp_chunk = group->chunk->chunk_size;
+		while (temp_chunk >= 0)
+		{
+			push_cheapest_a(group, find_cheapest(group->a, \
+			group->chunk->start, group->chunk->end, group->size_a));
+			if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
+				rotate(&group->b, "rb", 0);
+			temp_chunk--;
+		}
+	}
+	//write(1, "push_last_chunk\n", 16);
+	push_last_chunk(group);
+	//write(1, "push_rest_b\n", 12);
+	push_rest_b(group);
+	//write(1, "sort_less_10\n", 13);
+	sort_less_10(group);
+	//write(1, "sort_rest_a\n", 12);
 	sort_rest_a(group);
 }
