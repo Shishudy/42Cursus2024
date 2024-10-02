@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 16:25:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:41:02 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	sort_3(t_group *group)
 	group->a->next->next->x)
 		rotate(&group->a, "ra", 0);
 }
-// 1 3 2 - 2 - 3 2 - sa - 2 3 - 1 2 3
-// 2 1 3 - 3 - 1 3 - 2 1 3 - sa - 1 2 3
-// 2 3 1 - 1 - 3 1 - sa - 1 3 - 2 1 3 - sa - 1 2 3
-// 3 2 1 - 1 - 2 1 - sa - 1 2 - 3 1 2 - sa - 1 3 2 - ra - 3 2 - sa - 2 3 - rra - 1 2 3
-// 3 1 2 - 2 - 1 2 - 3 1 2 - sa - 1 3 2 - ra - 3 2 - sa - 2 3 - rra - 1 2 3
 
 void	re_sort_3(t_group *group)
 {

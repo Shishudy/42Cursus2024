@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 15:38:13 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:54:05 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	sort_to_b(t_group *group)
 		end_chunk(group);
 		midpoint(group, group->a, group->chunk->start, group->chunk->end);
 		temp_chunk = group->chunk->chunk_size;
-		while (temp_chunk >= 0)
+		while (temp_chunk > 0)
 		{
 			push_cheapest_a(group, find_cheapest(group->a, \
 			group->chunk->start, group->chunk->end, group->size_a));
