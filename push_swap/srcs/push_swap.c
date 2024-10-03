@@ -6,16 +6,15 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 21:24:27 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:47:40 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_group		*group;
-	// t_stack		*temp;
+	t_group	*group;
 
 	if (argc < 2)
 		return (0);
@@ -28,20 +27,7 @@ int main(int argc, char **argv)
 		sort_less_10(group);
 	else
 		sort_to_b(group);
-	add_to_buffer("", 0);
-	// temp = group->a;
-	// while (temp != NULL)
-	// {
-	// 	printf("a: %d\n", temp->x);
-	// 	temp = temp->next;
-	// }
-	// temp = group->b;
-	// while (temp != NULL)
-	// {
-	// 	printf("b: %d\n", temp->x);
-	// 	temp = temp->next;
-	// }
-	// printf("size_a: %d\n", group->size_a);
-	deallocate(group, 2);
-	return 0;
+	add_to_buffer("");
+	deallocate(group, 0);
+	return (0);
 }

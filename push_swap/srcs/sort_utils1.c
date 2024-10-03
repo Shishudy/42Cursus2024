@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 20:59:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:46:44 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,38 +65,24 @@ t_stack	*clone_list(t_stack *root)
 	return (new_list);
 }
 
-int	list_sorted(t_stack *stack)
-{
-	t_stack	*temp;
-
-	if (!stack)
-		return (0);
-	temp = stack;
-	while (temp->next)
-	{
-		if (temp->x > temp->next->x)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
 void	push_cheapest_a(t_group *group, int cost)
 {
 	while (cost != 0)
 	{
 		if (cost < 0)
 		{
-			rev_rotate(&group->a, "rra", 0);
+			rev_rotate(&group->a, "rra");
 			cost++;
 		}
 		else if (cost > 0)
 		{
-			rotate(&group->a, "ra", 0);
+			rotate(&group->a, "ra");
 			cost--;
 		}
 	}
-	push(&group->b, &group->a, "pb", group, 0);
+	push(&group->b, &group->a, "pb", group);
+	if (group->b->x <= group->chunk->midpoint && group->size_b >= 2)
+		rotate(&group->b, "rb");
 	group->control++;
 }
 
@@ -106,16 +92,19 @@ void	push_cheapest_b(t_group *group, int cost)
 	{
 		if (cost < 0)
 		{
-			rev_rotate(&group->b, "rrb", 0);
+			rev_rotate(&group->b, "rrb");
 			cost++;
 		}
 		else if (cost > 0)
 		{
-			rotate(&group->b, "rb", 0);
+			rotate(&group->b, "rb");
 			cost--;
 		}
 	}
-	push(&group->a, &group->b, "pa", group, 0);
+	push(&group->a, &group->b, "pa", group);
+	if (group->a->x > group->a->next->x)
+		swap(&group->a, "sa");
+	group->control--;
 }
 
 int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)

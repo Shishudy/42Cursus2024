@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   check_args_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:16:51 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:40:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/push_swap.h"
+#include "../headers/checker.h"
 
-int	list_sorted(t_stack *stack)
+int	ft_stack_size(t_stack *lst)
 {
-	t_stack	*temp;
+	int	size;
 
-	if (!stack)
-		return (0);
-	temp = stack;
-	while (temp->next)
+	size = 0;
+	while (lst != NULL)
 	{
-		if (temp->x > temp->next->x)
-			return (0);
-		temp = temp->next;
+		size++;
+		lst = lst->next;
 	}
-	return (1);
+	return (size);
 }
 
 void	ft_addtolist(t_group *group, int x)
@@ -95,6 +92,21 @@ void	check_argv(t_group *group, char **argv)
 			ft_addtolist(group, group->x);
 		i += !(*argv[i]);
 	}
-	if (list_sorted(group->a))
+}
+
+t_group	*init_group(char **argv)
+{
+	t_group	*group;
+
+	group = malloc(sizeof(t_group));
+	if (!group)
+		exit(write(2, "Error\n", 6));
+	group->a = NULL;
+	group->b = NULL;
+	check_argv(group, argv);
+	if (!group->a)
 		deallocate(group, 2);
+	group->size_a = ft_stack_size(group->a);
+	group->size_b = 0;
+	return (group);
 }

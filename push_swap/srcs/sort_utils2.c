@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:33 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 20:12:28 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:42:13 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	cnt_rec(t_stack *stack, int min, int max, int value)
 int	find_cheapest(t_stack *stack, int min, int max, int size)
 {
 	t_stack	*temp;
-	int	cost_top;
-	int	cost_bot;
+	int		cost_top;
+	int		cost_bot;
 
 	temp = stack;
 	while (temp != NULL && (temp->x < min || temp->x > max))
 		temp = temp->next;
 	cost_top = calculate_cost(stack, size, temp->x, 1);
-	cost_bot = calculate_cost(stack, size, cnt_rec(stack, min, max, stack->x), -1);
+	cost_bot = calculate_cost(stack, size, cnt_rec(stack, min, max, \
+	stack->x), -1);
 	if (-cost_bot < cost_top)
 		cost_top = cost_bot;
 	return (cost_top);

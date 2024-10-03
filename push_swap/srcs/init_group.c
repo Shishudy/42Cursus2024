@@ -6,11 +6,24 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:36:30 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/02 21:11:52 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:47:49 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
+
+int	ft_stack_size(t_stack *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst != NULL)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
+}
 
 void	chunk_calculator(t_group *group)
 {
