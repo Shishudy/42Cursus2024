@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 20:52:37 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:41:22 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_group	*init_group(char **argv)
 	group->b = NULL;
 	check_argv(group, argv);
 	if (!group->a)
-		deallocate(group, 3);
+		deallocate(group, 2);
 	group->size_a = ft_stack_size(group->a);
 	group->size_b = 0;
 	return (group);

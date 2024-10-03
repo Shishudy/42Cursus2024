@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 21:24:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/10/03 21:13:22 by rafasant         ###   ########.fr        #
+#    Updated: 2024/10/03 21:43:07 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,23 +25,22 @@ BONUS_SRCS	= bonus/check_args_bonus.c bonus/error_bonus.c \
 
 all: ${NAME}
 $(NAME) :
-	@make -C libft
-	@${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
+	make -C libft
+	${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
 
 bonus: all
-	@${CC} ${C_FLAGS} ${BONUS_SRCS} ${INCLUDE} -o ${BONUS_NAME}
-
-val: re
-	valgrind --leak-check=full ./push_swap 5 1 3 9 7 6 4 2 8
+	${CC} ${C_FLAGS} ${BONUS_SRCS} ${INCLUDE} -o ${BONUS_NAME}
 
 clean:
-	@make clean -C libft
+	make clean -C libft
 
 fclean: clean
-	@make fclean -C libft
-	@${RM} ${NAME}
-	@${RM} ${BONUS_NAME}
+	make fclean -C libft
+	${RM} ${NAME}
+	${RM} ${BONUS_NAME}
 
 re: fclean all
 
-.PHONY: val, clean, fclean, all, re
+rebonus: fclean bonus
+
+.PHONY: all, bonus, clean, fclean, re, rebonus

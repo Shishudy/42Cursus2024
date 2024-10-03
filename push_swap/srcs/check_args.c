@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 18:33:57 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:39:18 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	check_argv(t_group *group, char **argv)
 		i += !(*argv[i]);
 	}
 	if (list_sorted(group->a))
-		deallocate(group, 2);
+		deallocate(group, 0);
 }
