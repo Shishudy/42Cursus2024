@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:01:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:14:40 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:47:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	sort_5(t_group *group);
 void	sort_less_10(t_group *group);
 
 /* sort_big.c */
-void	sort_to_b_small(t_group *group);
 void	sort_to_b(t_group *group);
 
 #endif

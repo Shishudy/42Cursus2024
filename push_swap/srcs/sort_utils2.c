@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:33 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:42:13 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:22:36 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,6 @@ int	cnt_rec(t_stack *stack, int min, int max, int value)
 	if (stack->x <= max && stack->x >= min)
 		value = stack->x;
 	return (cnt_rec(stack->next, min, max, value));
-}
-
-int	find_cheapest(t_stack *stack, int min, int max, int size)
-{
-	t_stack	*temp;
-	int		cost_top;
-	int		cost_bot;
-
-	temp = stack;
-	while (temp != NULL && (temp->x < min || temp->x > max))
-		temp = temp->next;
-	cost_top = calculate_cost(stack, size, temp->x, 1);
-	cost_bot = calculate_cost(stack, size, cnt_rec(stack, min, max, \
-	stack->x), -1);
-	if (-cost_bot < cost_top)
-		cost_top = cost_bot;
-	return (cost_top);
 }
 
 void	start_chunk(t_group *group)
@@ -89,11 +72,8 @@ void	midpoint(t_group *group, t_stack *stack, int start, int end)
 	temp = clone;
 	while (temp != NULL && temp->x != start)
 		temp = temp->next;
-	while (group->chunk->midpoint > 0 && temp->next != NULL)
-	{
+	while (group->chunk->midpoint-- > 0 && temp->next != NULL)
 		temp = temp->next;
-		group->chunk->midpoint--;
-	}
 	group->chunk->midpoint = temp->x;
 	ft_free_stack(&clone);
 }

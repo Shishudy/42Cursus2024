@@ -6,27 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:05:58 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:16:51 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:33:57 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
-
-int	list_sorted(t_stack *stack)
-{
-	t_stack	*temp;
-
-	if (!stack)
-		return (0);
-	temp = stack;
-	while (temp->next)
-	{
-		if (temp->x > temp->next->x)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
 
 void	ft_addtolist(t_group *group, int x)
 {

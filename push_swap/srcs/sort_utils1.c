@@ -6,64 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:46:44 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:51:49 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
-
-void	sort_list(t_stack *root)
-{
-	t_stack	*current;
-	t_stack	*index;
-	int		temp;
-
-	if (!root)
-		return ;
-	temp = 0;
-	index = NULL;
-	current = root;
-	while (current != NULL)
-	{
-		index = current->next;
-		while (index != NULL)
-		{
-			if (current->x > index->x)
-			{
-				temp = current->x;
-				current->x = index->x;
-				index->x = temp;
-			}
-			index = index->next;
-		}
-		current = current->next;
-	}
-}
-
-t_stack	*clone_list(t_stack *root)
-{
-	t_stack	*new_list;
-	t_stack	*new_node;
-	t_stack	*prev;
-	t_stack	*curr;
-
-	prev = NULL;
-	new_list = NULL;
-	curr = root;
-	while (curr != NULL)
-	{
-		new_node = malloc(sizeof(t_stack));
-		new_node->x = curr->x;
-		new_node->next = NULL;
-		if (prev != NULL)
-			prev->next = new_node;
-		else
-			new_list = new_node;
-		prev = new_node;
-		curr = curr->next;
-	}
-	return (new_list);
-}
 
 void	push_cheapest_a(t_group *group, int cost)
 {
@@ -81,7 +28,7 @@ void	push_cheapest_a(t_group *group, int cost)
 		}
 	}
 	push(&group->b, &group->a, "pb", group);
-	if (group->b->x <= group->chunk->midpoint && group->size_b >= 2)
+	if (group->b->x < group->chunk->midpoint && group->size_b >= 2)
 		rotate(&group->b, "rb");
 	group->control++;
 }
@@ -119,9 +66,46 @@ int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)
 		moves++;
 		temp = temp->next;
 	}
+	if (stack_size - moves < moves)
+		return (-(stack_size - moves));
+	(void)flag;
+	// if (flag == -1)
+	// 	return (-(stack_size - moves));
+	return (moves);
+}
+
+int	calculate_cost2(t_stack *stack, int stack_size, int target, int flag)
+{
+	t_stack	*temp;
+	int		moves;
+
+	temp = stack;
+	moves = 0;
+	while (temp != NULL && temp->x != target)
+	{
+		moves++;
+		temp = temp->next;
+	}
 	if (flag == -1)
 		return (-(stack_size - moves));
 	return (moves);
+}
+
+int	find_cheapest(t_stack *stack, int min, int max, int size)
+{
+	t_stack	*temp;
+	int		cost_top;
+	int		cost_bot;
+
+	temp = stack;
+	while (temp != NULL && (temp->x < min || temp->x > max))
+		temp = temp->next;
+	cost_top = calculate_cost2(stack, size, temp->x, 1);
+	cost_bot = calculate_cost2(stack, size, cnt_rec(stack, min, max, \
+	stack->x), -1);
+	if (-cost_bot < cost_top)
+		cost_top = cost_bot;
+	return (cost_top);
 }
 
 int	find_value(t_stack *stack, int flag)

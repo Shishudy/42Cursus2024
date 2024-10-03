@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:39 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 18:01:00 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:53:41 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	re_sort_3(t_group *group)
 void	sort_5(t_group *group)
 {
 	int	cost_top;
-	int	cost_bot;
+	//int	cost_bot;
 
 	if (list_sorted(group->a))
 		return ;
@@ -62,10 +62,10 @@ void	sort_5(t_group *group)
 	{
 		cost_top = calculate_cost(group->a, group->size_a, \
 		find_value(group->a, 1), 1);
-		cost_bot = calculate_cost(group->a, group->size_a, \
-		find_value(group->a, 1), -1);
-		if (-cost_bot < cost_top)
-			cost_top = cost_bot;
+		// cost_bot = calculate_cost(group->a, group->size_a, \
+		// find_value(group->a, 1), -1);
+		// if (-cost_bot < cost_top)
+		// 	cost_top = cost_bot;
 		push_cheapest_a(group, cost_top);
 		if (list_sorted(group->a))
 			break ;
@@ -78,7 +78,7 @@ void	sort_5(t_group *group)
 void	sort_less_10(t_group *group)
 {
 	int	cost_top;
-	int	cost_bot;
+	//int	cost_bot;
 	int	control;
 
 	if (group->size_a <= 5)
@@ -98,10 +98,10 @@ void	sort_less_10(t_group *group)
 		{
 			cost_top = calculate_cost(group->b, group->size_b, \
 			find_value(group->b, 2), 1);
-			cost_bot = calculate_cost(group->b, group->size_b, \
-			find_value(group->b, 2), -1);
-			if (-cost_bot < cost_top)
-				cost_top = cost_bot;
+			// cost_bot = calculate_cost(group->b, group->size_b, \
+			// find_value(group->b, 2), -1);
+			// if (-cost_bot < cost_top)
+			// 	cost_top = cost_bot;
 		}
 		push_cheapest_b(group, cost_top);
 		control--;

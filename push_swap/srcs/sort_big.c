@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:50:55 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 17:29:26 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:07:20 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	sort_rest_a(t_group *group)
 	while (group->size_b > 0)
 	{
 		push(&group->a, &group->b, "pa", group);
+		if (group->a->x > group->a->next->x)
+			swap(&group->a, "sa");
 		re_sort_3(group);
 	}
 }
