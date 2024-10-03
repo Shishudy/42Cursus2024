@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:19:51 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 16:40:48 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:00:21 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ void	deallocate(t_group *group, int message)
 		exit (write(1, "KO\n", 3));
 	else if (message == 2)
 		exit (write(2, "Error\n", 6));
+	else if (message == 3)
+		exit (0);
 }

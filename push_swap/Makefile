@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 21:24:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/10/03 18:47:03 by rafasant         ###   ########.fr        #
+#    Updated: 2024/10/03 21:13:22 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,18 @@ BONUS_NAME	= checker
 INCLUDE		= ./libft/libft.a
 SRCS		= srcs/init_group.c srcs/check_args.c \
 				srcs/sort_small.c srcs/sort_big.c srcs/sort_utils1.c \
-				srcs/sort_utils2.c srcs/sort_utils3.c srcs/moves.c srcs/error.c
+				srcs/sort_utils2.c srcs/sort_utils3.c srcs/moves.c \
+				srcs/error.c srcs/push_swap.c
+BONUS_SRCS	= bonus/check_args_bonus.c bonus/error_bonus.c \
+				bonus/moves_bonus.c bonus/checker.c
 
 all: ${NAME}
 $(NAME) :
 	@make -C libft
-	@${CC} ${C_FLAGS} ${SRCS} srcs/push_swap.c ${INCLUDE} -o ${NAME}
+	@${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
 
 bonus: all
-	@${CC} ${C_FLAGS} ${SRCS} bonus/checker.c ${INCLUDE} -o ${BONUS_NAME}
+	@${CC} ${C_FLAGS} ${BONUS_SRCS} ${INCLUDE} -o ${BONUS_NAME}
 
 val: re
 	valgrind --leak-check=full ./push_swap 5 1 3 9 7 6 4 2 8

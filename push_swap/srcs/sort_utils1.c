@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:34:46 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 19:51:49 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:12:33 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,9 @@ int	calculate_cost(t_stack *stack, int stack_size, int target, int flag)
 		moves++;
 		temp = temp->next;
 	}
-	if (stack_size - moves < moves)
+	if (flag == -2)
 		return (-(stack_size - moves));
-	(void)flag;
-	// if (flag == -1)
-	// 	return (-(stack_size - moves));
-	return (moves);
-}
-
-int	calculate_cost2(t_stack *stack, int stack_size, int target, int flag)
-{
-	t_stack	*temp;
-	int		moves;
-
-	temp = stack;
-	moves = 0;
-	while (temp != NULL && temp->x != target)
-	{
-		moves++;
-		temp = temp->next;
-	}
-	if (flag == -1)
+	if (stack_size - moves < moves && flag != 2)
 		return (-(stack_size - moves));
 	return (moves);
 }
@@ -100,9 +82,9 @@ int	find_cheapest(t_stack *stack, int min, int max, int size)
 	temp = stack;
 	while (temp != NULL && (temp->x < min || temp->x > max))
 		temp = temp->next;
-	cost_top = calculate_cost2(stack, size, temp->x, 1);
-	cost_bot = calculate_cost2(stack, size, cnt_rec(stack, min, max, \
-	stack->x), -1);
+	cost_top = calculate_cost(stack, size, temp->x, 2);
+	cost_bot = calculate_cost(stack, size, cnt_rec(stack, min, max, \
+	stack->x), -2);
 	if (-cost_bot < cost_top)
 		cost_top = cost_bot;
 	return (cost_top);

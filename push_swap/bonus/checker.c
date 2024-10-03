@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:55:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 16:41:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:59:48 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	parse_move(t_group *group, char *move)
 
 int	main(int argc, char **argv)
 {
-	t_group		*group;
-	char		*move;
+	t_group	*group;
+	char	*move;
 
 	if (argc < 2)
 		return (0);
