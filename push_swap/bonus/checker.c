@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:55:34 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/03 20:59:48 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:09:35 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 void	parse_move_combo(t_group *group, char *move)
 {
-	if (!ft_strncmp(move, "ss", 2) && group->size_a >= 2 && group->size_b >= 2)
+	if (!ft_strncmp(move, "ss\n", 3) && group->size_a >= 2 && group->size_b >= 2)
 	{
 		swap(&group->a);
 		return (swap(&group->b));
 	}
-	else if (!ft_strncmp(move, "rr", 2) && group->size_a >= 2 && \
-	group->size_b >= 2)
+	else if (!ft_strncmp(move, "rr\n", 3) && group->size_a >= 2 && group->size_b >= 2)
 	{
 		rotate(&group->a);
 		return (rotate(&group->b));
 	}
-	else if (!ft_strncmp(move, "rrr", 3) && group->size_a >= 2 && \
-	group->size_b >= 2)
+	else if (!ft_strncmp(move, "rrr\n", 4) && group->size_a >= 2 && group->size_b >= 2)
 	{
 		rev_rotate(&group->a);
 		return (rev_rotate(&group->b));
@@ -36,21 +34,21 @@ void	parse_move_combo(t_group *group, char *move)
 
 void	parse_move(t_group *group, char *move)
 {
-	if (!ft_strncmp(move, "sa", 2) && group->size_a >= 2)
+	if (!ft_strncmp(move, "sa\n", 3) && group->size_a >= 2)
 		return (swap(&group->a));
-	else if (!ft_strncmp(move, "ra", 2) && group->size_a >= 2)
+	else if (!ft_strncmp(move, "ra\n", 3) && group->size_a >= 2)
 		return (rotate(&group->a));
-	else if (!ft_strncmp(move, "rra", 3) && group->size_a >= 2)
+	else if (!ft_strncmp(move, "rra\n", 4) && group->size_a >= 2)
 		return (rev_rotate(&group->a));
-	else if (!ft_strncmp(move, "pb", 2) && group->size_a > 0)
+	else if (!ft_strncmp(move, "pb\n", 3) && group->size_a > 0)
 		return (push(&group->b, &group->a, "pb", group));
-	else if (!ft_strncmp(move, "sb", 2) && group->size_b >= 2)
+	else if (!ft_strncmp(move, "sb\n", 3) && group->size_b >= 2)
 		return (swap(&group->b));
-	else if (!ft_strncmp(move, "rb", 2) && group->size_b >= 2)
+	else if (!ft_strncmp(move, "rb\n", 3) && group->size_b >= 2)
 		return (rotate(&group->b));
-	else if (!ft_strncmp(move, "rrb", 3) && group->size_b >= 2)
+	else if (!ft_strncmp(move, "rrb\n", 4) && group->size_b >= 2)
 		return (rev_rotate(&group->b));
-	else if (!ft_strncmp(move, "pa", 2) && group->size_b > 0)
+	else if (!ft_strncmp(move, "pa\n", 3) && group->size_b > 0)
 		return (push(&group->a, &group->b, "pa", group));
 	else
 		parse_move_combo(group, move);
