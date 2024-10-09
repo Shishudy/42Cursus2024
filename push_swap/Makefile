@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 21:24:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/10/03 21:43:07 by rafasant         ###   ########.fr        #
+#    Updated: 2024/10/09 19:50:16 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ $(NAME) :
 	make -C libft
 	${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
 
-bonus: all
+bonus: all ${BONUS_NAME}
+${BONUS_NAME} :
 	${CC} ${C_FLAGS} ${BONUS_SRCS} ${INCLUDE} -o ${BONUS_NAME}
 
 clean:
