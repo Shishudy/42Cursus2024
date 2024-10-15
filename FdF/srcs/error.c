@@ -1,25 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 14:43:48 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/15 16:44:07 by rafasant         ###   ########.fr       */
+/*   Created: 2024/10/14 17:48:32 by rafasant          #+#    #+#             */
+/*   Updated: 2024/10/15 19:08:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/fdf.h"
 
-int	ft_putchar(char c)
+void	ft_free(char **array)
 {
-	return (write(1, &c, 1));
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		ft_bzero(array[i], ft_strlen(array[i]));
+		free(array[i++]);
+	}
+	if (array)
+		free(array);
 }
 
-int	ft_putstr(const char *s)
+void	deallocate(t_bag *bag)
 {
-	if (!s)
-		return (ft_putstr("(null)"));
-	return (write(1, s, ft_strlen(s)));
+	int	i;
+
+	i = 0;
+	if (bag->mlx)
+	{
+		free(bag->mlx->mlx_ptr);
+		free(bag->mlx);
+	}
+	if (bag->map)
+	{
+		while (bag->map[i])
+			free(bag->map[i++]);
+		free(bag->map);
+	}
+	if (bag)
+		free(bag);
+	exit(0);
 }
