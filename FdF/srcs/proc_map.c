@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:18:15 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/14 20:39:30 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:30:10 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,16 @@ void	get_max_ordinates(t_bag *bag)
 	while (line != NULL)
 	{
 		i = 0;
-		check_axis = 0;
+		check_axis = 1;
 		while (line[i] != '\0')
 		{
-			if (line[i] == ' ')
+			if (line[i] != ' ' && line[i + 1] == ' ')
 				check_axis++;
 			i++;
 		}
 		free(line);
 		if (bag->axis_len == 0)
 			bag->axis_len = check_axis;
-		else if (bag->axis_len != check_axis)
-			deallocate(bag);
 		bag->ordinate_len++;
 		line = get_next_line(bag->fd);
 	}

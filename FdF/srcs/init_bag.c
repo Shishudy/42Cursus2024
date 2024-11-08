@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:07:24 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/15 19:24:23 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:26:11 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,23 @@ t_bag	*create_bag(char *file)
 	bag = malloc(sizeof(t_bag));
 	if (!bag)
 		exit (1);
-	bag->mlx = malloc(sizeof(t_mlx));
-	if (!bag->mlx)
-		deallocate(bag);
-	bag->og_wireframe = malloc(sizeof(t_data));
-	if (!bag->og_wireframe)
-		deallocate(bag);
-	bag->mlx->width = 1920;
-	bag->mlx->height = 1080;
 	bag->axis_len = 0;
 	bag->ordinate_len = 0;
 	bag->fd = 0;
 	bag->file = file;
+	bag->mlx = malloc(sizeof(t_mlx));
+	if (!bag->mlx)
+		deallocate(bag);
+	bag->mlx->width = 1920;
+	bag->mlx->height = 1080;
+	bag->og_wf = malloc(sizeof(t_wf));
+	if (!bag->og_wf)
+		deallocate(bag);
+	bag->og_wf->canva = malloc(sizeof(t_data));
+	if (!bag->og_wf->canva)
+		deallocate(bag);
+	bag->og_wf->x = bag->mlx->width / 2;
+	bag->og_wf->y = bag->mlx->height / 2;
 	create_map(bag);
 	return (bag);
 }

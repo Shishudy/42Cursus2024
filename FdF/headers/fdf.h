@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/15 19:13:13 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:46:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include <math.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 
@@ -35,13 +36,23 @@ enum {
 	ON_DESTROY = 17
 };
 
-typedef struct	s_data {
+typedef struct	s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct s_wf
+{
+	t_data	*canva;
+	float	space;
+	int		x; // center coordinates
+	int		y;
+
+}				t_wf;
 
 typedef struct s_map
 {
@@ -61,8 +72,8 @@ typedef struct s_bag
 {
 	t_map	**map;
 	t_mlx	*mlx;
-	t_data	*wireframe;
-	t_data	*og_wireframe;
+	t_wf	*og_wf;
+	t_wf	*curr_wf;
 	int		axis_len; // x axis
 	int		ordinate_len; // y axis
 	int		fd;
