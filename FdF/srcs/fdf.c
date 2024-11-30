@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2024/11/08 19:15:37 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/11/30 22:42:04 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,95 +27,105 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 // 	return (0);
 // }
 
-int	rotate_y(int x, int y, int z, float angle)
+void	rotate_iso(t_coords *point)
 {
-	(void)angle;
-	return (-(int)(cos(35.264) * (sin(45) * (x + y)) - sin(35.264) * z));
-	//return ((int)(x * sin(angle) + y * cos(angle)));
+	int	prev_x;
+	int	prev_y;
+
+	prev_x = point->x;
+	prev_y = point->y;
+	point->x = (int)(sin(45) * (point->x - point->y));
+	point->y = -(int)(cos(35.264) * (sin(45) * (prev_x + prev_y)) - sin(35.264) * point->z);
 }
 
-int	rotate_x(int x, int y, float angle)
+t_coords	assign_coords(t_bag *bag, int x, int y, int zoom)
 {
-	//(void)angle;
-	return ((int)(sin(angle) * (x - y)));
-	//return ((int)(x * cos(angle) - y * sin(angle)));
+	t_coords	coords;
+
+	if (x == -1)
+		x = 0;
+	if (y == -1)
+		y = 0;
+	coords.x = x * zoom + (bag->og_wf->x - (bag->axis_len * zoom / 2)); //zoom
+	coords.y = y * zoom + (bag->og_wf->y - (bag->ordinate_len * zoom / 2));
+	coords.z = bag->map[y][x].altitude * zoom;
+	coords.colour = bag->map[y][x].colour;
+	return (coords);
 }
 
-// void	create_lines(t_bag *bag, int diff_x, int diff_y)
+// int	colour_diff(t_coords prev, t_coords curr, float step)
 // {
-// 	int	x;
-// 	int	y;
+// 	int	colour;
 
-// 	(void)bag;
-// 	if (diff_y < 0)
-// 		diff_y = -diff_y;
-// 	x = 0;
-// 	while (y < diff_y)
-// 	{
-		
-// 	}
+// 	colour = curr.colour - prev.colour;
+// 	colour = colour / step;
+// 	return (colour);
 // }
 
-void	draw_line(t_bag *bag, float prev_x, float prev_y, int x, int y)
+void	draw_line(t_bag *bag, t_coords prev, t_coords curr)
 {
 	float	diff_y;
 	float	diff_x;
 	float	step;
 
-	diff_y = y - prev_y;
-	diff_x = x - prev_x;
+	rotate_iso(&prev);
+	rotate_iso(&curr);
+	diff_y = curr.y - prev.y;
+	diff_x = curr.x - prev.x;
 	if (fabs(diff_y) > fabs(diff_x))
 		step = fabs(diff_y);
 	else
 		step = fabs(diff_x);
 	diff_y = diff_y / step;
 	diff_x = diff_x / step;
-	while (prev_x != x && prev_y != y)
+	while (!(prev.x == curr.x && prev.y == curr.y))
 	{
-		my_mlx_pixel_put(bag->og_wf->canva, prev_x, prev_y, 0xffffff);
-		prev_x = prev_x + diff_x;
-		prev_y = prev_y + diff_y;
+		if (prev.x >= 0 && prev.y >= 0 && prev.x <= bag->mlx->width && prev.y <= bag->mlx->height)
+			my_mlx_pixel_put(bag->og_wf->canva, prev.x, prev.y, prev.colour);
+		prev.x = prev.x + diff_x;
+		prev.y = prev.y + diff_y;
+		ft_printf("%d, %d\n", prev.x, prev.y);
+		ft_printf("%d, %d\n", curr.x, curr.y);
 	}
 }
 
-void	create_wireframe_image(t_bag *bag)
+// int	get_zoom(t_bag *bag)
+// {
+// 	int	zoom;
+// 	int	x;
+// 	int	y;
+
+// 	x = 0;
+// 	y = 0;
+// 	while (1)
+// 	{
+// 		if (x * bag->mlx->width)
+// 	}
+// }
+
+void	create_wireframe(t_bag *bag)
 {
-	int x = 0;
-	int y = 0;
-	int prev_x;
-	int prev_y;
-	int	i;
-	int j;
-	
+	int	x;
+	int	y;
+	//t_coords	p;
+	int	zoom = 30;
+
 	bag->og_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
 	bag->og_wf->canva->addr = mlx_get_data_addr(bag->og_wf->canva->img, &bag->og_wf->canva->bits_per_pixel, &bag->og_wf->canva->line_length, &bag->og_wf->canva->endian);
-	i = 0;
-	while (i < bag->ordinate_len)
+	//zoom = get_zoom(bag);
+	y = 0;
+	while (y < bag->ordinate_len)
 	{
-		j = 0;
-		while (j < bag->axis_len)
+		x = 0;
+		while (x < bag->axis_len)
 		{
-			prev_x = x;
-			prev_y = y;
-			x = rotate_x((j * bag->mlx->width * 0.3) / bag->axis_len, (i * bag->mlx->height * 0.3) / bag->ordinate_len, 45) + 860;
-			y = rotate_y((j * bag->mlx->width * 0.3) / bag->axis_len, (i * bag->mlx->height * 0.3) / bag->ordinate_len, (int)((bag->map[i][j]).altitude * bag->mlx->height * 0.10) / bag->ordinate_len, 45) + 300;
-			if ((x >= 0 && y >= 0) && (x <= bag->mlx->width && y <= bag->mlx->height) && prev_x != 0 && prev_y != 0)
-			{
-				draw_line(bag, prev_x, prev_y, x, y);
-				if (i - 1 > 0)
-				{
-					prev_x = x;
-					prev_y = y;
-					x = rotate_x((j * bag->mlx->width * 0.3) / bag->axis_len, ((i - 1) * bag->mlx->height * 0.3) / bag->ordinate_len, 45) + 860;
-					y = rotate_y((j * bag->mlx->width * 0.3) / bag->axis_len, ((i - 1) * bag->mlx->height * 0.3) / bag->ordinate_len, (int)((bag->map[i - 1][j]).altitude * bag->mlx->height * 0.10) / bag->ordinate_len, 45) + 300;
-				}
-				draw_line(bag, prev_x, prev_y, x, y);
-			}
-			j++;
+			// p = assign_coords(bag, x, y);
+			// my_mlx_pixel_put(bag->og_wf->canva, p.x, p.y, p.colour);
+				draw_line(bag, assign_coords(bag, x - 1, y, zoom), assign_coords(bag, x , y, zoom));
+				draw_line(bag, assign_coords(bag, x, y, zoom), assign_coords(bag, x , y - 1, zoom));
+			x++;
 		}
-		prev_x = 0;
-		prev_y = 0;
-		i++;
+		y++;
 	}
 }
 
@@ -149,16 +159,9 @@ int	main(int argc, char **argv)
 	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "Hello world!");
 	if (!bag->mlx->win_ptr)
 		deallocate(bag);
-	create_wireframe_image(bag);
+	//create_wireframe_image(bag);
+	create_wireframe(bag);
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->og_wf->canva->img, 0, 0);
-	// img.img = mlx_new_image(bag->win->mlx, 1920, 1080);
-	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	// my_mlx_pixel_put(&img, 5, 5, 0xffffff );
-	// my_mlx_pixel_put(&img, 5, 6, 0 );
-	// my_mlx_pixel_put(&img, 5, 7, 0xffffff );
-	// mlx_put_image_to_window(bag->win->mlx, bag->win->win, img.img, 0, 0);
-	// mlx_destroy_image(bag->win->mlx, img.img);
-	// mlx_clear_window(bag->win->mlx, bag->win->win);
 	mlx_hook(bag->mlx->win_ptr, 2, (1L << 0), hooks, bag);
 	mlx_hook(bag->mlx->win_ptr, 17, (1L << 2), close_window, bag);
 	//mlx_mouse_hook(bag->win->win, mouse_hook, bag);

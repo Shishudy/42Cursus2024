@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2024/11/08 18:46:26 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/11/30 22:38:25 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,18 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
+typedef struct s_coords
+{
+	float	x;
+	float	y;
+	int		z;
+	int		colour;
+}				t_coords;
+
 typedef struct s_wf
 {
 	t_data	*canva;
-	float	space;
+	int		zoom;
 	int		x; // center coordinates
 	int		y;
 
