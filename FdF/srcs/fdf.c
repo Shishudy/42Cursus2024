@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/02 17:59:38 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:03:32 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,15 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 // 	return (0);
 // }
 
-void	rotate_iso(t_bag *bag, t_coords *point)
+void	apply_rotation(t_bag *bag, t_coords *point, double angle)
 {
-	int	prev_x;
-	int	prev_y;
+	double	prev_x;
+	double	prev_y;
 
 	prev_x = point->x;
 	prev_y = point->y;
-	point->x = (sin(0.7853981634) * (point->x - point->y));
-	point->y = (cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
-	// point->x = (prev_x - prev_y) * cos(0.523599);
-	// point->y = -point->z + (prev_x + prev_y) * sin(0.523599);
+	point->x = prev_x * cos(angle) - prev_y * sin(angle);
+	point->y = prev_x * sin(angle) + prev_y * cos(angle);
 	if ((int)point->x < 0)
 		point->x = 0;
 	if ((int)point->y < 0)
@@ -46,32 +44,26 @@ void	rotate_iso(t_bag *bag, t_coords *point)
 		point->x = bag->mlx->width;
 	if ((int)point->y > bag->mlx->height)
 		point->y = bag->mlx->height;
-	//my_mlx_pixel_put(bag->og_wf->canva, (int)point->x, (int)point->y, point->colour);
 }
 
-// void	rotate_iso(t_bag *bag, t_coords *point)
-// {
-// 	int	prev_x;
-// 	int	prev_y;
+void	rotate_iso(t_bag *bag, t_coords *point)
+{
+	double	prev_x;
+	double	prev_y;
 
-// 	prev_x = point->x;
-// 	prev_y = point->y;
-// 	// point->x = (prev_x - prev_y) * cos(0.523599);
-// 	// point->y = -point->z + (prev_x + prev_y) * sin(0.523599);
-// 	// point->x = (sin(45) * (point->x - point->y));
-// 	// point->y = -(cos(35.264) * (sin(45) * (prev_x + prev_y)) - sin(35.264) * point->z);
-// 	point->x = (prev_x - point->z) / sqrt(2);
-// 	point->y = ((prev_x + 2) * (prev_y + point->z)) / sqrt(6);
-// 	if ((int)point->x < 0)
-// 		point->x = 0;
-// 	if ((int)point->y < 0)
-// 		point->y = 0;
-// 	if ((int)point->x > bag->mlx->width)
-// 		point->x = bag->mlx->width;
-// 	if ((int)point->y > bag->mlx->height)
-// 		point->y = bag->mlx->height;
-// 	my_mlx_pixel_put(bag->og_wf->canva, (int)point->x, (int)point->y, point->colour);
-// }
+	prev_x = point->x;
+	prev_y = point->y;
+	point->x = (sin(0.7853981634) * (point->x - point->y));
+	point->y = (cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
+	if ((int)point->x < 0)
+		point->x = 0;
+	if ((int)point->y < 0)
+		point->y = 0;
+	if ((int)point->x > bag->mlx->width)
+		point->x = bag->mlx->width;
+	if ((int)point->y > bag->mlx->height)
+		point->y = bag->mlx->height;
+}
 
 t_coords	assign_coords(t_bag *bag, int x, int y, int zoom)
 {
@@ -81,20 +73,42 @@ t_coords	assign_coords(t_bag *bag, int x, int y, int zoom)
 		x = 0;
 	if (y < 0)
 		y = 0;
-	coords.x = x * zoom + (bag->og_wf->x - (bag->axis_len * zoom / 2)); //zoom
+	coords.x = x * zoom + (bag->og_wf->x - (bag->axis_len * zoom / 2));
 	coords.y = y * zoom + (bag->og_wf->y - (bag->ordinate_len * zoom / 2));
 	coords.z = bag->map[y][x].altitude * zoom;
 	coords.colour = bag->map[y][x].colour;
 	return (coords);
 }
 
-// int	colour_diff(t_coords prev, t_coords curr, int step)
-// {
-// 	int	colour;
+int	colour_diff(t_coords prev, t_coords curr, int step)
+{
+	int	colour;
 
-// 	colour = curr.colour - prev.colour;
-// 	colour = colour / step;
-// 	return (colour);
+	colour = curr.colour - prev.colour;
+	colour = colour / step;
+	return (colour);
+}
+
+
+// int	get_color(t_coords current, t_coords start, t_coords end, t_coords delta)
+// {
+// 	int		red;
+// 	int		green;
+// 	int		blue;
+// 	double	percentage;
+
+// 	if (current.colour == end.colour)
+// 		return (current.colour);
+// 	if (delta.x > delta.y)
+// 		percentage = percent(start.x, end.x, current.x);
+// 	else
+// 		percentage = percent(start.y, end.y, current.y);
+// 	red = get_li((start.colour >> 16) & 0xFF, (end.colour >> 16) & 0xFF,
+// 			percentage);
+// 	green = get_li((start.colour >> 8) & 0xFF, (end.colour >> 8) & 0xFF,
+// 			percentage);
+// 	blue = get_li(start.colour & 0xFF, end.colour & 0xFF, percentage);
+// 	return ((red << 16) | (green << 8) | blue);
 // }
 
 void	draw_line(t_bag *bag, t_coords prev, t_coords curr)
@@ -105,21 +119,27 @@ void	draw_line(t_bag *bag, t_coords prev, t_coords curr)
 
 	rotate_iso(bag, &prev);
 	rotate_iso(bag, &curr);
-	diff_y = curr.y - prev.y;
+	// apply_rotation(bag, &prev, 0.5235987756);
+	// apply_rotation(bag, &curr, 0.5235987756);
 	diff_x = curr.x - prev.x;
-	if (fabs(diff_y) > fabs(diff_x))
-		step = fabs(diff_y);
-	else
+	diff_y = curr.y - prev.y;
+	if (fabs(diff_x) > fabs(diff_y))
 		step = fabs(diff_x);
-	diff_y = diff_y / step;
+	else
+		step = fabs(diff_y);
 	diff_x = diff_x / step;
-	while (!(prev.x == curr.x && prev.y == curr.y))
+	diff_y = diff_y / step;
+	int colour = (curr.colour - prev.colour) / step;
+	while ((int)(prev.x - curr.x) || (int)(prev.y - curr.y))
 	{
-		if (prev.x >= 0 && prev.y >= 0 && prev.x <= bag->mlx->width && prev.y <= bag->mlx->height)
-			my_mlx_pixel_put(bag->og_wf->canva, prev.x, prev.y, prev.colour);
+		if (prev.colour != 16777215)
+			printf("Colour: %d\n", prev.colour);
+		my_mlx_pixel_put(bag->og_wf->canva, prev.x, prev.y, prev.colour);
+		prev.colour = prev.colour + colour;
 		prev.x = prev.x + diff_x;
 		prev.y = prev.y + diff_y;
 	}
+	my_mlx_pixel_put(bag->og_wf->canva, prev.x, prev.y, prev.colour);
 }
 
 // int	get_zoom(t_bag *bag)
@@ -149,7 +169,6 @@ void	create_wireframe(t_bag *bag)
 	y = 0;
 	while (y < bag->ordinate_len)
 	{
-		printf("%d\n", y);
 		x = 0;
 		while (x < bag->axis_len)
 		{

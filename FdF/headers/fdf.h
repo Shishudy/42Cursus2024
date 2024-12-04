@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/02 17:52:25 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:53:53 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct	s_data
 
 typedef struct s_coords
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 	int		z;
 	int		colour;
 }				t_coords;
