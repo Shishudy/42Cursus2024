@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:17:47 by rafasant          #+#    #+#             */
-/*   Updated: 2024/10/15 19:09:08 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:37:29 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	close_window(t_bag *bag)
 {
+	mlx_destroy_image(bag->mlx->mlx_ptr, bag->og_wf->canva->img);
 	mlx_destroy_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr);
 	mlx_destroy_display(bag->mlx->mlx_ptr);
 	deallocate(bag);

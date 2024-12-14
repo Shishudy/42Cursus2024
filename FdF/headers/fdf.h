@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/04 15:53:53 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:13:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct	s_data
 
 typedef struct s_coords
 {
-	double	x;
-	double	y;
-	int		z;
-	int		colour;
+	int	x;
+	int	y;
+	int	z;
+	int	colour;
 }				t_coords;
 
 typedef struct s_wf
@@ -81,7 +81,6 @@ typedef struct s_bag
 	t_map	**map;
 	t_mlx	*mlx;
 	t_wf	*og_wf;
-	t_wf	*curr_wf;
 	int		axis_len; // x axis
 	int		ordinate_len; // y axis
 	int		fd;
