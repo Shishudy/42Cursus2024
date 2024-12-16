@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/14 20:25:53 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:24:50 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	apply_rotation(t_coords *point, double angle)
 {
-	double	prev_x;
-	double	prev_y;
+	int	prev_x;
+	int	prev_y;
 
 	prev_x = point->x;
 	prev_y = point->y;
@@ -38,19 +38,32 @@ void	apply_rotation(t_coords *point, double angle)
 	point->y = prev_x * sin(angle) + prev_y * cos(angle);
 }
 
-void	rotate_iso(t_bag *bag, t_coords *point)
+void	rotate_iso(t_bag *bag, t_wf *wf, t_coords *point)
 {
 	int	prev_x;
 	int	prev_y;
 
 	(void)bag;
-	prev_x = point->x - bag->axis_len * bag->og_wf->zoom / 2;
-	prev_y = point->y - bag->ordinate_len * bag->og_wf->zoom / 2;
-	point->x = (int)(sin(0.9999) * (prev_x - prev_y));
-	point->y = (int)(cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
-	// point->x = (int)(sin(0.7853981634) * (prev_x - prev_y));
+	prev_x = point->x - bag->axis_len * wf->zoom / 2;
+	prev_y = point->y - bag->ordinate_len * wf->zoom / 2;
+	// point->x = (int)(sin(0.9999) * (prev_x - prev_y));
 	// point->y = (int)(cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
+	point->x = (int)(sin(0.7853981634) * (prev_x - prev_y));
+	point->y = (int)(cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
 }
+
+// int	adjust_z(t_bag *bag, int z)
+// {
+// 	float	result;
+// 	float	normalization_factor;
+
+// 	normalization_factor = 20 / log(data->max_z + 1.0);
+// 	if (z >= 0)
+// 		result = logf(z + 1.0f) * normalization_factor;
+// 	else
+// 		result = -logf(-z + 1.0f) * normalization_factor;
+// 	return ((int)result);
+// }
 
 t_coords	assign_coords(t_bag *bag, int x, int y)
 {
@@ -58,7 +71,7 @@ t_coords	assign_coords(t_bag *bag, int x, int y)
 
 	coords.x = x;
 	coords.y = y;
-	coords.z = bag->map[y][x].altitude;
+	coords.z = bag->map[y][x].altitude;//adjust_z(bag, bag->map[y][x].altitude);
 	coords.colour = bag->map[y][x].colour;
 	return (coords);
 }
@@ -105,34 +118,34 @@ int	get_colour(t_coords curr, t_coords next)
 	return (0xFFFFFF);
 }
 
-void	place_in_map(t_bag *bag, t_coords *point)
+void	place_in_map(t_wf *wf, t_coords *point)
 {
-	point->x = point->x + bag->og_wf->x;
-	point->y = point->y + bag->og_wf->y;
+	point->x = point->x + wf->x;
+	point->y = point->y + wf->y;
 }
 
-void	apply_zoom(t_bag *bag, t_coords *point)
+void	apply_zoom(t_wf *wf, t_coords *point)
 {
-	point->x = point->x * bag->og_wf->zoom;
-	point->y = point->y * bag->og_wf->zoom;
-	point->z = point->z * bag->og_wf->zoom;
+	point->x = point->x * wf->zoom;
+	point->y = point->y * wf->zoom;
+	point->z = point->z * wf->zoom;
 }
 
 //TO DO
 // finish get_colour()
 // replace rotate_iso to receive angle given by user
-void	draw_line(t_bag *bag, t_coords curr, t_coords next)
+void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 {
 	t_coords	diff;
 	t_coords	dir;
 	int			margin[2];
 
-	apply_zoom(bag, &curr);
-	apply_zoom(bag, &next);
-	rotate_iso(bag, &curr);
-	rotate_iso(bag, &next);
-	place_in_map(bag, &curr);
-	place_in_map(bag, &next);
+	apply_zoom(wf, &curr);
+	apply_zoom(wf, &next);
+	rotate_iso(bag, wf, &curr);
+	rotate_iso(bag, wf, &next);
+	place_in_map(wf, &curr);
+	place_in_map(wf, &next);
 	// apply_rotation(bag, &curr, 0.5235987756);
 	// apply_rotation(bag, &next, 0.5235987756);
 	diff.x = next.x - curr.x;
@@ -144,7 +157,7 @@ void	draw_line(t_bag *bag, t_coords curr, t_coords next)
 	while ((curr.x != next.x || curr.y != next.y))
 	{
 		if (curr.x >= 0 && curr.y >= 0 && curr.x <= bag->mlx->width && curr.y <= bag->mlx->height)
-			my_mlx_pixel_put(bag->og_wf->canva, curr.x, curr.y, get_colour(curr, next));
+			my_mlx_pixel_put(wf->canva, curr.x, curr.y, get_colour(curr, next));
 		margin[1] = margin[0];
 		if ((margin[1]) > -diff.y)
 		{
@@ -159,14 +172,14 @@ void	draw_line(t_bag *bag, t_coords curr, t_coords next)
 	}
 }
 
-void	create_wireframe(t_bag *bag)
+void	create_wireframe(t_bag *bag, t_wf *wf)
 {
 	int	x;
 	int	y;
 
-	bag->og_wf->zoom = 30;
-	bag->og_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
-	bag->og_wf->canva->addr = mlx_get_data_addr(bag->og_wf->canva->img, &bag->og_wf->canva->bits_per_pixel, &bag->og_wf->canva->line_length, &bag->og_wf->canva->endian);
+	wf->zoom = 30;
+	wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
+	wf->canva->addr = mlx_get_data_addr(wf->canva->img, &wf->canva->bits_per_pixel, &wf->canva->line_length, &wf->canva->endian);
 	y = 0;
 	while (y < bag->ordinate_len)
 	{
@@ -174,9 +187,9 @@ void	create_wireframe(t_bag *bag)
 		while (x < bag->axis_len)
 		{
 			if (y + 1 < bag->ordinate_len)
-				draw_line(bag, assign_coords(bag, x, y), assign_coords(bag, x, y + 1));
+				draw_line(bag, wf, assign_coords(bag, x, y), assign_coords(bag, x, y + 1));
 			if (x + 1 < bag->axis_len)
-				draw_line(bag, assign_coords(bag, x, y), assign_coords(bag, x + 1, y));
+				draw_line(bag, wf, assign_coords(bag, x, y), assign_coords(bag, x + 1, y));
 			x++;
 		}
 		y++;
@@ -196,10 +209,14 @@ int	main(int argc, char **argv)
 	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "Hello world!");
 	if (!bag->mlx->win_ptr)
 		deallocate(bag);
-	create_wireframe(bag);
+	create_wireframe(bag, bag->og_wf);
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->og_wf->canva->img, 0, 0);
 	mlx_hook(bag->mlx->win_ptr, 2, (1L << 0), hooks, bag);
 	mlx_hook(bag->mlx->win_ptr, 17, (1L << 2), close_window, bag);
+	// mlx_hook();
+	// mlx_loop_hook();
+	// mlx_mouse_hook(bag->mlx->win_ptr, mouse_hooks, bag);
+	// mlx_key_hook(bag->mlx->win_ptr, key);
 	//mlx_mouse_hook(bag->win->win, mouse_hook, bag);
 	mlx_loop(bag->mlx->mlx_ptr);
 	return (0);

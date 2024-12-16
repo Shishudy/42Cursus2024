@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:18:15 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/04 19:20:08 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:35:37 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	process_line(t_bag *bag, char *line, int i)
 		if (!split_num_colour)
 			deallocate(bag);
 		bag->map[i][k].altitude = ft_atoi(split_num_colour[0]);
-		bag->map[i][k].colour = 16777215;
+		bag->map[i][k].colour = DEFAULT_COLOUR;
 		if (split_num_colour[1])
 			bag->map[i][k].colour = ft_atoi_base(&split_num_colour[1][2], \
 			"0123456789abcdef");
