@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:07:24 by rafasant          #+#    #+#             */
-/*   Updated: 2024/11/04 18:26:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:58:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ t_bag	*create_bag(char *file)
 		deallocate(bag);
 	bag->og_wf->x = bag->mlx->width / 2;
 	bag->og_wf->y = bag->mlx->height / 2;
+	bag->og_wf->x_angle = 0;
+	bag->og_wf->y_angle = 0;
+	bag->og_wf->z_angle = 0;
+	bag->og_wf->pers = 0;
+	bag->og_wf->zoom = 30;
+	bag->mod_wf = NULL;
+	bag->max_z = 0;
 	create_map(bag);
 	return (bag);
 }
