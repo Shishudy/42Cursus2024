@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/18 20:47:31 by rafasant         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:30:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,6 @@ void	rotate_z_axis(t_bag *bag, t_wf *wf, t_coords *point)
 
 }
 
-// void	apply_rotation(t_coords *point, double angle)
-// {
-// 	// rotate_x_axis();
-// 	// rotate_y_axis();
-// 	// rotate_z_axis();
-// }
-
 void	rotate_iso(t_bag *bag, t_wf *wf, t_coords *point)
 {
 	int	prev_x;
@@ -102,12 +95,9 @@ t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y)
 	coords.colour = bag->map[y][x].colour;
 	if (wf->pers == 0)
 		rotate_iso(bag, wf, &coords);
-	else
-	{
-		rotate_x_axis(bag, wf, &coords);
-		rotate_y_axis(bag, wf, &coords);
-		rotate_z_axis(bag, wf, &coords);
-	}
+	rotate_x_axis(bag, wf, &coords);
+	rotate_y_axis(bag, wf, &coords);
+	rotate_z_axis(bag, wf, &coords);
 	coords.x = coords.x + wf->x;
 	coords.y = coords.y + wf->y;
 	return (coords);
@@ -144,30 +134,39 @@ void	set_dir(t_coords *dir, t_coords diff)
 		dir->y = -1;
 }
 
-int	get_colour(t_coords curr, t_coords next)
-{
-	int	colour;
-	static int	colour_diff;
-
-	if (colour_diff == 0 && curr.colour != next.colour)
-		colour_diff = next.colour - curr.colour;
-	colour = next.colour - curr.colour;
-	return (curr.colour);
-}
-
 void	place_in_map(t_wf *wf, t_coords *point)
 {
 	point->x = point->x + wf->x;
 	point->y = point->y + wf->y;
 }
 
+int	get_colour(t_coords curr, t_coords next, t_coords diff)
+{
+	int	colour;
+	int	colour_diff;
+	int	coords_diff;
+
+	if (curr.colour == next.colour)
+		return (0);
+	colour_diff = next.colour - curr.colour;
+	if (colour_diff < 0)
+		
+	else if (next.colour > curr.colour)
+	coords_diff = diff.x;
+	if (diff.x < diff.y)
+		coords_diff = diff.y;
+	
+	colour = curr.colour + ;
+	return (curr.colour);
+}
+
 //TO DO
 // finish get_colour()
-// replace rotate_iso to receive angle given by user
 void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 {
 	t_coords	diff;
 	t_coords	dir;
+	int			colour;
 	int			margin[2];
 
 	diff.x = next.x - curr.x;
@@ -176,10 +175,11 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 	diff.x = abs(diff.x);
 	diff.y = abs(diff.y);
 	margin[0] = diff.x - diff.y;
+	colour = get_colour(curr, next, diff);
 	while ((curr.x != next.x || curr.y != next.y))
 	{
 		if (curr.x >= 0 && curr.y >= 0 && curr.x <= bag->mlx->width && curr.y <= bag->mlx->height)
-			my_mlx_pixel_put(wf->canva, curr.x, curr.y, get_colour(curr, next));
+			my_mlx_pixel_put(wf->canva, curr.x, curr.y, curr.colour);
 		margin[1] = margin[0];
 		if ((margin[1]) > -diff.y)
 		{
@@ -191,6 +191,7 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 			margin[0] += diff.x;
 			curr.y += dir.y;
 		}
+		curr.colour += colour;
 	}
 }
 
@@ -215,7 +216,6 @@ void	create_wireframe(t_bag *bag, t_wf *wf)
 		}
 		y++;
 	}
-	ft_printf("%d\n", bag->max_z);
 }
 
 int	mouse_press(int mouse_code, int x, int y, t_bag *bag)
@@ -226,9 +226,9 @@ int	mouse_press(int mouse_code, int x, int y, t_bag *bag)
 		copy_og_wf(bag);
 	else
 		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
-	if (mouse_code == ZOOM_IN && bag->mod_wf->zoom < 100)
+	if (mouse_code == ZOOM_IN)
 		bag->mod_wf->zoom = bag->mod_wf->zoom + 10;
-	else if (mouse_code == ZOOM_OUT && bag->mod_wf->zoom > 0)
+	else if (mouse_code == ZOOM_OUT)
 		bag->mod_wf->zoom = bag->mod_wf->zoom - 10;
 	create_wireframe(bag, bag->mod_wf);
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mod_wf->canva->img, 0, 0);
