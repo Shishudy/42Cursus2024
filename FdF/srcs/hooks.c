@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:17:47 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/20 17:07:32 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:41:14 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	copy_og_wf(t_bag *bag)
 		deallocate(bag);
 	bag->mod_wf->canva = malloc(sizeof(t_data));
 	if (!bag->mod_wf->canva)
+		deallocate(bag);
+	bag->mod_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
+	if (!bag->mod_wf->canva->img)
+		deallocate(bag);
+	bag->mod_wf->canva->addr = mlx_get_data_addr(bag->mod_wf->canva->img, &bag->mod_wf->canva->bits_per_pixel, &bag->mod_wf->canva->line_length, &bag->mod_wf->canva->endian);
+	if (!bag->mod_wf->canva->addr)
 		deallocate(bag);
 	bag->mod_wf->x = bag->og_wf->x;
 	bag->mod_wf->y = bag->og_wf->y;
@@ -109,6 +115,18 @@ int	hooks(int keycode, t_bag *bag)
 		bag->mod_wf->z_angle += 0.05;
 	else if (keycode == ISOMETRIC || keycode == PARALLEL)
 		change_projection(bag, keycode);
+	else if (keycode == 'f')
+		bag->mod_wf->x_angle -= 0.05;
+	else if (keycode == 'g')
+		bag->mod_wf->x_angle += 0.05;
+	else if (keycode == 'h')
+		bag->mod_wf->y_angle -= 0.05;
+	else if (keycode == 'j')
+		bag->mod_wf->y_angle += 0.05;
+	else if (keycode == 'k')
+		bag->mod_wf->z_angle -= 0.05;
+	else if (keycode == 'l')
+		bag->mod_wf->z_angle += 0.05;
 	else
 		return (0);
 	create_wireframe(bag, bag->mod_wf);

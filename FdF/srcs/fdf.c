@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/20 18:30:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:52:41 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,25 +140,25 @@ void	place_in_map(t_wf *wf, t_coords *point)
 	point->y = point->y + wf->y;
 }
 
-int	get_colour(t_coords curr, t_coords next, t_coords diff)
-{
-	int	colour;
-	int	colour_diff;
-	int	coords_diff;
+// int	get_colour(t_coords curr, t_coords next, t_coords diff)
+// {
+// 	int	colour;
+// 	int	colour_diff;
+// 	int	coords_diff;
 
-	if (curr.colour == next.colour)
-		return (0);
-	colour_diff = next.colour - curr.colour;
-	if (colour_diff < 0)
+// 	if (curr.colour == next.colour)
+// 		return (0);
+// 	colour_diff = next.colour - curr.colour;
+// 	if (colour_diff < 0)
 		
-	else if (next.colour > curr.colour)
-	coords_diff = diff.x;
-	if (diff.x < diff.y)
-		coords_diff = diff.y;
+// 	else if (next.colour > curr.colour)
+// 	coords_diff = diff.x;
+// 	if (diff.x < diff.y)
+// 		coords_diff = diff.y;
 	
-	colour = curr.colour + ;
-	return (curr.colour);
-}
+// 	colour = curr.colour + ;
+// 	return (curr.colour);
+// }
 
 //TO DO
 // finish get_colour()
@@ -166,7 +166,7 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 {
 	t_coords	diff;
 	t_coords	dir;
-	int			colour;
+	// int			colour;
 	int			margin[2];
 
 	diff.x = next.x - curr.x;
@@ -175,7 +175,7 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 	diff.x = abs(diff.x);
 	diff.y = abs(diff.y);
 	margin[0] = diff.x - diff.y;
-	colour = get_colour(curr, next, diff);
+	// colour = get_colour(curr, next, diff);
 	while ((curr.x != next.x || curr.y != next.y))
 	{
 		if (curr.x >= 0 && curr.y >= 0 && curr.x <= bag->mlx->width && curr.y <= bag->mlx->height)
@@ -191,7 +191,7 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 			margin[0] += diff.x;
 			curr.y += dir.y;
 		}
-		curr.colour += colour;
+		//curr.colour += colour;
 	}
 }
 
@@ -200,8 +200,8 @@ void	create_wireframe(t_bag *bag, t_wf *wf)
 	int	x;
 	int	y;
 
-	wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
-	wf->canva->addr = mlx_get_data_addr(wf->canva->img, &wf->canva->bits_per_pixel, &wf->canva->line_length, &wf->canva->endian);
+	// wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
+	// wf->canva->addr = mlx_get_data_addr(wf->canva->img, &wf->canva->bits_per_pixel, &wf->canva->line_length, &wf->canva->endian);
 	y = 0;
 	while (y < bag->ordinate_len)
 	{
@@ -222,6 +222,8 @@ int	mouse_press(int mouse_code, int x, int y, t_bag *bag)
 {
 	(void)x;
 	(void)y;
+	// if (mouse_code == ZOOM_OUT && bag->mod_wf->zoom == 0)
+	// 	return (0);
 	if (!bag->mod_wf)
 		copy_og_wf(bag);
 	else
@@ -245,10 +247,12 @@ int	main(int argc, char **argv)
 	bag->mlx->mlx_ptr = mlx_init();
 	if (!bag->mlx->mlx_ptr)
 		deallocate(bag);
-	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "Hello world!");
+	init_og_wf(bag);
+	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "FdF");
 	if (!bag->mlx->win_ptr)
 		deallocate(bag);
 	create_wireframe(bag, bag->og_wf);
+	copy_og_wf(bag);
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->og_wf->canva->img, 0, 0);
 	mlx_hook(bag->mlx->win_ptr, 2, (1L << 0), hooks, bag);
 	mlx_hook(bag->mlx->win_ptr, 4, (1L << 2), mouse_press, bag);

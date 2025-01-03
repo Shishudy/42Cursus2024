@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/18 20:35:18 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:52:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_bag
 /* init_bag.c */
 void	get_fd(t_bag *bag);
 void	create_map(t_bag *bag);
+void	init_og_wf(t_bag *bag);
 t_bag	*create_bag(char *file);
 /* proc_map.c */
 void	get_max_ordinates(t_bag *bag);

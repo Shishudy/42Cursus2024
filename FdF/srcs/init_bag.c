@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:07:24 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/18 19:58:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:51:48 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,30 @@ void	create_map(t_bag *bag)
 	close(bag->fd);
 }
 
+void	init_og_wf(t_bag *bag)
+{
+	bag->og_wf = malloc(sizeof(t_wf));
+	if (!bag->og_wf)
+		deallocate(bag);
+	bag->og_wf->canva = malloc(sizeof(t_data));
+	if (!bag->og_wf->canva)
+		deallocate(bag);
+	bag->og_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
+	if (!bag->og_wf->canva->img)
+		deallocate(bag);
+	bag->og_wf->canva->addr = mlx_get_data_addr(bag->og_wf->canva->img, &bag->og_wf->canva->bits_per_pixel, &bag->og_wf->canva->line_length, &bag->og_wf->canva->endian);
+	if (!bag->og_wf->canva->addr)
+		deallocate(bag);
+	bag->og_wf->x = bag->mlx->width / 2;
+	bag->og_wf->y = bag->mlx->height / 2;
+	bag->og_wf->x_angle = 0;
+	bag->og_wf->y_angle = 0;
+	bag->og_wf->z_angle = 0;
+	bag->og_wf->pers = 0;
+	bag->og_wf->zoom = 30;
+	bag->mod_wf = NULL;
+}
+
 t_bag	*create_bag(char *file)
 {
 	t_bag	*bag;
@@ -60,20 +84,6 @@ t_bag	*create_bag(char *file)
 		deallocate(bag);
 	bag->mlx->width = 1920;
 	bag->mlx->height = 1080;
-	bag->og_wf = malloc(sizeof(t_wf));
-	if (!bag->og_wf)
-		deallocate(bag);
-	bag->og_wf->canva = malloc(sizeof(t_data));
-	if (!bag->og_wf->canva)
-		deallocate(bag);
-	bag->og_wf->x = bag->mlx->width / 2;
-	bag->og_wf->y = bag->mlx->height / 2;
-	bag->og_wf->x_angle = 0;
-	bag->og_wf->y_angle = 0;
-	bag->og_wf->z_angle = 0;
-	bag->og_wf->pers = 0;
-	bag->og_wf->zoom = 30;
-	bag->mod_wf = NULL;
 	bag->max_z = 0;
 	create_map(bag);
 	return (bag);
