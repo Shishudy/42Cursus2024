@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:08:47 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/03 21:24:05 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:58:50 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ void	ft_bit_counter(int signum, siginfo_t *info, void *context)
 		}
 	}
 	else if (signum == SIGUSR2)
-	{
-		size++;
-		ft_printf("\nBytes received successfully by the server: %d\n", size);
-		exit(0);
-	}
+		exit(ft_printf("Bytes received by the server: %d\n", ++size));
 }
 
 void	send_message(int pid, char *msg)
@@ -53,7 +49,7 @@ void	send_message(int pid, char *msg)
 				kill(pid, SIGUSR2);
 			byte = (byte >> 1);
 			i++;
-			usleep(700);
+			sleep(1);
 		}
 		msg++;
 		if (!msg)
@@ -64,20 +60,21 @@ void	send_message(int pid, char *msg)
 int	main(int argc, char **argv)
 {
 	int					pid;
-	char				*client_msg;
 	struct sigaction	sig;
 
 	if (argc != 3)
-		return (ft_printf("Error: Wrong number of arguments\n"));
+		return (ft_printf("Error: Wrong number of arguments.\n"));
 	pid = ft_atoi(argv[1]);
-	// if (kill(pid, 0) < 0)
-	// 	return (ft_printf("Error: Invalid PID\n"));
-	client_msg = argv[2];
+	if (kill(pid, 0) < 0)
+		return (ft_printf("Error: Invalid PID.\n"));
 	sig.sa_flags = SA_SIGINFO;
-	sig.sa_sigaction = &ft_bit_counter;
-	sigemptyset(&sig.sa_mask);
-	sigaction(SIGUSR1, &sig, NULL);
-	sigaction(SIGUSR2, &sig, NULL);
-	send_message(pid, client_msg);
+	sig.sa_sigaction = ft_bit_counter;
+	if (sigemptyset(&sig.sa_mask) != 0)
+		return (ft_printf("Error: Failed cleaning mask."));
+	if (sigaction(SIGUSR1, &sig, NULL) != 0)
+		return (ft_printf("Error: Failed assigning action to SIGUSR1."));
+	if (sigaction(SIGUSR2, &sig, NULL) != 0)
+		return (ft_printf("Error: Failed assigning action to SIGUSR2."));
+	send_message(pid, argv[2]);
 	return (0);
 }
