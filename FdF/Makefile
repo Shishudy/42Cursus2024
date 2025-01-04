@@ -6,43 +6,45 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/08 19:04:26 by rafasant          #+#    #+#              #
-#    Updated: 2024/10/22 18:56:04 by rafasant         ###   ########.fr        #
+#    Updated: 2025/01/04 21:31:00 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= cc
-C_FLAGS		= -Wall -Wextra -Werror -g
-RM			= rm -f
+CFLAGS		= -Wall -Wextra -Werror -g
 NAME		= fdf
-# BONUS_NAME	= 
-INCLUDE		= ./libft/libft.a ./minilibx-linux/libmlx.a
+INCLUDES	= ./libft/libft.a ./minilibx-linux/libmlx.a
 SRCS		= srcs/fdf.c srcs/proc_map.c srcs/error.c srcs/init_bag.c \
 				srcs/hooks.c
-# BONUS_SRCS	= 
+OBJS		= $(SRCS:.c=.o)
+RM			= /bin/rm -f
 
-all: ${NAME}
-# $(NAME) :
-# 	make -C libft
-# 	${CC} ${C_FLAGS} ${SRCS} ${INCLUDE} -o ${NAME}
-$(NAME):
-	make -C libft
-	make -C minilibx-linux
-	$(CC) ${C_FLAGS} ${SRCS} ${INCLUDE} -Lminilibx-linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
+%.o: %.c
+	@${CC} ${CFLAGS} -c $< -o $@
 
-# bonus: all ${BONUS_NAME}
-# ${BONUS_NAME} :
-# 	${CC} ${C_FLAGS} ${BONUS_SRCS} ${INCLUDE} -o ${BONUS_NAME}
+all: $(INCLUDES) $(NAME)
+$(INCLUDES) :
+	@echo "Compiling libft..."
+	@make -C libft --silent
+	@echo "Libft compiled!"
+	@echo "Compiling MLX..."
+	@make -C minilibx-linux --silent
+	@echo "MLX compiled!"
+$(NAME) : $(OBJS)
+	@echo "Compiled $(NAME)."
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -Lminilibx-linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
 
-clean:
-	make clean -C libft
+clean: 
+	@$(RM) $(OBJS)
+	@make clean -C libft --silent
+	@echo "Cleaned object files!"
 
 fclean: clean
-	make fclean -C libft
-	${RM} ${NAME}
-	# ${RM} ${BONUS_NAME}
+	@$(RM) $(NAME)
+	@make fclean -C libft --silent
+	@make clean -C minilibx-linux --silent
+	@echo "Cleaned executables!"
 
 re: fclean all
 
-# rebonus: fclean bonus
-
-.PHONY: all, bonus, clean, fclean, re, rebonus
+.PHONY: clean, fclean, all, re
