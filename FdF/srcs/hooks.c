@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:17:47 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/03 13:41:14 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:04:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	reset_screen(t_bag *bag)
 	mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
 	free(bag->mod_wf);
 	bag->mod_wf = NULL;
-	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->og_wf->canva->img, 0, 0);
 }
 
 void	copy_og_wf(t_bag *bag)
@@ -39,12 +38,6 @@ void	copy_og_wf(t_bag *bag)
 	bag->mod_wf->canva = malloc(sizeof(t_data));
 	if (!bag->mod_wf->canva)
 		deallocate(bag);
-	bag->mod_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
-	if (!bag->mod_wf->canva->img)
-		deallocate(bag);
-	bag->mod_wf->canva->addr = mlx_get_data_addr(bag->mod_wf->canva->img, &bag->mod_wf->canva->bits_per_pixel, &bag->mod_wf->canva->line_length, &bag->mod_wf->canva->endian);
-	if (!bag->mod_wf->canva->addr)
-		deallocate(bag);
 	bag->mod_wf->x = bag->og_wf->x;
 	bag->mod_wf->y = bag->og_wf->y;
 	bag->mod_wf->zoom = bag->og_wf->zoom;
@@ -52,10 +45,12 @@ void	copy_og_wf(t_bag *bag)
 	bag->mod_wf->y_angle = bag->og_wf->y_angle;
 	bag->mod_wf->z_angle = bag->og_wf->z_angle;
 	bag->mod_wf->pers = bag->og_wf->pers;
+	new_image(bag);
 }
 
-int	valid_keycode(int keycode)
+int	valid_keycode(t_bag *bag, int keycode)
 {
+	(void)bag;
 	if (keycode == ESC || keycode == RESET || keycode == MOVE_UP \
 	||keycode == MOVE_DOWN || keycode == MOVE_LEFT || keycode == MOVE_RIGHT \
 	|| keycode == ROTATE_UP || keycode == ROTATE_DOWN \
@@ -64,6 +59,11 @@ int	valid_keycode(int keycode)
 	|| keycode == PARALLEL || keycode == ISOMETRIC \
 	|| keycode == ZOOM_IN || keycode == ZOOM_OUT)
 		return (1);
+	// if ((keycode == MOVE_UP && bag->mod_wf->y > INT_MIN) || \
+	// (keycode == MOVE_DOWN && bag->mod_wf->y < INT_MAX) || \
+	// (keycode == MOVE_LEFT && bag->mod_wf->x > INT_MIN) || \
+	// (keycode == MOVE_RIGHT && bag->mod_wf->x < INT_MAX))
+	// 	return (1);
 	return (0);
 }
 
@@ -78,21 +78,8 @@ void	change_projection(t_bag *bag, int keycode)
 	bag->mod_wf->z_angle = bag->og_wf->z_angle;
 }
 
-//TODO
-// maybe limit the map to the visible window
-// if ((point_coordinates) > 0 && < width/height)
-int	hooks(int keycode, t_bag *bag)
+void	keyboard_hooks(t_bag *bag, int keycode)
 {
-	if (!valid_keycode(keycode))
-		return (0);
-	if (keycode == ESC)
-		close_window(bag);
-	else if (keycode == RESET)
-		return (reset_screen(bag), 0);
-	if (!bag->mod_wf)
-		copy_og_wf(bag);
-	else
-		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
 	if (keycode == MOVE_UP && bag->mod_wf->y > INT_MIN)
 		bag->mod_wf->y -= 20;
 	else if (keycode == MOVE_DOWN && bag->mod_wf->y < INT_MAX)
@@ -115,21 +102,36 @@ int	hooks(int keycode, t_bag *bag)
 		bag->mod_wf->z_angle += 0.05;
 	else if (keycode == ISOMETRIC || keycode == PARALLEL)
 		change_projection(bag, keycode);
-	else if (keycode == 'f')
-		bag->mod_wf->x_angle -= 0.05;
-	else if (keycode == 'g')
-		bag->mod_wf->x_angle += 0.05;
-	else if (keycode == 'h')
-		bag->mod_wf->y_angle -= 0.05;
-	else if (keycode == 'j')
-		bag->mod_wf->y_angle += 0.05;
-	else if (keycode == 'k')
-		bag->mod_wf->z_angle -= 0.05;
-	else if (keycode == 'l')
-		bag->mod_wf->z_angle += 0.05;
-	else
+}
+
+void	new_image(t_bag *bag)
+{
+	bag->mod_wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
+	if (!bag->mod_wf->canva->img)
+		deallocate(bag);
+	bag->mod_wf->canva->addr = mlx_get_data_addr(bag->mod_wf->canva->img, &bag->mod_wf->canva->bits_per_pixel, &bag->mod_wf->canva->line_length, &bag->mod_wf->canva->endian);
+	if (!bag->mod_wf->canva->addr)
+		deallocate(bag);
+}
+
+//TODO
+// maybe limit the map to the visible window
+// if ((point_coordinates) > 0 && < width/height)
+int	hooks(int keycode, t_bag *bag)
+{
+	if (!valid_keycode(bag, keycode))
 		return (0);
-	create_wireframe(bag, bag->mod_wf);
-	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mod_wf->canva->img, 0, 0);
+	if (keycode == ESC)
+		close_window(bag);
+	else if (keycode == RESET)
+		return (reset_screen(bag), 0);
+	if (!bag->mod_wf)
+		copy_og_wf(bag);
+	else
+	{
+		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
+		new_image(bag);
+	}
+	keyboard_hooks(bag, keycode);
 	return (0);
 }

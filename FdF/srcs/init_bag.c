@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:07:24 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/03 13:51:48 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:38:05 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ t_bag	*create_bag(char *file)
 	bag->mlx->width = 1920;
 	bag->mlx->height = 1080;
 	bag->max_z = 0;
+	bag->mlx->mlx_ptr = mlx_init();
+	if (!bag->mlx->mlx_ptr)
+		deallocate(bag);
+	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "FdF");
+	if (!bag->mlx->win_ptr)
+		deallocate(bag);
+	init_og_wf(bag);
 	create_map(bag);
 	return (bag);
 }

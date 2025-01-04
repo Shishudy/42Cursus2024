@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/03 13:52:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:51:35 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	get_fd(t_bag *bag);
 void	create_map(t_bag *bag);
 void	init_og_wf(t_bag *bag);
 t_bag	*create_bag(char *file);
+void	new_image(t_bag *bag);
 /* proc_map.c */
 void	get_max_ordinates(t_bag *bag);
 void	allocate_map(t_bag *bag);
@@ -130,7 +131,7 @@ void	create_wireframe(t_bag *bag, t_wf *wf);
 /* hooks.c */
 int		close_window(t_bag *bag);
 int		hooks(int keycode, t_bag *bag);
-int		mouse_hooks(int mouse_code, t_bag *bag);
+int		mouse_hooks(int mouse_code, int x, int y, t_bag *bag);
 void	copy_og_wf(t_bag *bag);
 /* error.c */
 void	ft_free(char **array);

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:54 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/03 13:52:41 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:08:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,20 @@ void	rotate_iso(t_bag *bag, t_wf *wf, t_coords *point)
 	prev_x = point->x;
 	prev_y = point->y;
 	point->x = (int)(sin(0.7853981634) * (prev_x - prev_y));
-	point->y = (int)(cos(0.6154729074) * (sin(0.7853981634) * (prev_x + prev_y)) - sin(0.6154729074) * point->z);
+	point->y = (int)(cos(0.6154729074) * (sin(0.7853981634) * \
+	(prev_x + prev_y)) - sin(0.6154729074) * point->z);
 }
 
 int	adjust_z(t_bag *bag, t_wf *wf, int z)
 {
 	float	result;
 	float	normalization_factor;
+	int		zoom;
 
-	normalization_factor = wf->zoom / log(bag->max_z + 1.0);
+	zoom = wf->zoom;
+	if (wf->zoom < 20)
+		zoom = 20;
+	normalization_factor = zoom / log(bag->max_z + 1.0);
 	if (z >= 0)
 		result = logf(z + 1.0f) * normalization_factor;
 	else
@@ -103,6 +108,16 @@ t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y)
 	return (coords);
 }
 
+void	set_dir(t_coords *dir, t_coords diff)
+{
+	dir->x = 1;
+	if (diff.x < 0)
+		dir->x = -1;
+	dir->y = 1;
+	if (diff.y < 0)
+		dir->y = -1;
+}
+
 // int	get_color(t_coords current, t_coords start, t_coords end, t_coords delta)
 // {
 // 	int		red;
@@ -123,22 +138,6 @@ t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y)
 // 	blue = get_li(start.colour & 0xFF, end.colour & 0xFF, percentage);
 // 	return ((red << 16) | (green << 8) | blue);
 // }
-
-void	set_dir(t_coords *dir, t_coords diff)
-{
-	dir->x = 1;
-	if (diff.x < 0)
-		dir->x = -1;
-	dir->y = 1;
-	if (diff.y < 0)
-		dir->y = -1;
-}
-
-void	place_in_map(t_wf *wf, t_coords *point)
-{
-	point->x = point->x + wf->x;
-	point->y = point->y + wf->y;
-}
 
 // int	get_colour(t_coords curr, t_coords next, t_coords diff)
 // {
@@ -178,7 +177,8 @@ void	draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next)
 	// colour = get_colour(curr, next, diff);
 	while ((curr.x != next.x || curr.y != next.y))
 	{
-		if (curr.x >= 0 && curr.y >= 0 && curr.x <= bag->mlx->width && curr.y <= bag->mlx->height)
+		if (curr.x >= 0 && curr.y >= 0 && curr.x <= bag->mlx->width && \
+		curr.y <= bag->mlx->height)
 			my_mlx_pixel_put(wf->canva, curr.x, curr.y, curr.colour);
 		margin[1] = margin[0];
 		if ((margin[1]) > -diff.y)
@@ -200,8 +200,6 @@ void	create_wireframe(t_bag *bag, t_wf *wf)
 	int	x;
 	int	y;
 
-	// wf->canva->img = mlx_new_image(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height);
-	// wf->canva->addr = mlx_get_data_addr(wf->canva->img, &wf->canva->bits_per_pixel, &wf->canva->line_length, &wf->canva->endian);
 	y = 0;
 	while (y < bag->ordinate_len)
 	{
@@ -209,32 +207,54 @@ void	create_wireframe(t_bag *bag, t_wf *wf)
 		while (x < bag->axis_len)
 		{
 			if (y + 1 < bag->ordinate_len)
-				draw_line(bag, wf, assign_coords(bag, wf, x, y), assign_coords(bag, wf, x, y + 1));
+				draw_line(bag, wf, assign_coords(bag, wf, x, y), \
+				assign_coords(bag, wf, x, y + 1));
 			if (x + 1 < bag->axis_len)
-				draw_line(bag, wf, assign_coords(bag, wf, x, y), assign_coords(bag, wf, x + 1, y));
+				draw_line(bag, wf, assign_coords(bag, wf, x, y), \
+				assign_coords(bag, wf, x + 1, y));
 			x++;
 		}
 		y++;
 	}
+	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, \
+	wf->canva->img, 0, 0);
 }
 
-int	mouse_press(int mouse_code, int x, int y, t_bag *bag)
+int	mouse_hooks(int mouse_code, int x, int y, t_bag *bag)
 {
 	(void)x;
 	(void)y;
-	// if (mouse_code == ZOOM_OUT && bag->mod_wf->zoom == 0)
-	// 	return (0);
 	if (!bag->mod_wf)
 		copy_og_wf(bag);
 	else
+	{
 		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
+		new_image(bag);
+	}
 	if (mouse_code == ZOOM_IN)
-		bag->mod_wf->zoom = bag->mod_wf->zoom + 10;
+		bag->mod_wf->zoom++;
 	else if (mouse_code == ZOOM_OUT)
-		bag->mod_wf->zoom = bag->mod_wf->zoom - 10;
-	create_wireframe(bag, bag->mod_wf);
-	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mod_wf->canva->img, 0, 0);
+		bag->mod_wf->zoom--;
+	if (bag->mod_wf->zoom < 1)
+		bag->mod_wf->zoom = 1;
 	return (0);
+}
+
+int	draw_wireframe(t_bag *bag)
+{
+	if (bag->mod_wf)
+		create_wireframe(bag, bag->mod_wf);
+	else
+		create_wireframe(bag, bag->og_wf);
+	return (0);
+}
+
+void	treste(t_bag *bag)
+{
+	mlx_hook(bag->mlx->win_ptr, 2, (1L << 0), hooks, bag);
+	mlx_hook(bag->mlx->win_ptr, 4, (1L << 2), mouse_hooks, bag);
+	mlx_hook(bag->mlx->win_ptr, 17, (1L << 2), close_window, bag);
+	mlx_loop_hook(bag->mlx->mlx_ptr, draw_wireframe, bag);
 }
 
 int	main(int argc, char **argv)
@@ -244,19 +264,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	bag = create_bag(argv[1]);
-	bag->mlx->mlx_ptr = mlx_init();
-	if (!bag->mlx->mlx_ptr)
-		deallocate(bag);
-	init_og_wf(bag);
-	bag->mlx->win_ptr = mlx_new_window(bag->mlx->mlx_ptr, bag->mlx->width, bag->mlx->height, "FdF");
-	if (!bag->mlx->win_ptr)
-		deallocate(bag);
 	create_wireframe(bag, bag->og_wf);
-	copy_og_wf(bag);
-	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->og_wf->canva->img, 0, 0);
-	mlx_hook(bag->mlx->win_ptr, 2, (1L << 0), hooks, bag);
-	mlx_hook(bag->mlx->win_ptr, 4, (1L << 2), mouse_press, bag);
-	mlx_hook(bag->mlx->win_ptr, 17, (1L << 2), close_window, bag);
+	treste(bag);
 	mlx_loop(bag->mlx->mlx_ptr);
 	return (0);
 }
