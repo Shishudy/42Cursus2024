@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:08:49 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/04 14:57:13 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:07:02 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ char	*increment_new_data(char new_char, char *client_str)
 		len = ft_strlen(client_str);
 	server_str = malloc(sizeof(char) * (len + 1 + 1));
 	if (!server_str)
+	{
+		if (client_str)
+			free(client_str);
 		exit(ft_printf("Error: Failed during memory allocation."));
+	}
 	server_str = ft_memcpy(server_str, client_str, len);
 	server_str[len] = new_char;
 	server_str[len + 1] = '\0';

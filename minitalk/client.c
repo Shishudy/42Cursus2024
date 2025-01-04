@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:08:47 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/04 14:58:50 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:07:11 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	send_message(int pid, char *msg)
 			sleep(1);
 		}
 		msg++;
-		if (!msg)
-			break ;
 	}
 }
 
