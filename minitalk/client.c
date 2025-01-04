@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:08:47 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/04 17:07:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:42:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_bit_counter(int signum, siginfo_t *info, void *context)
 		}
 	}
 	else if (signum == SIGUSR2)
-		exit(ft_printf("Bytes received by the server: %d\n", ++size));
+		exit(ft_printf("Bytes received by the server: %d\n", size));
 }
 
 void	send_message(int pid, char *msg)
