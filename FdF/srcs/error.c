@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:48:32 by rafasant          #+#    #+#             */
-/*   Updated: 2024/12/12 16:06:19 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:12:03 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	ft_free(char **array)
 
 	i = 0;
 	while (array[i])
-	{
-		ft_bzero(array[i], ft_strlen(array[i]));
 		free(array[i++]);
-	}
 	if (array)
 		free(array);
 }
@@ -31,21 +28,26 @@ void	deallocate(t_bag *bag)
 	int	i;
 
 	i = 0;
-	if (bag->mlx)
+	if (bag->map)
 	{
-		free(bag->mlx->mlx_ptr);
-		free(bag->mlx);
+		while (bag->map[i])
+			free(bag->map[i++]);
+		free(bag->map);
 	}
 	if (bag->og_wf)
 	{
 		free(bag->og_wf->canva);
 		free(bag->og_wf);
 	}
-	if (bag->map)
+	if (bag->mod_wf)
 	{
-		while (bag->map[i])
-			free(bag->map[i++]);
-		free(bag->map);
+		free(bag->mod_wf->canva);
+		free(bag->mod_wf);
+	}
+	if (bag->mlx)
+	{
+		free(bag->mlx->mlx_ptr);
+		free(bag->mlx);
 	}
 	if (bag)
 		free(bag);

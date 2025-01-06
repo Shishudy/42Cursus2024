@@ -6,16 +6,16 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/08 19:04:26 by rafasant          #+#    #+#              #
-#    Updated: 2025/01/04 21:31:00 by rafasant         ###   ########.fr        #
+#    Updated: 2025/01/06 22:17:42 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -O3
 NAME		= fdf
 INCLUDES	= ./libft/libft.a ./minilibx-linux/libmlx.a
 SRCS		= srcs/fdf.c srcs/proc_map.c srcs/error.c srcs/init_bag.c \
-				srcs/hooks.c
+				srcs/hooks.c srcs/coords.c srcs/draw.c srcs/rotations.c
 OBJS		= $(SRCS:.c=.o)
 RM			= /bin/rm -f
 

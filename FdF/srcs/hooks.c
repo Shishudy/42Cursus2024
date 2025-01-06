@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:17:47 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/04 23:04:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/06 22:08:48 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	close_window(t_bag *bag)
 {
 	mlx_destroy_image(bag->mlx->mlx_ptr, bag->og_wf->canva->img);
+	if (bag->mod_wf)
+		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
 	mlx_destroy_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr);
 	mlx_destroy_display(bag->mlx->mlx_ptr);
 	deallocate(bag);
@@ -26,8 +28,29 @@ void	reset_screen(t_bag *bag)
 	if (!bag->mod_wf)
 		return ;
 	mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
+	free(bag->mod_wf->canva);
 	free(bag->mod_wf);
 	bag->mod_wf = NULL;
+}
+
+int	mouse_hooks(int mouse_code, int x, int y, t_bag *bag)
+{
+	(void)x;
+	(void)y;
+	if (!bag->mod_wf)
+		copy_og_wf(bag);
+	else
+	{
+		mlx_destroy_image(bag->mlx->mlx_ptr, bag->mod_wf->canva->img);
+		new_image(bag);
+	}
+	if (mouse_code == ZOOM_IN)
+		bag->mod_wf->zoom++;
+	else if (mouse_code == ZOOM_OUT)
+		bag->mod_wf->zoom--;
+	if (bag->mod_wf->zoom < 1)
+		bag->mod_wf->zoom = 1;
+	return (0);
 }
 
 void	copy_og_wf(t_bag *bag)

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/04 22:51:35 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/06 22:15:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define PARALLEL 112
 # define ISOMETRIC 105
 # define SHIFT 65505 //KEY_SHIFT
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 
 // ZOOM
 # define ZOOM_IN 4 //SCROLL_UP
@@ -106,7 +108,6 @@ typedef struct s_mlx
 typedef struct s_bag
 {
 	t_map	**map;
-
 	t_mlx	*mlx;
 	t_wf	*og_wf;
 	t_wf	*mod_wf;
@@ -118,23 +119,38 @@ typedef struct s_bag
 }					t_bag;
 
 /* init_bag.c */
-void	get_fd(t_bag *bag);
-void	create_map(t_bag *bag);
-void	init_og_wf(t_bag *bag);
-t_bag	*create_bag(char *file);
-void	new_image(t_bag *bag);
+void		get_fd(t_bag *bag);
+void		create_map(t_bag *bag);
+void		init_og_wf(t_bag *bag);
+t_bag		*create_bag(char *file);
+void		new_image(t_bag *bag);
 /* proc_map.c */
-void	get_max_ordinates(t_bag *bag);
-void	allocate_map(t_bag *bag);
-void	process_line(t_bag *bag, char *line, int i);
-void	create_wireframe(t_bag *bag, t_wf *wf);
+void		get_max_ordinates(t_bag *bag);
+void		allocate_map(t_bag *bag);
+void		process_line(t_bag *bag, char *line, int i);
+void		create_wireframe(t_bag *bag, t_wf *wf);
+/* coords.c */
+int			adjust_z(t_bag *bag, t_wf *wf, int z);
+void		set_dir(t_coords *dir, t_coords diff);
+t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y);
+/* rotations.c */
+void		rotate_iso(t_coords *point);
+void		rotate_x_axis(t_wf *wf, t_coords *point);
+void		rotate_y_axis(t_wf *wf, t_coords *point);
+void		rotate_z_axis(t_wf *wf, t_coords *point);
+/* draw.c */
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next);
+void		create_wireframe(t_bag *bag, t_wf *wf);
+int			draw_wireframe(t_bag *bag);
+
 /* hooks.c */
-int		close_window(t_bag *bag);
-int		hooks(int keycode, t_bag *bag);
-int		mouse_hooks(int mouse_code, int x, int y, t_bag *bag);
-void	copy_og_wf(t_bag *bag);
+int			close_window(t_bag *bag);
+int			hooks(int keycode, t_bag *bag);
+int			mouse_hooks(int mouse_code, int x, int y, t_bag *bag);
+void		copy_og_wf(t_bag *bag);
 /* error.c */
-void	ft_free(char **array);
-void	deallocate(t_bag *bag);
+void		ft_free(char **array);
+void		deallocate(t_bag *bag);
 
 #endif
