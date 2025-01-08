@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 22:11:08 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/06 22:16:35 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:50:12 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y)
 	t_coords	coords;
 
 	coords.x = x * wf->zoom - bag->axis_len * wf->zoom / 2;
-	coords.y = y * wf->zoom - bag->ordinate_len * wf->zoom / 2;;
+	coords.y = y * wf->zoom - bag->ordinate_len * wf->zoom / 2;
 	coords.z = adjust_z(bag, wf, bag->map[y][x].altitude);
 	coords.colour = bag->map[y][x].colour;
 	if (wf->pers == 0)
@@ -47,12 +47,14 @@ t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y)
 	return (coords);
 }
 
-void	set_dir(t_coords *dir, t_coords diff)
+void	set_dir(t_coords *dir, t_coords *diff, t_coords curr, t_coords next)
 {
+	diff->x = next.x - curr.x;
+	diff->y = next.y - curr.y;
 	dir->x = 1;
-	if (diff.x < 0)
+	if (diff->x < 0)
 		dir->x = -1;
 	dir->y = 1;
-	if (diff.y < 0)
+	if (diff->y < 0)
 		dir->y = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:05:59 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/06 22:15:58 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:42:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@
 # define BLUE 255
 # define GREEN 65280
 
-enum {
+enum
+{
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
@@ -62,7 +63,7 @@ enum {
 	ON_DESTROY = 17
 };
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -122,16 +123,22 @@ typedef struct s_bag
 void		get_fd(t_bag *bag);
 void		create_map(t_bag *bag);
 void		init_og_wf(t_bag *bag);
-t_bag		*create_bag(char *file);
 void		new_image(t_bag *bag);
+t_bag		*create_bag(char *file);
+/* init_bag_helper.c */
+int			check_line(char *line);
+void		get_fd(t_bag *bag);
 /* proc_map.c */
-void		get_max_ordinates(t_bag *bag);
+int			process_line(t_bag *bag, char *line, int i);
 void		allocate_map(t_bag *bag);
-void		process_line(t_bag *bag, char *line, int i);
 void		create_wireframe(t_bag *bag, t_wf *wf);
+/* proc_map_helper.c */
+char		*pick_base(char *colour);
+void		get_max_ordinates(t_bag *bag);
 /* coords.c */
 int			adjust_z(t_bag *bag, t_wf *wf, int z);
-void		set_dir(t_coords *dir, t_coords diff);
+void		set_dir(t_coords *dir, t_coords *diff, t_coords curr, \
+			t_coords next);
 t_coords	assign_coords(t_bag *bag, t_wf *wf, int x, int y);
 /* rotations.c */
 void		rotate_iso(t_coords *point);
@@ -139,17 +146,21 @@ void		rotate_x_axis(t_wf *wf, t_coords *point);
 void		rotate_y_axis(t_wf *wf, t_coords *point);
 void		rotate_z_axis(t_wf *wf, t_coords *point);
 /* draw.c */
+int			draw_wireframe(t_bag *bag);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		draw_line(t_bag *bag, t_wf *wf, t_coords curr, t_coords next);
 void		create_wireframe(t_bag *bag, t_wf *wf);
-int			draw_wireframe(t_bag *bag);
-
 /* hooks.c */
-int			close_window(t_bag *bag);
-int			hooks(int keycode, t_bag *bag);
 int			mouse_hooks(int mouse_code, int x, int y, t_bag *bag);
+int			hooks(int keycode, t_bag *bag);
+void		keyboard_hooks(t_bag *bag, int keycode);
+/* hooks_helper.c*/
+int			valid_keycode(t_bag *bag, int keycode);
+void		change_projection(t_bag *bag, int keycode);
 void		copy_og_wf(t_bag *bag);
 /* error.c */
+int			close_window(t_bag *bag);
+void		reset_screen(t_bag *bag);
 void		ft_free(char **array);
 void		deallocate(t_bag *bag);
 
