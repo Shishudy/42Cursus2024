@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 16:27:07 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/08 16:37:39 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:34:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_line(char *line)
 			line++;
 		while (*line != ' ' && *line != '\0' && *line != '\n' && *line != ',')
 		{
-			if (*line == '-' && ft_isdigit(*line + 1))
+			if (*line == '-' && ft_isdigit(*(line + 1)))
 				;
 			else if (!ft_isdigit(*line))
 				return (1);
@@ -37,11 +37,12 @@ int	check_line(char *line)
 		}
 		if (*line == ',')
 		{
+			if (!(*(line + 1) && *(line + 2) && *(line + 1) == '0' && \
+			*(line + 2) == 'x'))
+				return (1);
 			while (*++line != ' ' && *line != '\0' && *line != '\n')
-			{
 				if (!ft_isalnum(*line))
 					return (1);
-			}
 		}
 		if (*line == '\n' || *line == '\0')
 			break ;
