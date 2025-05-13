@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
+/*   Updated: 2025/05/13 14:26:37 by rafasant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILOS_H
+# define PHILOS_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
+
+typedef struct s_catch
+{
+	char	*error_msg;
+}				t_catch;
+
+typedef struct s_philo
+{
+	int		number_of_philosophers;
+	int		ime_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		number_of_times_each_philosopher_must_eat;
+}				t_philo;
+
+t_catch	*catch(void);
+t_philo	*philos(void);
+
+
+#endif
