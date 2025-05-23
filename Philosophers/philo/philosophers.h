@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
-/*   Updated: 2025/05/13 14:26:37 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:24:53 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@
 
 typedef struct s_catch
 {
-	char	*error_msg;
+	char		*error_msg;
 }				t_catch;
 
 typedef struct s_philo
 {
-	int		number_of_philosophers;
-	int		ime_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
+	int			number_of_philosophers;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			number_of_times_each_philosopher_must_eat;
+	pthread_t	*arr_philos;
 }				t_philo;
+
+void	parse_philos(char **argv);
+void	check_params(char **argv);
 
 t_catch	*catch(void);
 t_philo	*philos(void);
