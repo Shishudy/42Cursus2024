@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 19:00:03 by rafasant          #+#    #+#              #
-#    Updated: 2025/05/23 18:25:10 by rafasant         ###   ########.fr        #
+#    Updated: 2025/06/13 17:25:22 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC 		= cc
 CFLAGS	= -Wall -Wextra -Werror
 NAME 	= philo
 OBJS_DIR= objs/
-SRCS 	= philosophers.c static_structs.c check_params.c parse_philos.c
+SRCS 	= philosophers.c static_structs.c check_params.c parse_philos.c start_philos.c
 OBJS	= ${SRCS:%.c=${OBJS_DIR}%.o}
 RM	= /bin/rm -f
 

@@ -6,11 +6,25 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:42:08 by rafasant          #+#    #+#             */
-/*   Updated: 2025/05/23 15:35:03 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:59:38 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	assign_value(int n, int i)
+{
+	if (i == 1)
+		philos()->number_of_philosophers = n;
+	else if (i == 2)
+		philos()->time_to_die = n;
+	else if (i == 3)
+		philos()->time_to_eat = n;
+	else if (i == 4)
+		philos()->time_to_sleep = n;
+	else if (i == 5)
+		philos()->number_of_times_each_philosopher_must_eat = n;
+}
 
 void	parse_philos(char **argv)
 {
@@ -30,8 +44,7 @@ void	parse_philos(char **argv)
 				return ((void)(catch()->error_msg = "Invalid number!"));
 			j++;
 		}
-		*(&philos()->number_of_philosophers + (i - 1) * 4) = n;
-		printf("%d\n", *(&philos()->number_of_philosophers + (i - 1) * 4));
+		assign_value(n, i);
 		i++;
 	}
 	if (philos()->number_of_philosophers < 1)
