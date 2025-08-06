@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:42:08 by rafasant          #+#    #+#             */
-/*   Updated: 2025/06/13 14:59:38 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:33:04 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	assign_value(int n, int i)
 {
 	if (i == 1)
-		philos()->number_of_philosophers = n;
+		context()->number_of_philosophers = n;
 	else if (i == 2)
-		philos()->time_to_die = n;
+		context()->time_to_die = n;
 	else if (i == 3)
-		philos()->time_to_eat = n;
+		context()->time_to_eat = n;
 	else if (i == 4)
-		philos()->time_to_sleep = n;
+		context()->time_to_sleep = n;
 	else if (i == 5)
-		philos()->number_of_times_each_philosopher_must_eat = n;
+		context()->number_of_times_each_philosopher_must_eat = n;
 }
 
 void	parse_philos(char **argv)
@@ -47,6 +47,6 @@ void	parse_philos(char **argv)
 		assign_value(n, i);
 		i++;
 	}
-	if (philos()->number_of_philosophers < 1)
+	if (context()->number_of_philosophers < 1)
 		return ((void)(catch()->error_msg = "Invalid number of philos!"));
 }

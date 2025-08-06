@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 16:23:01 by rafasant          #+#    #+#             */
-/*   Updated: 2025/06/14 18:40:33 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/06 21:00:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,91 +23,125 @@ void	print_msg(int i, int action)
 	gettimeofday(&tv, NULL);
 	if (action == GRAB)
 		printf("%ld %d has taken a fork\n", \
-			(tv.tv_sec - (philos()->start_time)) * 1000, i);
+			(tv.tv_sec - (context()->start_time)) * 1000, i);
 	else if (action == EATING)
 		printf("%ld %d is eating\n", \
-			(tv.tv_sec - (philos()->start_time)) * 1000, i);
+			(tv.tv_sec - (context()->start_time)) * 1000, i);
 	else if (action == SLEEPING)
 		printf("%ld %d is sleeping\n", \
-			(tv.tv_sec - (philos()->start_time)) * 1000, i);
+			(tv.tv_sec - (context()->start_time)) * 1000, i);
 	else if (action == THINKING)
 		printf("%ld %d is thinking\n", \
-			(tv.tv_sec - (philos()->start_time)) * 1000, i);
+			(tv.tv_sec - (context()->start_time)) * 1000, i);
 	else if (action == DEAD)
 		printf("%ld %d died\n", \
-			(tv.tv_sec - (philos()->start_time)) * 1000, i);
+			(tv.tv_sec - (context()->start_time)) * 1000, i);
 
 }
 
 void	*eat_sleep_think(void *arg)
 {
-	t_sphilo	*sphilo;
+	t_philo		*philo;
 	time_t		result;
 	time_t		after_eating;
 	time_t		before_eating;
 	struct timeval	tv;
 
-	sphilo = (t_sphilo *)arg;
+	philo = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&sphilo->fork1);
-		print_msg(sphilo->philo_id, GRAB);
-		pthread_mutex_lock(&sphilo->fork2);
-		print_msg(sphilo->philo_id, GRAB);
-		print_msg(sphilo->philo_id, EATING);
-		sphilo->internal_timer = 0;
-		result = sphilo->internal_timer + philos()->time_to_eat; //tenho de ajustar para o tipo de varivel de tmepos bater certo, o valor resltante de gettimeofday e time_to_die sao diffs
-		if (result > sphilo->internal_timer + philos()->time_to_die)
+		pthread_mutex_lock(&philo->fork1);
+		print_msg(philo->philo_id, GRAB);
+		pthread_mutex_lock(&philo->fork2);
+		print_msg(philo->philo_id, GRAB);
+		print_msg(philo->philo_id, EATING);
+		philo->internal_timer = 0;
+		result = philo->internal_timer + context()->time_to_eat; //tenho de ajustar para o tipo de varivel de tmepos bater certo, o valor resltante de gettimeofday e time_to_die sao diffs
+		if (result > philo->internal_timer + context()->time_to_die)
 		{
 			usleep(result);
-			print_msg(sphilo->philo_id, DEAD);
-			pthread_mutex_unlock(&sphilo->fork1);
-			pthread_mutex_unlock(&sphilo->fork2);
+			print_msg(philo->philo_id, DEAD);
+			pthread_mutex_unlock(&philo->fork1);
+			pthread_mutex_unlock(&philo->fork2);
 			return ;
 		}
 		else
-			usleep(philos()->time_to_eat);
-		pthread_mutex_unlock(&sphilo->fork1);
-		pthread_mutex_unlock(&sphilo->fork2);
-		print_msg(sphilo->philo_id, SLEEPING);
-		sphilo->started_sleeping = gettimeofday(&tv, NULL);
-		if (philos()->time_to_die < philos()->time_to_eat)
-			usleep(philos()->time_to_sleep);
-		print_msg(sphilo->philo_id, THINKING);
-
-
-
+			usleep(context()->time_to_eat);
+		pthread_mutex_unlock(&philo->fork1);
+		pthread_mutex_unlock(&philo->fork2);
+		print_msg(philo->philo_id, SLEEPING);
+		philo->started_sleeping = gettimeofday(&tv, NULL);
+		if (context()->time_to_die < context()->time_to_eat)
+			usleep(context()->time_to_sleep);
+		print_msg(philo->philo_id, THINKING);
 	}
+}
+
+void	singular_philo()
+{
+	pthread_mutex_lock(&context()->arr_philos[0].fork_left);
+	print_msg(1, GRAB);
+	pthread_mutex_unlock(&context()->arr_philos[0].fork_left);
+	print_msg(1, DEAD);
 }
 
 void	sit_philos()
 {
 	int	i;
+	struct timeval	tv;
 
+	gettimeofday(&tv, NULL);
+	context()->start_time = tv.tv_sec;
+	if (context()->number_of_philosophers == 1)
+		singular_philo();
 	i = 0;
-	while (i < philos()->number_of_philosophers)
+	while (i < context()->number_of_philosophers)
 	{ 
-		if (pthread_create(&philos()->arr_philos[i].philo, NULL, &eat_sleep_think, &philos()->arr_philos[i]) != 0)
+		if (pthread_create(&context()->arr_philos[i].philo_th, NULL, &eat_sleep_think, &context()->arr_philos[i]) != 0)
 			return ((void) (catch()->error_msg = "Thread creation failure!"));
 		i++;
 	}
 	i = 0;
-	while (i < philos()->number_of_philosophers)
+	while (i < context()->number_of_philosophers)
 	{
-		if (pthread_join(philos()->arr_philos[i], NULL) != 0)
+		if (pthread_join(context()->arr_philos[i].philo_th, NULL) != 0)
 			return ((void) (catch()->error_msg = "Thread join failure!"));
-		// printf("%d has finished and returned [%d]\n", i, *res);
+		i++;
+	}
+}
+
+void	prepare_philos()
+{
+	int	i;
+
+	i = 0;
+	while (i < context()->number_of_philosophers)
+	{
+		context()->arr_philos[i].philo_id = i + 1;
+		context()->arr_philos[i].internal_timer = 0;
+		context()->arr_philos[i].started_eating = 0;
+		context()->arr_philos[i].started_sleeping = 0;
+		context()->arr_philos[i].philo_th = 0;
+		if (pthread_mutex_init(&context()->arr_philos[i].fork_left, NULL) != 0)
+			return ((void) (catch()->error_msg = "Malloc failure!"));
+		if (i > 0)
+			context()->arr_philos[i - 1].fork_right = &context()->arr_philos[i].fork_left;
+		if (context()->number_of_philosophers != 1 && i + 1 == context()->number_of_philosophers)
+			context()->arr_philos[i].fork_right = &context()->arr_philos[0].fork_left;
+		else
+			context()->arr_philos[i].fork_right = NULL;
 		i++;
 	}
 }
 
 void	start_philos()
 {
-	srand(time(NULL));
-	philos()->arr_philos = malloc(sizeof(pthread_t) * philos()->number_of_philosophers);
-	if (!philos()->arr_philos)
+	int	i;
+
+	context()->arr_philos = malloc(sizeof(t_philo) * context()->number_of_philosophers);
+	if (!context()->arr_philos)
 		return ((void) (catch()->error_msg = "Malloc failure!"));
-	pthread_mutex_init(&mutex, NULL);
+	prepare_philos();
 	sit_philos();
 	pthread_mutex_destroy(&mutex);
 }

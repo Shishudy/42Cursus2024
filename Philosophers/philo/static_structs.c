@@ -6,15 +6,15 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:21:45 by rafasant          #+#    #+#             */
-/*   Updated: 2025/06/13 14:00:07 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:36:35 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_philo	*philos(void)
+t_context	*context(void)
 {
-	static t_philo	philos;
+	static t_context	philos;
 
 	return (&philos);
 }

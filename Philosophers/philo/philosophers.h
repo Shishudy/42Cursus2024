@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
-/*   Updated: 2025/06/14 18:15:39 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:11:15 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,34 @@ typedef struct s_catch
 	char		*error_msg;
 }				t_catch;
 
-typedef struct s_sphilo
+typedef struct s_philo
 {
 	int				philo_id;
 	time_t			internal_timer;
 	time_t			started_eating;
 	time_t			started_sleeping;
-	pthread_mutex_t	fork1;
-	pthread_mutex_t	*fork2;
-	pthread_t		philo;
-}				t_sphilo;
+	pthread_mutex_t	fork_left;
+	pthread_mutex_t	*fork_right;
+	pthread_t		philo_th;
+}				t_philo;
 
-typedef struct s_philo
+typedef struct s_context
 {
 	int			number_of_philosophers;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			number_of_times_each_philosopher_must_eat;
-	t_sphilo	*arr_philos;
+	t_philo		*arr_philos;
 	time_t		start_time;
-}				t_philo;
+}				t_context;
 
 void	parse_philos(char **argv);
 void	check_params(char **argv);
 void	start_philos();
 
-t_catch	*catch(void);
-t_philo	*philos(void);
+t_catch		*catch(void);
+t_context	*context(void);
 
 
 #endif
