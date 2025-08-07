@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/06 20:11:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:02:08 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,13 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include "catch_lib/headers/catch.h"
 
 # define GRAB 1
 # define EATING 2
 # define SLEEPING 3
 # define THINKING 4
 # define DEAD 5
-
-typedef struct s_catch
-{
-	char		*error_msg;
-}				t_catch;
 
 typedef struct s_philo
 {
