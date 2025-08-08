@@ -4,3 +4,6 @@
 [submodule "minishell"]
 	path = minishell
 	url = git@github.com:joafern22/minishell.git
+[submodule "catch_lib"]
+	path = catch_lib
+	url = git@github.com:Shishudy/catch_lib.git
