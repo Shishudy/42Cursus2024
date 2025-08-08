@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:31:32 by rafasant          #+#    #+#             */
-/*   Updated: 2025/06/13 13:59:50 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:08:07 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	check_params(char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return ((void) (catch()->error_msg = "Invalid parameters!"));
+				return ((void)\
+(catch()->set_error("%s: Argument [%d] has invalid character [%c]", __func__,\
+i, argv[i][j])));
 			j++;
 		}
 		i++;

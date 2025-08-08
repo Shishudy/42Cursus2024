@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/07 20:02:08 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:28:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include "catch_lib/headers/catch.h"
+# include "catch.h"
 
 # define GRAB 1
 # define EATING 2
