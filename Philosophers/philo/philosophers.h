@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:01:41 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/08 16:28:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/17 19:08:35 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,52 @@
 typedef struct s_philo
 {
 	int				philo_id;
-	time_t			internal_timer;
+	int				meals;
 	time_t			started_eating;
-	time_t			started_sleeping;
+	pthread_t		philo_th;
+	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	fork_left;
 	pthread_mutex_t	*fork_right;
-	pthread_t		philo_th;
 }				t_philo;
 
 typedef struct s_context
 {
-	int			number_of_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
-	t_philo		*arr_philos;
-	time_t		start_time;
+	int				number_of_philosophers;
+	int				number_of_times_each_philosopher_must_eat;
+	int				stop;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	time_t			start_time;
+	t_philo			*arr_philos;
+	pthread_t		overseer;
+	pthread_mutex_t	stop_lock;
+	pthread_mutex_t	print_lock;
 }				t_context;
 
-void	parse_philos(char **argv);
+void	init_context(char **argv);
 void	check_params(char **argv);
-void	start_philos();
 
-t_catch		*catch(void);
+void	run_simulation(void);
+
+int		eating(t_philo *philo);
+
+time_t	get_time(void);
+void	sim_start_delay(time_t start_time);
+
+void	print_action(int philo_id, int action);
+int	perform_action(int philo_id, int action, time_t action_time);
+void	*overseer(void *arg);
+
+int		check_simulation();
+
+void	clear_philos();
+void	clear_context();
+
+
 t_context	*context(void);
 
+void print_philo(const t_philo *philo);
+void print_context(const t_context *ctx);
 
 #endif

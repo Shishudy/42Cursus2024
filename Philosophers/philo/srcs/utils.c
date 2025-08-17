@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_params.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 14:31:32 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/08 16:08:07 by rafasant         ###   ########.fr       */
+/*   Created: 2025/08/11 13:21:52 by rafasant          #+#    #+#             */
+/*   Updated: 2025/08/15 19:21:50 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	check_params(char **argv)
+time_t	get_time(void)
 {
-	int	i;
-	int	j;
+	struct timeval	time;
 
-	i = 1;
-	while (argv[i] != NULL)
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return ((void)\
-(catch()->set_error("%s: Argument [%d] has invalid character [%c]", __func__,\
-i, argv[i][j])));
-			j++;
-		}
-		i++;
-	}
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void	sim_start_delay(time_t start_time)
+{
+	while (get_time() < start_time)
+		continue ;
 }
