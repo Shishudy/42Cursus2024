@@ -6,13 +6,13 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:33:05 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/17 19:16:10 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/19 20:39:17 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_simulation()
+int	check_simulation(void)
 {
 	pthread_mutex_lock(&context()->stop_lock);
 	if (context()->stop)
@@ -50,7 +50,7 @@ int	check_meals(t_philo *philo)
 	return (0);
 }
 
-int	check_philos()
+int	check_philos(void)
 {
 	int	i;
 	int	meals;
@@ -81,14 +81,14 @@ void	*overseer(void *arg)
 	sim_start_delay(context()->start_time);
 	while (1)
 	{
-		pthread_mutex_lock(&context()->stop_lock);
 		if (check_philos())
 		{
+			pthread_mutex_lock(&context()->stop_lock);
 			context()->stop = 1;
 			pthread_mutex_unlock(&context()->stop_lock);
 			return (NULL);
 		}
-		pthread_mutex_unlock(&context()->stop_lock);
+		usleep(100);
 	}
 	return (NULL);
 }

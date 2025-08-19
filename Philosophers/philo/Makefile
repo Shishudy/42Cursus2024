@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 19:00:03 by rafasant          #+#    #+#              #
-#    Updated: 2025/08/17 14:46:54 by rafasant         ###   ########.fr        #
+#    Updated: 2025/08/19 20:58:42 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM			= rm -rf
 HEADERS 	= $(addprefix -I, . catch_lib)
 INCLUDE 	= catch_lib/catch.a
 SRCS 		= $(addprefix ${SRCS_DIR}, philosophers.c print_structs.c \
-				static_structs.c parse_philos.c simulation.c eating.c \
+				parse_philos.c simulation.c eating.c \
 				actions.c stop.c clear.c utils.c)
 OBJS		= ${SRCS:${SRCS_DIR}%.c=${OBJS_DIR}%.o}
 SRCS_DIR	= srcs/

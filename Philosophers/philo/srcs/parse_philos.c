@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:42:08 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/17 19:08:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/19 20:58:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_params(char **argv)
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return ((void)\
-(catch()->set("%s: Argument [%d] has invalid character [%c]", __func__,\
+(catch()->set("%s: Argument [%d] has invalid character [%c]", __func__, \
 i, argv[i][j])));
 			j++;
 		}
@@ -74,7 +74,7 @@ void	parse_params(char **argv)
 		context()->number_of_times_each_philosopher_must_eat = -1;
 }
 
-void	prepare_philos()
+void	init_philos(void)
 {
 	int	i;
 
@@ -87,28 +87,32 @@ void	prepare_philos()
 		memset(&context()->arr_philos[i].philo_th, '\0', sizeof(pthread_t));
 		context()->arr_philos[i].fork_right = NULL;
 		if (pthread_mutex_init(&context()->arr_philos[i].meal_lock, NULL) != 0)
-			return ((void) (catch()->set("%s: Mutex init error!", __func__)));
+			return ((void)(catch()->set("%s: Mutex init error!", __func__)));
 		if (pthread_mutex_init(&context()->arr_philos[i].fork_left, NULL) != 0)
-			return ((void) (catch()->set("%s: Mutex init error!", __func__)));
+			return ((void)(catch()->set("%s: Mutex init error!", __func__)));
 		if (i > 0)
-			context()->arr_philos[i - 1].fork_right = &context()->arr_philos[i].fork_left;
-		if (context()->number_of_philosophers != 1 && i + 1 == context()->number_of_philosophers)
-			context()->arr_philos[i].fork_right = &context()->arr_philos[0].fork_left;
+			context()->arr_philos[i - 1].fork_right = \
+&context()->arr_philos[i].fork_left;
+		if (context()->number_of_philosophers != 1 && i + 1 == \
+context()->number_of_philosophers)
+			context()->arr_philos[i].fork_right = \
+&context()->arr_philos[0].fork_left;
 		i++;
-	}	
+	}
 }
 
 void	init_context(char **argv)
 {
 	parse_params(argv);
 	context()->stop = 0;
-	context()->start_time = get_time() + 1000;
-	context()->arr_philos = malloc(sizeof(t_philo) * context()->number_of_philosophers);
+	context()->start_time = get_time() + 500;
+	context()->arr_philos = malloc(sizeof(t_philo) * \
+context()->number_of_philosophers);
 	if (!context()->arr_philos)
-		return ((void) (catch()->set("%s: Malloc failure!", __func__)));
-	prepare_philos();
+		return ((void)(catch()->set("%s: Malloc failure!", __func__)));
+	init_philos();
 	if (pthread_mutex_init(&context()->stop_lock, NULL) != 0)
-		return ((void) (catch()->set("%s: Mutex init error!", __func__)));
+		return ((void)(catch()->set("%s: Mutex init error!", __func__)));
 	if (pthread_mutex_init(&context()->print_lock, NULL) != 0)
-		return ((void) (catch()->set("%s: Mutex init error!", __func__)));
+		return ((void)(catch()->set("%s: Mutex init error!", __func__)));
 }

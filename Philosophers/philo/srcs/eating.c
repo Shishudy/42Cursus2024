@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 17:25:24 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/17 17:38:26 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/19 20:39:43 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,16 @@ int	eating(t_philo *philo)
 		if (eating_even(philo))
 			return (1);
 	}
-	else if (philo->philo_id % 2 != 0)
+	else
 	{
 		if (eating_odd(philo))
 			return (1);
 	}
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->started_eating = get_time();
-	if (perform_action(philo->philo_id, EATING, context()->time_to_eat))
-	{
-		pthread_mutex_unlock(&philo->meal_lock);
-		return (1);
-	}
 	philo->meals++;
 	pthread_mutex_unlock(&philo->meal_lock);
+	if (perform_action(philo->philo_id, EATING, context()->time_to_eat))
+		return (stop_eating(philo), 1);
 	return (stop_eating(philo), 0);
 }
