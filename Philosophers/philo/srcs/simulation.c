@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 16:23:01 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/19 21:12:31 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/20 20:17:34 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	thinking(t_philo *philo)
 {
-	// time_t	think_time;
+	time_t	think_time;
 
 	if (check_simulation())
 		return (1);
-	// pthread_mutex_lock(&philo->meal_lock);
-// 	think_time = context()->time_to_die - context()->time_to_eat - 
-// context()->time_to_sleep;
-// 	pthread_mutex_unlock(&philo->meal_lock);
-// 	if (think_time < 0)
-// 		think_time = 0;
-	return (perform_action(philo->philo_id, THINKING, 0));
+	pthread_mutex_lock(&philo->meal_lock);
+	think_time = context()->time_to_die - context()->time_to_eat - \
+context()->time_to_sleep - 10;
+	pthread_mutex_unlock(&philo->meal_lock);
+	if (think_time < 0)
+		think_time = 0;
+	return (perform_action(philo->philo_id, THINKING, think_time));
 }
 
 int	sleeping(t_philo *philo)
@@ -48,9 +48,9 @@ void	*eat_sleep_think(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	sim_start_delay(context()->start_time);
 	if (context()->number_of_philosophers == 1)
 		return (singular_philo(philo), NULL);
-	sim_start_delay(context()->start_time);
 	if (philo->philo_id % 2 == 0)
 		usleep(context()->time_to_eat * 1000);
 	while (!check_simulation())

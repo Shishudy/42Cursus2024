@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 17:25:24 by rafasant          #+#    #+#             */
-/*   Updated: 2025/08/19 20:39:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/08/20 20:19:22 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	eating(t_philo *philo)
 		if (eating_odd(philo))
 			return (1);
 	}
+	if (check_simulation())
+		return (stop_eating(philo), 1);
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->started_eating = get_time();
 	philo->meals++;
