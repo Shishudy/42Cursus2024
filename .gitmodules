@@ -7,3 +7,6 @@
 [submodule "catch_lib"]
 	path = catch_lib
 	url = git@github.com:Shishudy/catch_lib.git
+[submodule "cub3d"]
+	path = cub3d
+	url = git@github.com:RoJa-Team/cub3d.git
