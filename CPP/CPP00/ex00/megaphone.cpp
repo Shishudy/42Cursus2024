@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 00:42:46 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/09 01:59:12 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:24:45 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 	{
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << '\n';
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
 		return (0);
 	}
 	i = 1;
@@ -34,6 +34,6 @@ int	main(int argc, char **argv)
 		std::cout << argv[i];
 		i++;
 	}
-	std::cout << '\n';
+	std::cout << std::endl;
 	return (0);
 }
