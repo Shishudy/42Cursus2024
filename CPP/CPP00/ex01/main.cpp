@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:37:24 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/10 01:06:36 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:49:54 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(void)
 {
+	int			index;
 	std::string	input;
 	PhoneBook 	Ph;
 
@@ -29,6 +30,10 @@ int	main(void)
 		else if (input.compare("SEARCH") == 0)
 		{
 			Ph.DisplayContacts();
+			input.clear();
+			std::cin >> input;
+			index = atoi(input);
+			if (index == 0)
 		}
 		input.clear();
 		std::cin >> input;

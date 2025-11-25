@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:01:45 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/10 00:50:09 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:43:38 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ class PhoneBook
 		PhoneBook(void);
 		void AddContact(void);
 		void DisplayContacts(void);
+		void DisplayContact();
 		~PhoneBook(void);
 
 	private:
