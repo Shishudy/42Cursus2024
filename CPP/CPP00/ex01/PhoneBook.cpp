@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:01:40 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/10 01:14:42 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/11/28 20:29:52 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,73 @@ void PhoneBook::AddContact(void)
 {
 	static int	position;
 
-	this->_contacts[position].CreateContact();
-	if (this->_count < 8)
-		this->_count++;
-	position++;
 	if (position >= 8)
 		position = 0;
-	std::cout << "Contact has been successfully added!" << std::endl;
+	this->_contacts[position].CreateContact();
+	position++;
+	if (this->_count < 8)
+		this->_count++;
+	std::cout << "Contact has been successfully added!\n";
+}
+
+int PhoneBook::GetNumberOfContacts(void)
+{
+	return this->_count;
 }
 
 void PhoneBook::DisplayContacts(void)
 {
 	int			i;
-	// int			index;
 	std::string	field;
-
+	
+	std::cout << "---------------------------------------------" << "\n";
 	std::cout << "|     Index|First Name| Last Name|  Nickname|" << "\n";
 	i = 0;
 	while (i < this->_count)
 	{
 		std::cout << "|";
-		std::cout << "         " << i;
+		std::cout << "         " << i + 1;
 		std::cout << "|";
-		this->_PrintField(this->_contacts[i].GetFirstName());
-		this->_PrintField(this->_contacts[i].GetLastName());
-		this->_PrintField(this->_contacts[i].GetNickname());
+		this->_PrintField(this->_contacts[i].GetFirstName(), false);
+		std::cout << "|";
+		this->_PrintField(this->_contacts[i].GetLastName(), false);
+		std::cout << "|";
+		this->_PrintField(this->_contacts[i].GetNickname(), false);
+		std::cout << "|";
 		std::cout << "\n";
 		i++;
 	}
-	std::cout << std::endl;
+	std::cout << "---------------------------------------------" << "\n";
 }
 
-void PhoneBook::_PrintField(std::string field)
+void PhoneBook::DisplayContact(int i)
+{
+	std::cout << "First Name: ";
+	this->_PrintField(this->_contacts[i].GetFirstName(), true);
+	std::cout << "\n";
+	std::cout << "Last Name: ";
+	this->_PrintField(this->_contacts[i].GetLastName(), true);
+	std::cout << "\n";
+	std::cout << "Nickname: ";
+	this->_PrintField(this->_contacts[i].GetNickname(), true);
+	std::cout << "\n";
+	std::cout << "Phone Number: ";
+	this->_PrintField(this->_contacts[i].GetPhoneNumber(), true);
+	std::cout << "\n";
+	std::cout << "Darkest Secret: ";
+	this->_PrintField(this->_contacts[i].GetDarkestSecret(), true);
+	std::cout << "\n";
+}
+
+void PhoneBook::_PrintField(std::string field, bool verbose)
 {
 	int	spaces;
 
+	if (verbose == true)
+	{
+		std::cout << field;
+		return ;
+	}
 	spaces = 10 - field.length();
 	while (spaces > 0)
 	{
@@ -76,5 +108,4 @@ void PhoneBook::_PrintField(std::string field)
 	{
 		std::cout << field.substr(0, 10);
 	}
-	std::cout << "|";
 }

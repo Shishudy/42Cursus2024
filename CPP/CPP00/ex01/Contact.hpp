@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:40:29 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/10 00:59:28 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:46:51 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_H
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 class Contact
 {
