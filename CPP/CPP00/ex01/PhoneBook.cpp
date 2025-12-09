@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:01:40 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/28 20:29:52 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:09:40 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void PhoneBook::AddContact(void)
 
 	if (position >= 8)
 		position = 0;
+	this->_contacts[position].ClearContact();
 	this->_contacts[position].CreateContact();
 	position++;
 	if (this->_count < 8)

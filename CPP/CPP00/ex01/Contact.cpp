@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:40:11 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/28 20:33:50 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:09:33 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 Contact::Contact(void)
 {
-	// this->_firstName.clear();
-	// this->_lastName.clear();
-	// this->_nickname.clear();
-	// this->_phoneNumber.clear();
-	// this->_darkestSecret.clear();
+	
+}
+
+Contact::~Contact(void)
+{
+	
+}
+
+void Contact::ClearContact(void)
+{
+	this->_firstName.clear();
+	this->_lastName.clear();
+	this->_nickname.clear();
+	this->_phoneNumber.clear();
+	this->_darkestSecret.clear();
 }
 
 void Contact::CreateContact(void)
@@ -73,9 +83,4 @@ std::string Contact::GetPhoneNumber(void)
 std::string Contact::GetDarkestSecret(void)
 {
 	return (this->_darkestSecret);
-}
-
-Contact::~Contact(void)
-{
-	
 }

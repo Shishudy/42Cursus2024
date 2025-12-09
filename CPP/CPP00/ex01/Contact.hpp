@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:40:29 by rafasant          #+#    #+#             */
-/*   Updated: 2025/11/28 12:46:51 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:09:07 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class Contact
 	public:
 		Contact(void);
 		void CreateContact(void);
+		void ClearContact(void);
 		std::string GetFirstName(void);
 		std::string GetLastName(void);
 		std::string GetNickname(void);
