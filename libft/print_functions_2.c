@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   print_functions_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 12:15:11 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/13 17:50:23 by rafasant         ###   ########.fr       */
+/*   Created: 2025/09/28 16:10:49 by rafasant          #+#    #+#             */
+/*   Updated: 2025/12/13 17:47:45 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isspace(int c)
+void	print_int(char *info, int data)
 {
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
-		|| c == ' ')
-		return (1);
-	return (0);
+	ft_printf("\n%s: >%d<\n", info, data);
+}
+
+void	print_long(char *info, long data)
+{
+	printf("\n%s: >%ld<\n", info, data);
+}
+
+void	print_double(char *info, double data)
+{
+	printf("\n%s: >%f<\n", info, data);
+}
+
+void	print_float(char *info, float data)
+{
+	printf("\n%s: >%f<\n", info, data);
 }

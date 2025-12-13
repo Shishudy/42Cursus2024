@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:38:39 by rafasant          #+#    #+#             */
-/*   Updated: 2025/01/06 13:11:17 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:49:29 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,12 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_atoi_base(char *str, char *base);
 char	*ft_ltoa(long n);
 int		ft_isspace(int c);
+void	print_char(char *info, char data);
+void	print_string(char *info, char *data);
+void	print_pointer(char *info, void *data);
+void	print_int(char *info, int data);
+void	print_long(char *info, long data);
+void	print_double(char *info, double data);
+void	print_float(char *info, float data);
 
 #endif
