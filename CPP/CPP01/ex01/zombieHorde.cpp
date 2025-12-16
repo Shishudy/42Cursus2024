@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 20:52:16 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/16 18:47:17 by rafasant         ###   ########.fr       */
+/*   Created: 2025/12/16 17:08:43 by rafasant          #+#    #+#             */
+/*   Updated: 2025/12/16 18:49:53 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-int	main(void)
+Zombie	*zombieHorde(int N, std::string name)
 {
-    Zombie  *newZomb;
-	
-	newZomb = newZombie("newZombie");
-    newZomb->announce();
-	randomChump("randomChump");
-    delete (newZomb);
-    return (0);
+	int		i;
+    Zombie	*horde = new Zombie[N];
+
+	if (N <= 0)
+		return (NULL);
+	i = 0;
+	while (i < N)
+	{
+		horde[i].SetName(name);
+		i++;
+	}
+    return (horde);
 }

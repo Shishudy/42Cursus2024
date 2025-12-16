@@ -6,15 +6,14 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:40:29 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/09 16:09:07 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:21:27 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTACT_H
 # define CONTACT_H
-#include <iostream>
-#include <string>
-#include <stdlib.h>
+# include <iostream>
+# include <cstdlib>
 
 class Contact
 {
