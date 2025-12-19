@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 20:52:16 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/16 19:03:22 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/19 13:08:44 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int main(void)
     std::cout << "The value of the string variable: "<< str << std::endl;
 	std::cout << "The value pointed to by stringPTR: "<< *stringPTR << std::endl;
 	std::cout << "The value pointed to by stringREF: "<< stringREF << std::endl;
+	return (0);
 }
