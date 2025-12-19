@@ -6,13 +6,13 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 14:59:20 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/19 14:59:26 by rafasant         ###   ########.fr        #
+#    Updated: 2025/12/19 15:48:01 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		= c++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
-NAME 	= HarlFilter
+NAME 	= harlFilter
 RM		= rm -rf
 SRCS 	= main.cpp Harl.cpp
 OBJS	= ${SRCS:%.cpp=%.o}
