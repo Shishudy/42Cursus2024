@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/17 09:53:14 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/17 10:10:29 by rafasant         ###   ########.fr        #
+#    Updated: 2025/12/23 13:02:45 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,10 @@ CFLAGS	= -Wall -Wextra -Werror -std=c++98
 NAME 	= UnnecessaryViolence
 RM		= rm -rf
 SRCS 	= main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+DEPS	= Weapon.hpp HumanA.hpp HumanB.hpp
 OBJS	= ${SRCS:%.cpp=%.o}
 
-%.o: %.cpp
+%.o: %.cpp ${DEPS}
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: ${NAME}

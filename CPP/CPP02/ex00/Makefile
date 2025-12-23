@@ -6,18 +6,19 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 15:52:21 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/19 15:52:32 by rafasant         ###   ########.fr        #
+#    Updated: 2025/12/23 13:01:18 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		= c++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
-NAME 	= harlFilter
+NAME 	= OCF
 RM		= rm -rf
 SRCS 	= main.cpp Fixed.cpp
+DEPS	= Fixed.hpp
 OBJS	= ${SRCS:%.cpp=%.o}
 
-%.o: %.cpp
+%.o: %.cpp ${DEPS}
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: ${NAME}
@@ -35,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean, fclean, all, re
+.PHONY: clean fclean all re

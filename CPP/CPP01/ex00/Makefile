@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/09 00:33:10 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/13 20:52:46 by rafasant         ###   ########.fr        #
+#    Updated: 2025/12/23 13:10:40 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,10 @@ CFLAGS	= -Wall -Wextra -Werror -std=c++98
 NAME 	= BraiiiiiiinnnzzzZ
 RM		= rm -rf
 SRCS 	= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+DEPS	= Zombie.hpp
 OBJS	= ${SRCS:%.cpp=%.o}
 
-%.o: %.cpp
+%.o: %.cpp ${DEPS}
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: ${NAME}
