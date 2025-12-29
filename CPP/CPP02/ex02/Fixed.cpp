@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:52:42 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/23 18:00:46 by rafasant         ###   ########.fr       */
+/*   Updated: 2025/12/29 16:50:55 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ Fixed::Fixed(const Fixed &fixed)
 
 Fixed &Fixed::operator=(const Fixed &fixed)
 {
-	// std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &fixed)
 		this->_raw = fixed._raw;
 	return *this;
