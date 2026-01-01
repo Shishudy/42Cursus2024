@@ -6,13 +6,13 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 15:52:21 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/29 16:59:12 by rafasant         ###   ########.fr        #
+#    Updated: 2026/01/01 15:36:15 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		= c++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
-NAME 	= Aaaaand...OPEN!
+NAME 	= ClapTrap
 RM		= rm -rf
 SRCS 	= main.cpp ClapTrap.cpp
 DEPS	= ClapTrap.hpp
