@@ -6,12 +6,12 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 20:52:13 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/16 17:18:40 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:07:28 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_H
-# define ZOMBIE_H
+#ifndef ZOMBIE_HPP
+# define ZOMBIE_HPP
 # include <iostream>
 
 class Zombie
