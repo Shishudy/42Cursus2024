@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 17:08:43 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/16 18:49:53 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:26:09 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 Zombie	*zombieHorde(int N, std::string name)
 {
 	int		i;
-    Zombie	*horde = new Zombie[N];
+    Zombie	*horde;
 
 	if (N <= 0)
 		return (NULL);
+	horde = new Zombie[N];
 	i = 0;
 	while (i < N)
 	{
-		horde[i].SetName(name);
+		horde[i].setName(name);
 		i++;
 	}
     return (horde);

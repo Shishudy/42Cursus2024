@@ -6,7 +6,7 @@
 #    By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 14:59:20 by rafasant          #+#    #+#              #
-#    Updated: 2025/12/23 13:01:47 by rafasant         ###   ########.fr        #
+#    Updated: 2026/01/07 18:28:54 by rafasant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean, fclean, all, re
+.PHONY: clean fclean all re

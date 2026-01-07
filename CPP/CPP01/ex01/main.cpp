@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 20:52:16 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/16 18:44:31 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:26:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
     if (!horde)
         return (1);
     i = 0;
-    while (i < 5)
+    while (i < n)
     {
         horde[i].announce();
         i++;

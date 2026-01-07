@@ -6,13 +6,14 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 13:36:14 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/19 14:56:15 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:43:03 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HARL_HPP
 # define HARL_HPP
 # include <iostream>
+# include <string>
 
 class Harl
 {
