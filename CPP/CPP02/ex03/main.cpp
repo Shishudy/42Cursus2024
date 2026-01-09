@@ -6,13 +6,11 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:54:27 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/29 16:42:43 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:46:30 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
-
-
 
 int main(void)
 {
@@ -27,7 +25,6 @@ int main(void)
     std::cout << bsp(A, B, C, Point(0, 10)) << std::endl;
     std::cout << bsp(A, B, C, Point(9.9f, 0.015f)) << std::endl;
     std::cout << bsp(A, B, C, Point(-10.015f, 0.015f)) << std::endl;
-
     return (0);
 }
 

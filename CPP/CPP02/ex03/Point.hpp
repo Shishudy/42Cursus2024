@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 18:03:59 by rafasant          #+#    #+#             */
-/*   Updated: 2025/12/29 16:44:46 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:41:57 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ class Point
 		Fixed const y;
 };
 
-long cross(Point const, Point const, Point const);
 bool bsp( Point const a, Point const b, Point const c, Point const point);
 
 #endif
