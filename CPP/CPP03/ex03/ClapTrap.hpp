@@ -6,13 +6,14 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:53:37 by rafasant          #+#    #+#             */
-/*   Updated: 2026/01/01 15:55:51 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/14 12:18:10 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 # include <iostream>
+# include <string>
 
 class ClapTrap
 {
