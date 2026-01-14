@@ -6,30 +6,15 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:54:27 by rafasant          #+#    #+#             */
-/*   Updated: 2026/01/02 17:05:46 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:21:04 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 #include "Cat.hpp"
 
-// int main(void)
-// {
-//     const Animal* dog = new Dog();
-//     const Animal* cat = new Cat();
-
-//     std::cout << dog->getType() << " " << std::endl;
-//     std::cout << cat->getType() << " " << std::endl;
-//     dog->makeSound();
-//     cat->makeSound();
-//     delete dog;
-//     delete cat;
-//     return (0);
-// }
-
 int main(void)
 {
-    // Animal anim;
     std::cout << "\n-- Array tests --" << std::endl;
     const int N = 10;
     Animal* animals[N];

@@ -6,13 +6,14 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:15:39 by rafasant          #+#    #+#             */
-/*   Updated: 2026/01/02 16:19:17 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:04:22 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BRAIN_HPP
 # define BRAIN_HPP
 # include <iostream>
+# include <string>
 
 class Brain
 {

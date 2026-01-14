@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:15:37 by rafasant          #+#    #+#             */
-/*   Updated: 2026/01/02 16:29:45 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:10:26 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 Brain::Brain(void)
 {
 	std::cout << "Brain default constructor called" << std::endl;
-	for(int i = 0, j = 0; i < 100; i++, j++)
+	for(int i = 0; i < 100; i++)
 	{
-		if (j + 65 == 91)
-			j = 0;
 		this->_ideas[i] = "some string";
 	}
 }

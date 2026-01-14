@@ -6,13 +6,14 @@
 /*   By: rafasant <rafasant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:53:37 by rafasant          #+#    #+#             */
-/*   Updated: 2026/01/01 21:31:02 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:03:47 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANIMAL_HPP
 # define ANIMAL_HPP
 # include <iostream>
+# include <string>
 
 class Animal
 {
