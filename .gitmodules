@@ -10,3 +10,6 @@
 [submodule "cub3d"]
 	path = cub3d
 	url = git@github.com:RoJa-Team/cub3d.git
+[submodule "webserv"]
+	path = webserv
+	url = git@github.com:RoJa-Team/webserv.git
