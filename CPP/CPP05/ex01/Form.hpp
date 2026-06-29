@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:03 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/22 21:58:41 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/29 19:24:11 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # include <iostream>
 # include <string>
 # include <exception>
+# include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {
@@ -23,9 +26,10 @@ class Form
 		Form(const Form &);
 		Form &operator=(const Form &);
 		const std::string &getName(void) const;
-		int getGrade(void) const;
-		void incrementGrade(void);
-		void decrementGrade(void);
+		int getSignGrade(void) const;
+		int getExecuteGrade(void) const;
+		bool getSigned(void) const;
+		void beSigned(const Bureaucrat *);
 		~Form(void);
 
 		class GradeTooLowException : public std::exception

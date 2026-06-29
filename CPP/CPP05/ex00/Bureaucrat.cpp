@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:15 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/22 21:53:16 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/29 19:04:39 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ Bureaucrat::~Bureaucrat(void)
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(void)
 {
-	this->message = "";
+	this->message = "Grade too low.";
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(std::string message)
@@ -89,7 +89,7 @@ Bureaucrat::GradeTooLowException::~GradeTooLowException(void) throw()
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(void)
 {
-	this->message = "";
+	this->message = "Grade too high.";
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(std::string message)

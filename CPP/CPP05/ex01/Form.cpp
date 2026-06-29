@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/22 22:02:01 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/29 20:17:37 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Form::Form(std::string name, int signGrade, int executeGrade) : _name(name), _signGrade(signGrade), _executeGrade(executeGrade)
 {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Form default constructor called" << std::endl;
 	if (signGrade < 1)
 		throw GradeTooHighException("Sign Grade is too high. Maximum grade is 1.");
 	else if (signGrade > 150)
@@ -23,19 +23,21 @@ Form::Form(std::string name, int signGrade, int executeGrade) : _name(name), _si
 		throw GradeTooHighException("Execute Grade is too high. Maximum grade is 1.");
 	else if (executeGrade > 150)
 		throw GradeTooLowException("Execute Grade is too low. Minimum grade is 150.");
+	_signed = false;
 }
 
-Form::Form(const Form &form)
+Form::Form(const Form &form) : _name(form._name), _signGrade(form._signGrade), _executeGrade(form._executeGrade)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "Form copy constructor called" << std::endl;
 	*this = form;
 }
 
 Form &Form::operator=(const Form &form)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "Form copy assignment operator called" << std::endl;
 	if (this != &form)
 	{
+		this->_signed = false;
 	}
 	return (*this);
 }
@@ -45,33 +47,39 @@ const std::string &Form::getName(void) const
 	return this->_name;
 }
 
-int Form::getGrade(void) const
+int Form::getSignGrade(void) const
 {
-	return this->_grade;
+	return this->_signGrade;
 }
 
-void Form::incrementGrade(void)
+int Form::getExecuteGrade(void) const
 {
-	if (_grade - 1 < 1)
-		throw GradeTooHighException("Failed incrementing the grade. Maximum grade is 1.");
-	_grade--;
+	return this->_executeGrade;
 }
 
-void Form::decrementGrade(void)
+bool Form::getSigned(void) const
 {
-	if (_grade + 1 > 150)
-		throw GradeTooLowException("Failed decrementing the grade. Minimum grade is 150.");
-	_grade++;
+	return this->_signed;
+}
+
+void Form::beSigned(const Bureaucrat *bureaucrat)
+{
+	if (bureaucrat->getGrade() <= this->_signGrade)
+	{
+		this->_signed = true;
+	}
+	else
+		throw GradeTooLowException("Bureaucrat Grade is too low.");
 }
 
 Form::~Form(void)
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "Form destructor called" << std::endl;
 }
 
 Form::GradeTooLowException::GradeTooLowException(void)
 {
-	this->message = "";
+	this->message = "Grade too low.";
 }
 
 Form::GradeTooLowException::GradeTooLowException(std::string message)
@@ -86,12 +94,12 @@ const char *Form::GradeTooLowException::what() const throw()
 
 Form::GradeTooLowException::~GradeTooLowException(void) throw()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "GradeTooLowException destructor called" << std::endl;
 }
 
 Form::GradeTooHighException::GradeTooHighException(void)
 {
-	this->message = "";
+	this->message = "Grade too high.";
 }
 
 Form::GradeTooHighException::GradeTooHighException(std::string message)
@@ -106,11 +114,14 @@ const char *Form::GradeTooHighException::what() const throw()
 
 Form::GradeTooHighException::~GradeTooHighException(void) throw()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "GradeTooHighException destructor called" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &ostream, const Form& form)
 {
-	ostream << form.getName() << ", form grade " << form.getGrade() << ".";
+	ostream << "Form \"" << form.getName() << "\""
+	<< "\n- Form sign grade: " << form.getSignGrade()
+	<< "\n- Form execute grade: " << form.getExecuteGrade()
+	<< "\n- Is form signed: " << form.getSigned();
 	return (ostream);
 }
