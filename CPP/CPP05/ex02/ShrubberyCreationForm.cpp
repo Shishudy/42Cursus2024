@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/29 22:28:11 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 09:54:41 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void ShrubberyCreationForm::actualExecute(void) const
 	std::ofstream outFile((this->_target + "_shrubbery").c_str());
 	std::string tree = "    *    \n   ***   \n  *****  \n    *    \n";
 	outFile << tree;
+	outFile.close();
 }
-
 
 ShrubberyCreationForm::~ShrubberyCreationForm(void)
 {
