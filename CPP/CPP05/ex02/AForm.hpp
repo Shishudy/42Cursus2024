@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:03 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/29 21:48:34 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 18:59:54 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ class AForm
 				std::string message;
 				virtual const char *what() const throw();
 				~GradeTooHighException(void) throw();
+		};
+
+		class NotSignedException : public std::exception
+		{
+			public:
+				NotSignedException(void);
+				NotSignedException(std::string message);
+				std::string message;
+				virtual const char *what() const throw();
+				~NotSignedException(void) throw();
 		};
 
 	private:

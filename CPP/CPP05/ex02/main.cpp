@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:52 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 15:37:21 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 19:52:58 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,8 @@ int main(void)
 		Bureaucrat robotomyBureaucrat("Robotomy Bureaucrat", 40);
 		Bureaucrat presidentialBureaucrat("Presidential Bureaucrat", 1);
 
-		ShrubberyCreationForm shrubberyForm("Presidential Form");
-		RobotomyRequestForm robotomyForm("Presidential Form");
+		ShrubberyCreationForm shrubberyForm("Shrubbery Form");
+		RobotomyRequestForm robotomyForm("Robotomy Form");
 		PresidentialPardonForm presidentialForm("Presidential Form");
 		
 		shrubberyBureaucrat.signForm(shrubberyForm);
@@ -210,14 +210,6 @@ int main(void)
 		presidentialBureaucrat.signForm(presidentialForm);
 		std::cout << presidentialForm << std::endl;
 	}
-	catch (const Bureaucrat::GradeTooHighException &e)
-	{
-		std::cerr << "GradeTooHighException thrown: " << e.what() << std::endl;
-	}
-	catch (const Bureaucrat::GradeTooLowException &e)
-	{
-		std::cerr << "GradeTooLowException thrown: " << e.what() << std::endl;
-	}
 	catch (const std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
@@ -227,12 +219,14 @@ int main(void)
 
 	try
 	{
+		separator("UNSIGNED FORM EXECUTING");
+
 		Bureaucrat shrubberyBureaucrat("Shrubbery Bureaucrat", 135);
 		Bureaucrat robotomyBureaucrat("Robotomy Bureaucrat", 40);
 		Bureaucrat presidentialBureaucrat("Presidential Bureaucrat", 1);
 
-		ShrubberyCreationForm shrubberyForm("Presidential Form");
-		RobotomyRequestForm robotomyForm("Presidential Form");
+		ShrubberyCreationForm shrubberyForm("Shrubbery Form");
+		RobotomyRequestForm robotomyForm("Robotomy Form");
 		PresidentialPardonForm presidentialForm("Presidential Form");
 		
 		shrubberyBureaucrat.executeForm(shrubberyForm);
@@ -243,14 +237,26 @@ int main(void)
 		
 		presidentialBureaucrat.executeForm(presidentialForm);
 		std::cout << presidentialForm << std::endl;
-	}
-	catch (const Bureaucrat::GradeTooHighException &e)
-	{
-		std::cerr << "GradeTooHighException thrown: " << e.what() << std::endl;
-	}
-	catch (const Bureaucrat::GradeTooLowException &e)
-	{
-		std::cerr << "GradeTooLowException thrown: " << e.what() << std::endl;
+
+		separator("SIGNED FORM EXECUTING");
+		
+		shrubberyBureaucrat.signForm(shrubberyForm);
+		std::cout << shrubberyForm << std::endl;
+
+		robotomyBureaucrat.signForm(robotomyForm);
+		std::cout << robotomyForm << std::endl;
+		
+		presidentialBureaucrat.signForm(presidentialForm);
+		std::cout << presidentialForm << std::endl;
+
+		shrubberyBureaucrat.executeForm(shrubberyForm);
+		std::cout << shrubberyForm << std::endl;
+
+		robotomyBureaucrat.executeForm(robotomyForm);
+		std::cout << robotomyForm << std::endl;
+		
+		presidentialBureaucrat.executeForm(presidentialForm);
+		std::cout << presidentialForm << std::endl;
 	}
 	catch (const std::exception &e)
 	{

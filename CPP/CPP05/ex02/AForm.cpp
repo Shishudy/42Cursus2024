@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/29 22:27:33 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 19:01:07 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void AForm::beSigned(const Bureaucrat *bureaucrat)
 void AForm::execute(Bureaucrat const & executor) const
 {
 	if (this->_signed == false)
-		throw ("Form not signed.");
+		throw NotSignedException("Form not signed");
 	else if (executor.getGrade() > this->_executeGrade)
 		throw GradeTooLowException("Bureaucrat Grade is too low.");
 
@@ -125,6 +125,26 @@ const char *AForm::GradeTooHighException::what() const throw()
 AForm::GradeTooHighException::~GradeTooHighException(void) throw()
 {
 	std::cout << "GradeTooHighException destructor called" << std::endl;
+}
+
+AForm::NotSignedException::NotSignedException(void)
+{
+	this->message = "Form not signed.";
+}
+
+AForm::NotSignedException::NotSignedException(std::string message)
+{
+	this->message = message;
+}
+
+const char *AForm::NotSignedException::what() const throw()
+{
+	return this->message.c_str();
+}
+
+AForm::NotSignedException::~NotSignedException(void) throw()
+{
+	std::cout << "NotSignedException destructor called" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &ostream, const AForm& form)

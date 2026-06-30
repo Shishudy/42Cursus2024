@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:06 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 15:49:34 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 18:52:17 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class Bureaucrat
 		void incrementGrade(void);
 		void decrementGrade(void);
 		void signForm(AForm &);
-		void executeForm(AForm const &);
+		void executeForm(AForm const &) const;
 		~Bureaucrat(void);
 
 		class GradeTooLowException : public std::exception

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:28 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 15:49:55 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/06/30 19:53:55 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ void Bureaucrat::signForm(AForm &form)
 	}
 }
 
-void Bureaucrat::executeForm(AForm const &form)
+void Bureaucrat::executeForm(AForm const &form) const
 {
 	try
 	{
-		form.beSigned(this);
-		std::cout << this->_name << " signed " << form.getName() << std::endl;
+		form.execute(*this);
+		std::cout << this->_name << " executed " << form.getName() << std::endl;
 	}
 	catch (const std::exception &ex)
 	{
-		std::cout << this->_name << " couldn't sign " << form.getName() << " because " << ex.what() << std::endl;
+		std::cout << this->_name << " couldn't execute " << form.getName() << " because " << ex.what() << std::endl;
 	}
 }
 
