@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 20:23:42 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/07/21 15:58:40 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ Intern &Intern::operator=(const Intern &intern)
 
 AForm *Intern::makeForm(std::string name, std::string target)
 {
-	const LevelsDictionary	dict[4] = {{"DEBUG", &Harl::debug}, {"INFO", &Harl::info}, {"WARNING", &Harl::warning}, {"ERROR", &Harl::error}};
-	if (name == "Robotomy")
-		
-	switch (name)
+	const FormsDictionary	dict[4] = {{"Shrubbery", &ShrubberyCreationForm::ShrubberyCreationForm}, {"Robotomy", &RobotomyRequestForm::RobotomyRequestForm}, {"Presidential", &PresidentialPardonForm::PresidentialPardonForm}};
+	
+	// AForm *form = dict[name]->form
+
+	int	i;
+
+	i = 0;
+	while (i < 4)
 	{
-		case name"Robotomy" : return new RobotomyRequestForm(target);
+		if (!dict[i].name.compare(name))
+		{
+			return (*dict[i].function)(target);
+		}
+		i++;
 	}
 }
 

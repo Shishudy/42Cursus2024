@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:03 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 20:23:41 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/07/21 15:51:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class Intern
 struct FormsDictionary
 {
 	std::string name;
-	AForm form;
+	void (AForm::*function)(void);
 };
 
 #endif
