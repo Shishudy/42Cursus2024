@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/07/21 15:58:40 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 17:10:44 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,38 @@ Intern &Intern::operator=(const Intern &intern)
 
 AForm *Intern::makeForm(std::string name, std::string target)
 {
-	const FormsDictionary	dict[4] = {{"Shrubbery", &ShrubberyCreationForm::ShrubberyCreationForm}, {"Robotomy", &RobotomyRequestForm::RobotomyRequestForm}, {"Presidential", &PresidentialPardonForm::PresidentialPardonForm}};
-	
-	// AForm *form = dict[name]->form
-
+	const FormsDictionary	dict[3] = {{"Shrubbery", &Intern::createShrubbery}, {"Robotomy", &Intern::createRobotomy}, {"Presidential", &Intern::createPresidential}};
+	AForm *form;
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 3)
 	{
 		if (!dict[i].name.compare(name))
 		{
-			return (*dict[i].function)(target);
+			form = (this->*dict[i].function)(target);
+			std::cout << "Intern creates " << name << std::endl;
+			return form;
 		}
 		i++;
 	}
+	std::cout << "Intern couldn't create " << name << " form because it doesn't exist." << std::endl;
+    return NULL;
+}
+
+AForm *Intern::createShrubbery(std::string target)
+{
+    return new ShrubberyCreationForm(target);
+}
+
+AForm *Intern::createRobotomy(std::string target)
+{
+    return new RobotomyRequestForm(target);
+}
+
+AForm *Intern::createPresidential(std::string target)
+{
+    return new PresidentialPardonForm(target);
 }
 
 Intern::~Intern(void)

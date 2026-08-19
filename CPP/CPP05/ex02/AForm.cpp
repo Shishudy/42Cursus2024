@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 19:01:07 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 16:34:46 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,17 @@ AForm::~AForm(void)
 
 AForm::GradeTooLowException::GradeTooLowException(void)
 {
-	this->message = "Grade too low.";
+	this->_message = "Grade too low.";
 }
 
 AForm::GradeTooLowException::GradeTooLowException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *AForm::GradeTooLowException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 AForm::GradeTooLowException::~GradeTooLowException(void) throw()
@@ -109,17 +109,17 @@ AForm::GradeTooLowException::~GradeTooLowException(void) throw()
 
 AForm::GradeTooHighException::GradeTooHighException(void)
 {
-	this->message = "Grade too high.";
+	this->_message = "Grade too high.";
 }
 
 AForm::GradeTooHighException::GradeTooHighException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *AForm::GradeTooHighException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 AForm::GradeTooHighException::~GradeTooHighException(void) throw()
@@ -129,17 +129,17 @@ AForm::GradeTooHighException::~GradeTooHighException(void) throw()
 
 AForm::NotSignedException::NotSignedException(void)
 {
-	this->message = "Form not signed.";
+	this->_message = "Form not signed.";
 }
 
 AForm::NotSignedException::NotSignedException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *AForm::NotSignedException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 AForm::NotSignedException::~NotSignedException(void) throw()

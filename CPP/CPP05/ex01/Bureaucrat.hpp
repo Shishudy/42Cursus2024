@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:06 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/29 20:14:20 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 16:30:19 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ class Bureaucrat
 			public:
 				GradeTooLowException(void);
 				GradeTooLowException(std::string message);
-				std::string message;
 				virtual const char *what() const throw();
 				~GradeTooLowException(void) throw();
+			private:
+				std::string _message;
 		};
 
 		class GradeTooHighException : public std::exception
@@ -47,9 +48,10 @@ class Bureaucrat
 			public:
 				GradeTooHighException(void);
 				GradeTooHighException(std::string message);
-				std::string message;
 				virtual const char *what() const throw();
 				~GradeTooHighException(void) throw();
+			private:
+				std::string _message;
 		};
 
 	private:

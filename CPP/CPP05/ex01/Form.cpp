@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:33 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/29 20:17:37 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 16:33:01 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,17 @@ Form::~Form(void)
 
 Form::GradeTooLowException::GradeTooLowException(void)
 {
-	this->message = "Grade too low.";
+	this->_message = "Grade too low.";
 }
 
 Form::GradeTooLowException::GradeTooLowException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 Form::GradeTooLowException::~GradeTooLowException(void) throw()
@@ -99,17 +99,17 @@ Form::GradeTooLowException::~GradeTooLowException(void) throw()
 
 Form::GradeTooHighException::GradeTooHighException(void)
 {
-	this->message = "Grade too high.";
+	this->_message = "Grade too high.";
 }
 
 Form::GradeTooHighException::GradeTooHighException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *Form::GradeTooHighException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 Form::GradeTooHighException::~GradeTooHighException(void) throw()

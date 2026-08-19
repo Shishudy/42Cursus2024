@@ -15,8 +15,8 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 
 static void separator(std::string title)
 {
@@ -257,6 +257,58 @@ int main(void)
 		
 		presidentialBureaucrat.executeForm(presidentialForm);
 		std::cout << presidentialForm << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+
+	separator("INTERN TESTS");
+
+	try
+	{
+		Intern intern;
+		AForm *form1;
+		AForm *form2;
+		AForm *form3;
+		AForm *form4;
+
+		separator("VALID FORM CREATION");
+
+		form1 = intern.makeForm("Shrubbery", "Garden");
+		std::cout << *form1 << std::endl;
+		delete form1;
+
+		form2 = intern.makeForm("Robotomy", "Bender");
+		std::cout << *form2 << std::endl;
+		delete form2;
+
+		form3 = intern.makeForm("Presidential", "Arthur Dent");
+		std::cout << *form3 << std::endl;
+		delete form3;
+
+		separator("INVALID FORM CREATION");
+
+		form4 = intern.makeForm("Invalid Form", "Target");
+		if (form4)
+		{
+			std::cout << *form4 << std::endl;
+			delete form4;
+		}
+
+		separator("INTERN CREATED FORM USAGE");
+
+		Bureaucrat boss("Boss", 1);
+		AForm *formToSign = intern.makeForm("Presidential", "Zaphod");
+		
+		if (formToSign)
+		{
+			std::cout << *formToSign << std::endl;
+			boss.signForm(*formToSign);
+			std::cout << *formToSign << std::endl;
+			boss.executeForm(*formToSign);
+			delete formToSign;
+		}
 	}
 	catch (const std::exception &e)
 	{

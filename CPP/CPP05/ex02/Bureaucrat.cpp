@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:28 by rafasant          #+#    #+#             */
-/*   Updated: 2026/06/30 19:53:55 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 16:37:15 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,17 @@ Bureaucrat::~Bureaucrat(void)
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(void)
 {
-	this->message = "Grade too low.";
+	this->_message = "Grade too low.";
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException(void) throw()
@@ -115,17 +115,17 @@ Bureaucrat::GradeTooLowException::~GradeTooLowException(void) throw()
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(void)
 {
-	this->message = "Grade too high.";
+	this->_message = "Grade too high.";
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(std::string message)
 {
-	this->message = message;
+	this->_message = message;
 }
 
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return this->message.c_str();
+	return this->_message.c_str();
 }
 
 Bureaucrat::GradeTooHighException::~GradeTooHighException(void) throw()

@@ -6,7 +6,7 @@
 /*   By: rafasant <rafasant@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 21:53:03 by rafasant          #+#    #+#             */
-/*   Updated: 2026/07/21 15:51:59 by rafasant         ###   ########.fr       */
+/*   Updated: 2026/08/19 16:56:59 by rafasant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ class Intern
 		~Intern(void);
 
 	private:
+		AForm *createShrubbery(std::string);
+		AForm *createRobotomy(std::string);
+		AForm *createPresidential(std::string);
 };
 
 struct FormsDictionary
 {
 	std::string name;
-	void (AForm::*function)(void);
+	AForm *(Intern::*function)(std::string);
 };
 
 #endif
